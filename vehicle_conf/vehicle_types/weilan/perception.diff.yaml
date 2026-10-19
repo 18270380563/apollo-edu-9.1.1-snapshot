@@ -1,0 +1,7 @@
+# reserve blind-zone-trafficcone range
+modules/perception/data/flag/perception_common.flag:
+    update:
+        - cone_x_front: 4.0
+        - cone_x_back: -4.0
+        - cone_y_front: 6.5
+        - cone_y_back: -1.0

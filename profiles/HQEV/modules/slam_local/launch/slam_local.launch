@@ -1,0 +1,9 @@
+<cyber>
+  <module>
+    <name>slam_local</name>
+    <dag_conf>/apollo/modules/slam_local/dag/laser_multiscan_registration.dag</dag_conf>
+    <dag_conf>/apollo/modules/slam_local/dag/laser_odometry.dag</dag_conf>
+    <dag_conf>/apollo/modules/slam_local/dag/localization_mapping.dag</dag_conf>
+    <process_name>slam_local</process_name>
+  </module>
+</cyber>

@@ -1,0 +1,19 @@
+
+# imu到后轴中心的外参：以后轴中心为父坐标系，车正前方是Y轴，车右方是X轴
+imu_localization_tranform:
+  translation:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  rotation:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+
+#  imu主天线杆臂值，M2/novatel设备需要配置，其他华测、导远、博盛尚等设备都不需要配置
+# 以主天线为负坐标系，imu在右侧x为正，imu在前侧y为正，imu在下方z为负
+imu_ant_offset:
+  imu_gps_translation_x: 0.0
+  imu_gps_translation_y: -0.15
+  imu_gps_translation_z: -0.42

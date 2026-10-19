@@ -1,0 +1,11 @@
+module_config {
+    module_library : "modules/loam_velodyne/liblocalization_mapping_node_component.so"
+    components {
+      class_name : "MapOptimization"
+      config {
+        name : "localization_mapping"
+        config_file_path : "/apollo/modules/loam_velodyne/conf/localization_conf.pb.txt"
+        flag_file_path: "/apollo/modules/loam_velodyne/conf/localization_conf.conf"
+      }
+    }
+}

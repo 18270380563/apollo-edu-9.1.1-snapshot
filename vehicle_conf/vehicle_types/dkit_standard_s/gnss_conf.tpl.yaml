@@ -1,0 +1,67 @@
+# utm zone id
+# 查询地址：https://mangomap.com/robertyoung/maps/69585/what-utm-zone-am-i-in-#
+zone_id: 50
+
+data:
+  # 可选项: NOVATEL_BINARY, HUACE_TEXT, ASENSING_BINARY, BROADGNSS_TEXT
+  # novatel/星宇网达M2设备选 NOVATEL_BINARY
+  format: "BROADGNSS_TEXT"
+  # serial, tcp, udp, can
+  protocol: "serial"
+  params:
+    # serial: e.g
+    device: "/dev/ttyUART_485_422_A"
+    baud_rate: 460800
+
+  # tcp, udp: e.g.
+  # protocol: tcp
+  # params:
+  #   address: "192.168.10.100"
+  #   port: 9904
+
+  # can_card_parameter: e.g.
+  # protocol: "can"
+  # params:
+  #   brand: "SOCKET_CAN_RAW"
+  #   type: "PCI_CARD"
+  #   channel_id: "CHANNEL_ID_ZERO"
+  #   interface: "NATIVE"
+
+
+# 如果设备需要通过工控机获取RTK差分数据，需配置rtk_from 和 rtk_to
+# 目前博盛尚的定位设备需要配置，其他的不需要配置
+rtk_from:
+  format: "RTCM_V3"
+  ntrip:
+    address: "111.111.111.11"
+    port: 0000
+    mount_point: "yourport"
+    user: "REDACTED"
+    password: "REDACTED"
+    timeout_s: 5
+  push_location: true
+
+rtk_to:
+  format: "NOVATEL_BINARY"
+  protocol: "serial"
+  params:
+    device: "/dev/ttyUART_232_A"
+    baud_rate: 115200
+  is_data_stream: true
+
+
+# novatel设备可选配置，其他设备不需要配置
+# command:
+#   format: "NOVATEL_BINARY"
+#   protocol: "serial"
+#   params:
+#     device: "/dev/ttyACM2"
+#     baud_rate: 115200
+
+rtk_solution_type: "RTK_RECEIVER_SOLUTION"
+
+# PP7、M2写CPT_XW5651, 其他不用关心这个配置
+imu_type: "CPT_XW5651"
+
+# 是否使用gps时间，通常默认写true即可, 有授时问题的时候再考虑改这个配置
+use_gnss_time: false

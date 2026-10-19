@@ -1,0 +1,10 @@
+module_config {
+    module_library : "modules/loam_velodyne/liblaser_odometry_component.so"
+    components {
+      class_name : "LaserOdoMetryNode"
+      config {
+        name : "laser_odometry"
+        config_file_path : "/apollo/modules/loam_velodyne/conf/laser_odometry_conf.pb.txt"
+      }
+    }
+}

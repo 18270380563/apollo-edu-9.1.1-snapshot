@@ -1,0 +1,11 @@
+module_config {
+    module_library : "modules/slam_local_indoor/liblocalization_mapping_node_component.so"
+    components {
+      class_name : "MapOptimization"
+      config {
+        name : "localization_mapping"
+        config_file_path : "modules/slam_local_indoor/conf/localization_conf.pb.txt"
+        flag_file_path: "modules/slam_local_indoor/conf/slam_local_indoor.flag"
+      }
+    }
+}

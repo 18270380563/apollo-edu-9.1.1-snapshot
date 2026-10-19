@@ -1,0 +1,49 @@
+vehicle_param {
+  vehicle_id {
+      other_unique_id: "standard-s"
+  }
+  front_edge_to_center: 3.62
+  back_edge_to_center: 0.87
+  left_edge_to_center: 1.007
+  right_edge_to_center: 1.007
+
+  length: 4.49
+  width: 2.014
+  height: 1.98
+  min_turn_radius: 5.5
+  max_acceleration: 1.0
+  max_deceleration: -1.0
+  max_steer_angle: 8.37333
+  max_steer_angle_rate: 400.0
+  steer_ratio: 16.18
+  wheel_base: 2.75
+  wheel_rolling_radius: 0.3341
+  max_abs_speed_when_stopped: 0.1
+
+  brake_deadzone: 0.05
+  throttle_deadzone: 0.05
+
+  steering_latency_param
+  {
+      dead_time: 0.0
+      rise_time: 0.0
+      peak_time: 0.0
+      settling_time: 0.0
+  }
+
+  throttle_latency_param
+  {
+      dead_time: 0.0
+      rise_time: 0.0
+      peak_time: 0.0
+      settling_time: 0.0
+  }
+
+  brake_latency_param
+  {
+      dead_time: 0.0
+      rise_time: 0.0
+      peak_time: 0.0
+      settling_time: 0.0
+  }
+}

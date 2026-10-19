@@ -1,0 +1,3 @@
+<library path="modules/dreamview_plus_plugins/vehicle_calibration/libdv_vehicle_calibration_plugin.so">
+    <class type="apollo::dreamview::VehicleCalibrationPlugin" base_class="apollo::dreamview::DvPluginBase"></class>
+</library>

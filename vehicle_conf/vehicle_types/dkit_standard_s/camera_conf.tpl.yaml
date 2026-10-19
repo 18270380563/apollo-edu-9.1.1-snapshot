@@ -1,0 +1,17 @@
+# camera 配置
+- frame_id: "camera_front"
+  camera_dev: "/dev/video6"
+  width: 1920
+  height: 1080
+  raw_channel_name: "/apollo/sensor/camera/front/raw/image"  # 原始数据channel
+  channel_name: "/apollo/sensor/camera/front/image"  # 输出图像channel
+  compress_channel: "/apollo/sensor/camera/front/image/compressed"  # 压缩数据channel
+  
+  type: MONOCULAR_CAMERA  # MONOCULAR_CAMERA, STEREO_CAMERA
+  orientation: FRONT  # 朝向: FRONT,LEFT_FORWARD,LEFT,LEFT_BACKWARD,REAR,RIGHT_BACKWARD,RIGHT,RIGHT_FORWARD,PANORAMIC
+  used_for_traffic_light_detection: false  # 是否用于交通灯检测
+  used_for_map_collect: true  # 是否用于地图采集红绿灯检测
+  calibration_params:
+    lidar_channel: "/apollo/sensor/lidar16/back/PointCloud2"  # 目标lidar channel
+    lidar_frame_id: "lidar16_back"  # 目标lidar frame id
+    lidar_rotation: 0  # lidar点云旋转角度，默认是0度，逆时针为正

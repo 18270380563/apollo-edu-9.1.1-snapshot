@@ -1,0 +1,812 @@
+syntax = "proto2";
+
+package apollo.canbus;
+
+message CDS_1_10a {
+// Report Message
+  enum CDS_BrakingAutoControlStType {
+    CDS_BRAKING_AUTO_CONTROL_ST_INACTIVE = 0;
+    CDS_BRAKING_AUTO_CONTROL_ST_ACTIVE = 1;
+    CDS_BRAKING_AUTO_CONTROL_ST_DEGRADE = 2;
+    CDS_BRAKING_AUTO_CONTROL_ST_RESERVED = 3;
+  }
+  enum CDS_DrivingAutoControlStType {
+    CDS_DRIVING_AUTO_CONTROL_ST_INACTIVE = 0;
+    CDS_DRIVING_AUTO_CONTROL_ST_ACTIVE = 1;
+    CDS_DRIVING_AUTO_CONTROL_ST_DEGRADE = 2;
+    CDS_DRIVING_AUTO_CONTROL_ST_RESERVED = 3;
+  }
+  enum CDS_BrakingFailureStType {
+    CDS_BRAKING_FAILURE_ST_NO_FAIL = 0;
+    CDS_BRAKING_FAILURE_ST_ESP_FAIL = 1;
+    CDS_BRAKING_FAILURE_ST_SPD_SENSOR_FAIL = 2;
+    CDS_BRAKING_FAILURE_ST_YRS_FAIL = 3;
+    CDS_BRAKING_FAILURE_ST_HCU_FAIL = 4;
+    CDS_BRAKING_FAILURE_ST_ESP_AND_HCU_FAIL = 5;
+    CDS_BRAKING_FAILURE_ST_SPD_SENSOR_DEGRADE = 6;
+    CDS_BRAKING_FAILURE_ST_RESERVED = 7;
+  }
+  enum CDS_BrakingTakeOverStType {
+    CDS_BRAKING_TAKEOVER_ST_INACTIVE = 0;
+    CDS_BRAKING_TAKEOVER_ST_ACTIVE = 1;
+  }
+  enum CDS_DrivingFailureStType {
+    CDS_DRIVING_FAILURE_ST_NO_FAIL = 0;
+    CDS_DRIVING_FAILURE_ST_HCU_FAIL = 1;
+    CDS_DRIVING_FAILURE_ST_SPD_SENSOR_FAIL = 2;
+    CDS_DRIVING_FAILURE_ST_YRS_FAIL = 3;
+    CDS_DRIVING_FAILURE_ST_SPD_SENSOR_DEGRADE = 4;
+    //CDS_DRIVING_FAILURE_ST_RESERVED = 5;
+    //CDS_DRIVING_FAILURE_ST_RESERVED = 6;
+    //CDS_DRIVING_FAILURE_ST_RESERVED = 7;
+  }
+  enum CDS_SteeringAutoControlStType {
+    CDS_STEERING_AUTOCONTROL_ST_INACTIVE = 0;
+    CDS_STEERING_AUTOCONTROL_ST_ACTIVE = 1;
+    CDS_STEERING_AUTOCONTROL_ST_DEGRADE = 2;
+    CDS_STEERING_AUTOCONTROL_ST_RESERVED = 3;
+  }
+  enum CDS_SystemControlStType {
+    CDS_SYSTEM_CONTROL_ST_INACTIVE = 0;
+    CDS_SYSTEM_CONTROL_ST_SVB1_ENABLE = 1;
+    CDS_SYSTEM_CONTROL_ST_SVB2_ENABLE = 2;
+    CDS_SYSTEM_CONTROL_ST_RESERVED = 3;
+  }
+  enum CDS_DrivingTakeOverStType {
+    CDS_DRIVING_TAKEOVER_ST_INACTIVE = 0;
+    CDS_DRIVING_TAKEOVER_ST_ACTIVE = 1;
+  }
+  enum CDS_SystemFailureStType {
+    CDS_SYSTEM_FAILURE_ST_NO_FAIL = 0;
+    CDS_SYSTEM_FAILURE_ST_LOSE_SVB1 = 1;
+    CDS_SYSTEM_FAILURE_ST_LOSE_SVB2 = 2;
+    CDS_SYSTEM_FAILURE_ST_LOSE_SVB1_AND_LOSE_SVB2 = 3;
+    //CDS_SYSTEM_FAILURE_ST_RESERVED = 4;
+    //CDS_SYSTEM_FAILURE_ST_RESERVED = 5;
+    //CDS_SYSTEM_FAILURE_ST_RESERVED = 6;
+    //CDS_SYSTEM_FAILURE_ST_RESERVED = 7;
+  }
+  enum CDS_SteeringFailureStType {
+    CDS_STEERING_FAILURE_ST_NO_FAIL = 0;
+    CDS_STEERING_FAILURE_ST_EPS_FAIL = 1;
+    CDS_STEERING_FAILURE_ST_SAS_FAIL = 2;
+    CDS_STEERING_FAILURE_ST_STEER_TEMP_FAIL = 3;
+    //CDS_STEERING_FAILURE_ST_RESERVED = 4;
+    //CDS_STEERING_FAILURE_ST_RESERVED = 5;
+    //CDS_STEERING_FAILURE_ST_RESERVED = 6;
+    //CDS_STEERING_FAILURE_ST_RESERVED = 7;
+  }
+  enum CDS_SteeringTakeOverStType {
+    CDS_STEERING_TAKEOVER_ST_INACTIVE = 0;
+    CDS_STEERING_TAKEOVER_ST_ACTIVE = 1;
+  }
+  enum CDS_PreparingForAutoModeType {
+    CDS_PREPARING_FOR_AUTO_MODE_DEFAULT = 0;
+    CDS_PREPARING_FOR_AUTO_MODE_PREPARING_FOR_CONTROL = 1;
+  }
+  enum CDS_LimitedDrivingAccType {
+    CDS_LIMITEDDRIVINGACC_NO_LIMITED = 0;
+    CDS_LIMITEDDRIVINGACC_LIMITED = 1;
+  }
+
+
+  optional CDS_BrakingAutoControlStType cds_brakingautocontrolst = 1;
+
+  optional CDS_DrivingAutoControlStType cds_drivingautocontrolst = 2;
+
+  optional CDS_BrakingFailureStType cds_brakingfailurest = 3;
+
+  optional CDS_BrakingTakeOverStType cds_brakingtakeoverst = 4;
+
+  optional CDS_DrivingFailureStType cds_drivingfailurest = 5;
+
+  optional CDS_SteeringAutoControlStType cds_steeringautocontrolst = 6;
+
+  optional CDS_SystemControlStType cds_systemcontrolst = 7;
+
+  optional CDS_DrivingTakeOverStType cds_drivingtakeoverst = 8;
+
+  optional CDS_SystemFailureStType cds_systemfailurest = 9;
+
+  optional CDS_SteeringFailureStType cds_steeringfailurest = 10;
+
+  optional CDS_SteeringTakeOverStType cds_steeringtakeoverst = 11;
+
+  optional CDS_PreparingForAutoModeType cds_preparing_for_auto_mode = 12;
+
+  optional CDS_LimitedDrivingAccType cds_limited_driving_acc = 13;
+
+  optional int32 checksum_cds1 = 14;
+
+  optional int32 livecounter_cds1 = 15;
+}
+
+message HCU_Torque_Status_ToNBS_191 {
+  // Report Message
+  enum HCU_PedalCTL_AvailableType {
+    HCU_PEDALCTL_NOT_AVAILABLE = 0;
+    HCU_PEDALCTL_AVAILABLE = 1;
+  }
+  enum HCU_AcceControl_StatusType {
+    HCU_ACCECONTROL_STATUS_MANUEL_MODE = 0;
+    HCU_ACCECONTROL_STATUS_TARGET_TORQUE_MODE = 1;
+    HCU_ACCECONTROL_STATUS_VIRTUAL_PEDAL_MODE = 2;
+  }
+  enum HCU_AcceOverride_StatusType {
+    HCU_ACCEOVERRIDE_STATUS_NOT_OVERRIDE = 0;
+    HCU_ACCEOVERRIDE_STATUS_OVERRIDE = 1;  
+  }
+
+  optional  HCU_PedalCTL_AvailableType hcu_pedalctl_available = 1;
+
+  optional  HCU_AcceControl_StatusType hcu_accecontrol_status = 2;
+
+  optional  HCU_AcceOverride_StatusType hcu_acceoverride_status =3;
+
+  optional double hcu_acttorque_ev = 4;
+
+  optional double hcu_mcu1tmmagtorque_tonbs_front =5;
+
+  optional double hcu_mcuacttorque_tonbs_front =6;
+}
+
+message NBS_STATUS_1_10d {
+  // Report Message
+  enum NBS_BrakePedalAppliedStType {
+    NBS_BRAKE_PEDAL_APPLIED_ST_NO_PREAAED = 0;
+    NBS_BRAKE_PEDAL_APPLIED_ST_PRESSED = 1;
+  }
+  enum NBSDiagActiveType {
+    NBS_DIAG_NOT_ACTIVATED = 0;
+    NBS_DIAG_ACTIVATED = 1;  
+  }
+  enum NBS_MasterCylinderStrokeStType {
+    NBS_MASTER_CYLINDER_STROKE_ST_NOTINITIALIZED = 0;
+    NBS_MASTER_CYLINDER_STROKE_ST_NORMAL = 1;
+    NBS_MASTER_CYLINDER_STROKE_ST_FAULTY = 2;
+    NBS_MASTER_CYLINDER_STROKE_ST_RESERVED = 3;
+  }
+  enum NBS_BrkAutoControl_StType {
+    NBS_BRK_AUTO_CONTROL_ST_MANUEL_MODE = 0;
+    NBS_BRK_AUTO_CONTROL_ST_BRKPELPOS_CONTROL_ACTIVE = 1;
+    NBS_BRK_AUTO_CONTROL_ST_TARDEC_CONTROL_ACTIVE = 2;
+    NBS_BRK_AUTO_CONTROL_ST_ERROR_MODE = 3;
+  }
+  enum NBS_DecOverride_StatusType {
+    NBS_DEC_OVERRIDE_STATUS_NOT_OVERRIDE = 1;
+    NBS_DEC_OVERRIDE_STATUS_OVERRIDE = 2;
+  }
+  enum NBS_BrakePedalApplied_ValidityType {
+    NBS_BRAKE_PEDAL_APPLIED_VALIDITY_NOTINITIALIZED = 0;
+    NBS_BRAKE_PEDAL_APPLIED_VALIDITY_NORMAL = 1;
+    NBS_BRAKE_PEDAL_APPLIED_VALIDITY_FAULTY = 2;
+    NBS_BRAKE_PEDAL_APPLIED_VALIDITY_RESERVED = 3;
+  }
+  enum NBS_BrkPelPosActVDType {
+    NBS_BRK_PEL_POS_ACT_VD_INACTIVE = 1;
+    NBS_BRK_PEL_POS_ACT_VD_ACTIVE = 2;
+  }
+  enum NBS_FaultStType {
+    NBS_FAULTST_NO_FAULT = 1;
+    NBS_FAULTST_FAULT_LEVEL_1 = 2;
+    NBS_FAULTST_FAULT_LEVEL_2 = 3;
+    NBS_FAULTST_FAULT_LEVEL_3 = 4;
+    NBS_FAULTST_FAULT_LEVEL_4 = 5;
+    NBS_FAULTST_FAULT_LEVEL_5 = 6;
+    NBS_FAULTST_FAULT_LEVEL_6 = 7;
+    NBS_FAULTST_RESERVED = 8;
+  }
+  
+  optional NBS_DecOverride_StatusType nbs_decoverride_status = 1;
+
+  optional NBS_BrkAutoControl_StType nbs_brkautocontrol_st = 2;
+
+  optional NBS_MasterCylinderStrokeStType nbs_mastercylinderstrokest =3;
+
+  optional NBSDiagActiveType nbsdiagactive = 4;
+
+  optional NBS_BrakePedalApplied_ValidityType nbs_brakepedalapplied_validity =5;
+
+  optional NBS_BrakePedalAppliedStType nbs_brakepedalappliedst =6;
+
+  optional NBS_BrkPelPosActVDType nbs_brkpelposactvd = 7;
+
+  optional double nbs_brktorqact_percent =8;
+
+  optional NBS_FaultStType nbs_faultst = 9;
+
+  optional int32  nbs_mastercylinderstroke =10;
+
+  optional int32  livecounter_nbs = 11;
+
+  optional int32  checksum_nbs = 12;
+
+  optional int32  nbs_driverinputrodstrokestrokest = 13;
+
+  optional double  nbs_driverinputrodstroke = 14;
+
+  optional double  nbs_brkpelposact = 15;
+}
+
+message Lock_CMD_78 {
+  // Control Message
+  optional int32  lockcmd = 1;
+}
+
+message SVB_1_108 {
+  // Control Message
+  enum SVB_DecelerationRequestStType {
+    SVB_DECELERATION_REQUESTST_NO_REQUEST = 0;
+    SVB_DECELERATION_REQUESTST_ACC_REQUEST = 1;
+    SVB_DECELERATION_REQUESTST_AEB_REQUEST = 3;
+    SVB_DECELERATION_REQUESTST_RESERVED = 4;
+  }
+  enum SVB_FailureStatusType {
+    SVB_FAILURE_STATUS_NO_ERROR = 0;
+    SVB_FAILURE_STATUS_DEGRADE = 1;  
+    SVB_FAILURE_STATUS_ERROR = 2;
+    SVB_FAILURE_STATUS_RESERVED = 3; 
+  }
+  enum SVB_SteeringRequestStType {
+    SVB_STEERING_REQUESTST_NO_REQUEST = 0;
+    SVB_STEERING_REQUESTST_REQUEST = 1;
+    //SVB_STEERING_REQUESTST_RESERVED = 2;
+    //SVB_STEERING_REQUESTST_RESERVED = 3;
+  }
+  enum SVB_SteeringAngleSignRequestType {
+    SVB_STEERING_ANGLE_SIGN_REQUEST_NO_REQUEST = 0;
+    //(POSITIVE)
+    SVB_STEERING_ANGLE_SIGN_REQUEST_LEFT = 1;  
+    //(NEGATIVE)
+    SVB_STEERING_ANGLE_SIGN_REQUEST_RIGHT = 2;
+    SVB_STEERING_ANGLE_SIGN_REQUEST_RESERVED = 3; 
+  }
+  enum SVB_SteeringSpeedSignRequestType {
+    SVB_STEERING_SPEED_SIGN_REQUEST_NO_REQUEST = 0;
+    SVB_STEERING_SPEED_SIGN_REQUEST_REQUEST = 1;
+    //SVB_STEERING_SPEED_SIGN_REQUEST_RESERVED = 2;
+    //SVB_STEERING_SPEED_SIGN_REQUEST_RESERVED = 3;
+  }
+  enum SVB_StandStillRequestType {
+    SVB_STAND_STILL_REQUEST_NO_REQUEST = 0;
+    SVB_STAND_STILL_REQUEST_REQUEST = 1;
+  }
+  enum SVB_MaxSpeedLimitType {
+    SVB_MAX_SPEED_LIMIT_LIMITE = 0;
+    SVB_MAX_SPEED_LIMIT_NO_LIMITE = 1;
+  }
+  enum SVB_TakeOverRequestType {
+    SVB_TAKE_OVER_REQUEST_NO_REQUEST = 0;
+    SVB_TAKE_OVER_REQUEST_REQUEST = 1;
+  }
+  enum SVB_AccelerationRequestStType {
+    SVB_ACCELERATION_REQUEST_ST_NO_REQUEST = 0;
+    SVB_ACCELERATION_REQUEST_ST_REQUEST = 1;
+  }
+  enum SVB_GearRequestType {
+    SVB_GEA_RREQUEST_NO_REQUEST = 0;
+    SVB_GEA_RREQUEST_P = 1;
+    SVB_GEA_RREQUEST_R = 2;
+    SVB_GEA_RREQUEST_N = 3;
+    SVB_GEA_RREQUEST_D = 4;
+    //SVB_GEA_RREQUEST_RESERVED = 5;
+    //SVB_GEA_RREQUEST_RESERVED = 6;
+    SVB_GEA_RREQUEST_INVALID_VALUE = 7;
+  }
+
+  optional SVB_MaxSpeedLimitType svb_maxspeedlimit = 1;
+
+  optional int32 svb_steeringspeedrequest = 2;
+
+  optional SVB_GearRequestType svb_gearrequest =3;
+
+  optional SVB_AccelerationRequestStType svb_accelerationrequestst = 4;
+
+  optional SVB_TakeOverRequestType svb_takeoverrequest =5;
+
+  optional int32 svb_accelerationrequest =6;
+
+  optional SVB_StandStillRequestType svb_standstillrequest = 7;
+
+  optional SVB_SteeringSpeedSignRequestType svb_steeringspeedsignrequest =8;
+
+  optional SVB_SteeringAngleSignRequestType svb_steeringanglesignrequest = 9;
+
+  optional int32  svb_steeringanglerequest =10;
+
+  optional SVB_SteeringRequestStType svb_steeringrequestst = 11;
+
+  optional SVB_FailureStatusType svb_failurestatus = 12;
+
+  optional SVB_DecelerationRequestStType svb_decelerationrequestst = 13;
+
+  optional double svb_decelerationrequest = 14;
+
+  optional int32  livecounter_svb_1 =15;
+
+  optional int32  reserved_svb1 = 16;
+
+  optional int32  checksum_svb_1 = 17;
+}
+
+message SVB_2_1a0 {
+  // Control Message
+  enum SVB_LeftTurningLightRequestType {
+    SVB_LEFT_TURNING_LIGHT_REQUEST_NO_REQUEST = 0;
+    SVB_LEFT_TURNING_LIGHT_REQUEST_OFF = 1;
+    SVB_LEFT_TURNING_LIGHT_REQUEST_ON = 2;
+    SVB_LEFT_TURNING_LIGHT_REQUEST_RESERVED = 3;
+  }
+  enum SVB_RightTurningLightRequestType {
+    SVB_RIGHT_TURNING_LIGHT_REQUEST_NO_REQUEST = 0;
+    SVB_RIGHT_TURNING_LIGHT_REQUEST_OFF = 1;
+    SVB_RIGHT_TURNING_LIGHT_REQUEST_ON = 2;
+    SVB_RIGHT_TURNING_LIGHT_REQUEST_RESERVED = 3;
+  }
+  enum SVB_HazardLightRequestType {
+    SVB_HAZARD_LIGHT_REQUEST_NO_REQUEST = 0;
+    SVB_HAZARD_LIGHT_REQUEST_OFF = 1;
+    SVB_HAZARD_LIGHT_REQUEST_ON = 2;
+    SVB_HAZARD_LIGHT_REQUEST_RESERVED = 3;
+  }
+  enum Fog_requestType {
+    FOG_REQUEST_NO_REQUEST = 0;
+    FOG_REQUEST_ONLY_REQUEST_FRONT_FOG_ON = 1;
+    FOG_REQUEST_ONLY_REQUEST_FRONT_FOG_OFF = 2;
+    FOG_REQUEST_ONLY_REQUEST_REAR_FOG_ON = 3;
+    FOG_REQUEST_ONLY_REQUEST_REAR_FOG_OFF = 4;
+    FOG_REQUEST_REQUEST_FR_FOG_BOTH_ON = 5;
+    FOG_REQUEST_REQUEST_FR_FOG_BOTH_OFF = 6;
+    FOG_REQUEST_RESERVED = 7;
+  }
+  enum Horn_requestType {
+    HORN_REQUEST_NO_REQUEST = 0;
+    HORN_REQUEST_REQUEST = 1;
+  }
+  enum LowBeam_requestType {
+    LOW_BEAM_REQUEST_NO_REQUEST = 0;
+    LOW_BEAM_REQUEST_REQUEST = 1;
+    //LOW_BEAM_REQUEST_RESERVED = 2;
+    //LOW_BEAM_REQUEST_RESERVED = 3;
+  }
+  enum HighBeam_requestType {
+    HIGH_BEAM_REQUEST_NO_REQUEST = 0;
+    HIGH_BEAM_REQUEST_REQUEST = 1;
+    //HIGH_BEAM_REQUEST_RESERVED = 2;
+    //HIGH_BEAM_REQUEST_RESERVED = 3;
+  }
+  enum SVB_DoorRequestType {
+    SVB_DOOR_REQUEST_NO_REQUEST = 0;
+    SVB_DOOR_REQUEST_LOCK = 1;
+    //SVB_DOOR_REQUEST_RESERVED = 2;
+    //SVB_DOOR_REQUEST_RESERVED = 3;
+  }
+  enum HU_SpeechRequest_LeftTempAdjSwType {
+    HU_SPEECH_REQUEST_LEFTTEMPADJSW_NO_REQUEST = 0;
+    HU_SPEECH_REQUEST_LEFTTEMPADJSW_ADD_ONE_STEP = 1;
+    HU_SPEECH_REQUEST_LEFTTEMPADJSW_ADD_TWO_STEPS = 2;
+    //HU_SPEECH_REQUEST_LEFTTEMPADJSW_RESERVED = 3;
+    HU_SPEECH_REQUEST_LEFTTEMPADJSW_MINUS_ONE_STEP = 4;
+    HU_SPEECH_REQUEST_LEFTTEMPADJSW_MINUS_TWO_STEPS = 5;
+    //HU_SPEECH_REQUEST_LEFTTEMPADJSW_RESERVED = 6;
+    HU_SPEECH_REQUEST_LEFTTEMPADJSW_INVALID_VALUE = 7;
+  }
+  enum Position_light_requestType {
+    POSITION_LIGHT_REQUEST_NO_REQUEST = 0;
+    POSITION_LIGHT_REQUEST_ONLY_REQUEST_FPOSITION_LIGHT_ON = 1;
+    POSITION_LIGHT_REQUEST_ONLY_REQUEST_FPOSITION_LIGHT_OFF = 2;
+    POSITION_LIGHT_REQUEST_ONLY_REQUEST_RPOSITION_LIGHT_ON = 3;
+    POSITION_LIGHT_REQUEST_ONLY_REQUEST_RPOSITION_LIGHT_OFF = 4;
+    POSITION_LIGHT_REQUEST_REQUEST_FR_POSITION_BOTH_ON = 5;
+    POSITION_LIGHT_REQUEST_REQUEST_FR_POSITION_BOTH_OFF = 6;
+    POSITION_LIGHT_REQUEST_RESERVED = 7;
+  }
+  enum HU_SpeechRequest_ACType {
+    HU_SPEECH_REQUEST_AC_NO_REQUEST = 0;
+    HU_SPEECH_REQUEST_AC_ON = 1;
+    HU_SPEECH_REQUEST_AC_OFF = 2;
+    HU_SPEECH_REQUEST_AC_RESERVED = 3;
+  }
+  enum HU_SpeechRequest_FRSRECType {
+    HU_SPEECH_REQUEST_FRSREC_NO_REQUEST = 0;
+    HU_SPEECH_REQUEST_FRSREC_FRS = 1;
+    HU_SPEECH_REQUEST_FRSREC_REC= 2;
+    HU_SPEECH_REQUEST_FRSREC_RESERVED = 3;
+  }
+  enum HU_SpeechRequest_BlwlevelAdjSwType {
+    HU_SPEECHR_EQUEST_BLWLEVEL_ADJSW_NO_REQUEST = 0;
+    HU_SPEECHR_EQUEST_BLWLEVEL_ADJSW_UP = 1;
+    HU_SPEECHR_EQUEST_BLWLEVEL_ADJSW__DOWN = 2;
+    HU_SPEECHR_EQUEST_BLWLEVEL_ADJSW_INVALID_VALUE = 3;
+  }
+  enum HU_SpeechRequest_FLseatHeatLevelType {
+    HU_SPEECH_REQUEST_FLSEAT_HEAT_LEVEL_NO_REQUEST = 0;
+    HU_SPEECH_REQUEST_FLSEAT_HEAT_LEVEL_OFF = 1;
+    HU_SPEECH_REQUEST_FLSEAT_HEATLEVEL_LEVEL1 = 2;
+    HU_SPEECH_REQUEST_FLSEAT_HEAT_LEVEL_LEVEL2 = 3;
+    HU_SPEECH_REQUEST_FLSEAT_HEAT_LEVEL_LEVEL3 = 4;
+    //HU_SPEECH_REQUEST_FLSEAT_HEAT_LEVEL_RESERVED = 5;
+    //HU_SPEECH_REQUEST_FLSEAT_HEAT_LEVEL_RESERVED = 6;
+    //HU_SPEECH_REQUEST_FLSEAT_HEAT_LEVEL_RESERVED = 7;
+  }
+  enum HU_SpeechRequest_FRseatHeatLevelType {
+    HU_SPEECH_REQUEST_FRSEAT_HEAT_LEVEL_NO_REQUEST = 0;
+    HU_SPEECH_REQUEST_FRSEAT_HEAT_LEVEL_OFF = 1;
+    HU_SPEECH_REQUEST_FRSEAT_HEAT_LEVEL_LEVEL1 = 2;
+    HU_SPEECH_REQUEST_FRSEAT_HEAT_LEVEL_LEVEL2 = 3;
+    HU_SPEECH_REQUEST_FRSEAT_HEAT_LEVEL_LEVEL3 = 4;
+    HU_SPEECH_REQUEST_FRSEAT_HEAT_LEVEL_LEVEL4 = 5;
+    HU_SPEECH_REQUEST_FRSEAT_HEAT_LEVEL_LEVEL5 = 6;
+    HU_SPEECH_REQUEST_FRSEAT_HEAT_LEVEL_RESERVED = 7;
+  }
+  enum SVB_EPBRequestType {
+    SVB_EPB_REQUEST_NO_REQUEST = 0;
+    SVB_EPB_REQUEST_RELEASING = 1;
+    SVB_EPB_REQUEST_LOCKING = 2;
+    SVB_EPB_REQUEST_INVALID_VALUE = 3;
+  }
+
+  optional SVB_LeftTurningLightRequestType svb_leftturninglightrequest = 1;
+
+  optional SVB_RightTurningLightRequestType svb_rightturninglightrequest = 2;
+  
+  optional SVB_HazardLightRequestType svb_hazardlightrequest = 3;
+  
+  optional Fog_requestType fog_request = 4;
+  
+  optional Horn_requestType horn_request = 5;
+  
+  optional LowBeam_requestType lowbeam_request = 6;
+  
+  optional HighBeam_requestType highbeam_request = 7;
+  
+  optional SVB_DoorRequestType svb_doorrequest = 8;
+  
+  optional HU_SpeechRequest_LeftTempAdjSwType hu_speechrequest_lefttempadjsw = 9;
+  
+  optional Position_light_requestType position_light_request = 10;
+  
+  optional HU_SpeechRequest_ACType hu_speechrequest_ac = 11;
+  
+  optional HU_SpeechRequest_FRSRECType hu_speechrequest_frsrec = 12;
+  
+  optional HU_SpeechRequest_BlwlevelAdjSwType hu_speechrequest_blwleveladjsw = 13;
+  
+  optional HU_SpeechRequest_FLseatHeatLevelType hu_speechrequest_flseatheatlevel = 14;
+  
+  optional HU_SpeechRequest_FRseatHeatLevelType hu_speechrequest_frseatheatlevel = 15;
+  
+  optional SVB_EPBRequestType svb_epbrequest = 16;
+
+  optional int32 reserved_svb2_03 = 17;
+  
+  optional int32 reserved_svb2_02 = 18;
+  
+  optional int32 reserved_svb2 = 19;
+  
+  optional int32 request_turnoff_lowvoltage = 20;
+  
+  optional int32 hu_speechrequest_setlefttemp = 21;
+  
+  optional int32 hu_speechrequest_setleftblw = 22;
+  
+  optional int32 checksum_svb_2 = 23;
+
+  optional int32 livecounter_svb_2 = 24;
+}
+
+message SVB_3_2c0 {
+// Control Message
+  optional int32 svb3_livecounter = 1;
+  optional double svb3_abs_vehiclespeed = 2;
+  optional int32 svb3_reserved1 = 3;
+  //optional int32 svb3_reserved2 = 4;
+  optional int32 svb3_checksum = 4;
+  optional double svb3_ai = 5;
+}
+
+message SVB_4_2c2 {
+  // Control Message
+  enum SVB4_SystemInfoLampType {
+    SVB4_SYSTEM_INFO_LAMP_OFF = 0;
+    SVB4_SYSTEM_INFO_LAMP_STANDBY = 1;
+    SVB4_SYSTEM_INFO_LAMP_ACTIVE = 2;
+    SVB4_SYSTEM_INFO_LAMP_ERROR = 3;
+  }
+  enum SVB4_TakeoverRequestInfoLampType {
+    SVB4_TAKE_OVER_REQUEST_INFO_LAMP_LAMP_OFF = 0;
+    SVB4_TAKE_OVER_REQUEST_INFO_LAMP_LAMP_ON = 1;
+    //SVB4_TAKE_OVER_REQUEST_INFO_LAMP_RESERVED = 2;
+    //SVB4_TAKE_OVER_REQUEST_INFO_LAMP_RESERVED = 3;
+  }
+  enum SVB4_obstacle_info_1Type {
+    SVB4_OBSTACLE_INFO_1_NO = 0;
+    SVB4_OBSTACLE_INFO_1_YES = 1;
+    SVB4_OBSTACLE_INFO_1_RESERVED = 2;
+    //SVB4_OBSTACLE_INFO_1 = 3;
+  }
+  enum SVB4_obstacle_info_2Type {
+    SVB4_OBSTACLE_INFO_2_NO = 0;
+    SVB4_OBSTACLE_INFO_2_YES = 1;
+    SVB4_OBSTACLE_INFO_2_RESERVED = 2;
+    //SVB4_OBSTACLE_INFO_2 = 3;
+  }
+  enum SVB4_obstacle_info_2_Copy_1Type {
+    SVB4_OBSTACLE_INFO_2_COPY_1_NO = 0;
+    SVB4_OBSTACLE_INFO_2_COPY_1_YES = 1;
+    SVB4_OBSTACLE_INFO_2_COPY_1_RESERVED = 2;
+    //SVB4_OBSTACLE_INFO_2_COPY_1 = 3;
+  }
+  enum SVB4_obstacle_info_3Type {
+    SVB4_OBSTACLE_INFO_3_NO = 0;
+    SVB4_OBSTACLE_INFO_3_YES = 1;
+    SVB4_OBSTACLE_INFO_3_RESERVED = 2;
+    //SVB4_OBSTACLE_INFO_3 = 3;
+  }
+  enum SVB4_obstacle_info_4Type {
+    SVB4_OBSTACLE_INFO_4_NO = 0;
+    SVB4_OBSTACLE_INFO_4_YES = 1;
+    SVB4_OBSTACLE_INFO_4_RESERVED = 2;
+    //SVB4_OBSTACLE_INFO_4 = 3;
+  }
+  enum SVB4_obstacle_info_5Type {
+    SVB4_OBSTACLE_INFO_5_NO = 0;
+    SVB4_OBSTACLE_INFO_5_YES = 1;
+    SVB4_OBSTACLE_INFO_5_RESERVED = 2;
+    //SVB4_OBSTACLE_INFO_5 = 3;
+  }
+  enum SVB4_obstacle_info_6Type {
+    SVB4_OBSTACLE_INFO_6_NO = 0;
+    SVB4_OBSTACLE_INFO_6_YES = 1;
+    SVB4_OBSTACLE_INFO_6_RESERVED = 2;
+    //SVB4_OBSTACLE_INFO_6 = 3;
+  }
+  enum SVB4_obstacle_info_7Type {
+    SVB4_OBSTACLE_INFO_7_NO = 0;
+    SVB4_OBSTACLE_INFO_7_YES = 1;
+    SVB4_OBSTACLE_INFO_7_RESERVED = 2;
+    //SVB4_OBSTACLE_INFO_7 = 3;
+  }
+  enum SVB4_obstacle_info_8Type {
+    SVB4_OBSTACLE_INFO_8_NO = 0;
+    SVB4_OBSTACLE_INFO_8_YES = 1;
+    SVB4_OBSTACLE_INFO_8_RESERVED = 2;
+    //SVB4_OBSTACLE_INFO_8 = 3;
+  }
+  enum SVB4_obstacle_info_9Type {
+    SVB4_OBSTACLE_INFO_9_NO = 0;
+    SVB4_OBSTACLE_INFO_9_YES = 1;
+    SVB4_OBSTACLE_INFO_9_RESERVED = 2;
+    //SVB4_OBSTACLE_INFO_9 = 3;
+  }
+  enum SVB4_obstacle_info_10Type {
+    SVB4_OBSTACLE_INFO_10_NO = 0;
+    SVB4_OBSTACLE_INFO_10_YES = 1;
+    SVB4_OBSTACLE_INFO_10_RESERVED = 2;
+    //SVB4_OBSTACLE_INFO_10 = 3;
+  }
+
+  optional SVB4_SystemInfoLampType svb4_systeminfolamp = 1;
+  optional SVB4_TakeoverRequestInfoLampType svb4_takeoverrequestinfolamp = 2;
+  optional SVB4_obstacle_info_1Type svb4_obstacle_info_1 = 3;
+  optional SVB4_obstacle_info_2Type svb4_obstacle_info_2 = 4;
+  optional SVB4_obstacle_info_2_Copy_1Type svb4_obstacle_info_2_copy_1 = 5;
+  optional SVB4_obstacle_info_3Type svb4_obstacle_info_3 = 6;
+  optional SVB4_obstacle_info_4Type svb4_obstacle_info_4 = 7;
+  optional SVB4_obstacle_info_5Type svb4_obstacle_info_5 = 8;
+  optional SVB4_obstacle_info_6Type svb4_obstacle_info_6 = 9;
+  optional SVB4_obstacle_info_7Type svb4_obstacle_info_7 = 10;
+  optional SVB4_obstacle_info_8Type svb4_obstacle_info_8 = 11;
+  optional SVB4_obstacle_info_9Type svb4_obstacle_info_9 = 12;
+  optional SVB4_obstacle_info_10Type svb4_obstacle_info_10 = 13;
+  optional int32 svb4_livecounter = 14;
+  optional int32 svb4_reserved01 = 15;
+  optional int32 svb4_checksum = 16;
+}
+
+message SVB_NBS_REQ_109 {
+  enum SVB_DecMode_RequestType {
+    SVB_DECMODE_REQUEST_NO_REQUEST = 0;
+    SVB_DECMODE_REQUEST_BRKPELPOS_REQUEST = 1;
+    SVB_DECMODE_REQUEST_TARDEC_REQUEST = 2;
+    SVB_DECMODE_REQUEST_RESERVED = 3;
+  }
+  enum SVB_BrkReq_LevelType {
+    SVB_BRKREQ_LEVEL_NORMAL_BRAKE = 0;
+    SVB_BRKREQ_LEVEL_EMERGENCY_BRAKE = 1;
+    //SVB_BRKREQ_LEVEL_RESERVED = 2;
+    //SVB_BRKREQ_LEVEL_RESERVED = 3;
+  }
+  enum SVB_NBS_CAL_RequestType {
+    SVB_NBS_CAL_REQUEST_NO_REQUEST = 0;
+    SVB_NBS_CAL_REQUEST_REQUEST = 1;
+  }
+  enum SVB_RecuBrakeTorqueFunc_SwitchType {
+    SVB_RECU_BRAKE_TORQUE_FUNC_SWITCH_ON = 0;
+    SVB_RECU_BRAKE_TORQUE_FUNC_SWITCH_OFF = 1;
+  }
+  enum SVB_TarAccePedalPosition_ReqStType {
+    SVB_TAR_ACCE_PEDAL_POSITION_REQST_NO_REQUEST = 0;
+    SVB_TAR_ACCE_PEDAL_POSITION_REQST_REQUEST = 1;
+  }
+
+  optional double svb_taracc_decrequest = 1;
+  optional SVB_DecMode_RequestType svb_decmode_request = 2;
+  optional SVB_BrkReq_LevelType svb_brkreq_level = 3;
+  optional double svb_brkpelpos_decrequest = 4;
+  optional SVB_RecuBrakeTorqueFunc_SwitchType svb_recubraketorquefunc_switch = 5;
+  optional SVB_TarAccePedalPosition_ReqStType svb_taraccepedalposition_reqst = 6;
+  optional double svb_taraccepedalposition_req = 7;
+  optional int32 livecounter_svb_nbs = 8;
+  optional int32 checksum_svb_nbs = 9;
+}
+
+message SVB1_Temperature_618 {
+  optional double svb1_gputemp = 1;
+  optional double svb1_outlet_senor_temp = 2;
+  optional double svb1_inletsenor_temp = 3;
+}
+
+message CCU_2_632 {
+  optional int32 rain_ca_delay = 1;
+}
+
+message ABS_1_b4 {
+  // Report Message
+  enum ABS_DrivingDirectionType {
+    ABS_DRIVING_DIRECTION_FORWARD = 0;
+    ABS_DRIVING_DIRECTION_BACKWARD = 1;
+    ABS_DRIVING_DIRECTION_STOP = 2;
+    ABS_DRIVING_DIRECTION_INVALID_VALUE = 3;
+  }
+
+  optional ABS_DrivingDirectionType abs_drivingdirection = 1;
+  optional int32 livecounter_abs_1 = 2;
+  optional double wheelspeed_fl = 3;
+  optional double wheelspeed_fr = 4;
+  optional double abs_vehiclespeed = 5;
+  optional int32 checksum_abs_1 = 6;
+  optional int32 reserved_abs1_1 =7;
+  optional int32 reserved_abs1_2 = 8;
+  optional int32 reserved_abs1_3 = 9;
+  optional int32 reserved_abs1_4 = 10;
+}
+
+message HCU_14_248 {
+  // Report Message
+  enum HCU_LeverInfoType {
+    HCU_LEVERINFO_P = 0;
+    HCU_LEVERINFO_R = 1;
+    HCU_LEVERINFO_N = 2;
+    HCU_LEVERINFO_D = 3;
+    //HCU_LEVERINFO_RESERVED = 4;
+    //HCU_LEVERINFO_RESERVED = 5;
+    //HCU_LEVERINFO_RESERVED = 6;
+    HCU_LEVERINFO_NO_CONNECTION = 7;
+    //HCU_LEVERINFO_RESERVED = 8;
+    //HCU_LEVERINFO_RESERVED = 9;
+    //HCU_LEVERINFO_RESERVED = 10;    
+    //HCU_LEVERINFO_RESERVED = 11;
+    //HCU_LEVERINFO_RESERVED = 12;
+    //HCU_LEVERINFO_RESERVED = 13;
+    //HCU_LEVERINFO_RESERVED = 14;
+    HCU_LEVERINFO_INVALID_VALUE = 15;
+  }
+
+  optional HCU_LeverInfoType hcu_leverinfo = 1;
+  optional int32 hcu_reserved_2 = 2;
+}
+
+message SAS_1_96 {
+  // Report Message
+  enum SAS_SteeringWheelAngleSignType {
+    //(POSITIVE)
+    SAS_STEERING_WHEEL_ANGLE_SIGN_LEFT = 0;
+    //(NEGATIVE)
+    SAS_STEERING_WHEEL_ANGLE_SIGN_RIGHT = 1;
+  }
+  enum SAS_SteeringWheelSpeedSignType {
+    //(POSITIVE)
+    SAS_STEERING_WHEEL_SPEED_SIGN_LEFT = 0;
+    //(NEGATIVE)
+    SAS_STEERING_WHEEL_SPEED_SIGN_RIGHT = 1;
+  }
+  enum SAS_StatusType {
+    SAS_STATUS_SAS_ANGLE_AND_SPEED_CORRECT = 0;
+    SAS_STATUS_SAS_NOT_CALIBRATED = 1;
+    SAS_STATUS_INTERMITTENT_ERROR_DETECTED = 2;
+    SAS_STATUS_PERMANENT_ERROR_DETECTED = 3;
+  }
+  
+  optional SAS_SteeringWheelAngleSignType SAS_SteeringWheelAngleSign = 1;
+  optional SAS_SteeringWheelSpeedSignType sas_steeringwheelspeedsign = 2;
+  optional SAS_StatusType sas_status = 3;
+  optional double sas_steeringwheelspeed = 4;
+  optional int32 sas_id = 5;
+  optional int32 sas_reserved_2 = 6;
+  optional int32 sas_livecounter_sas_1 = 7;
+  optional int32 sas_checksum_sas_1 = 8;
+  optional double sas_steeringwheelangle = 9;
+}
+
+message EPB_1_104 {
+  // Report Message
+  enum EPB_StatusType {
+    EPB_STATUS_RELEASED = 0;
+    EPB_STATUS_LOCKED = 1;
+    EPB_STATUS_RELEASING = 2;
+    EPB_STATUS_LOCKING = 3;
+    EPB_STATUS_UNKOWN = 4; 
+  }
+  enum EPB_ErrorStatusType {
+    EPB_ERROR_STATUS_NO_ERROR = 0;
+    EPB_ERROR_STATUS_ERROR = 1;
+  }
+  enum EPB_SwitchType {
+    EPB_SWITCH_NO_REQUEST = 0;
+    EPB_SWITCH_LOCK = 1;
+    EPB_SWITCH_RELEASE = 2;
+    EPB_SWITCH_INVALID_VALUE = 3;
+  }
+
+  optional EPB_StatusType epb_status = 1;
+  optional EPB_ErrorStatusType epb_errorstatus = 2;
+  optional EPB_SwitchType epb_switch = 3;
+  optional int32 checksum_epb_1 = 4;
+  optional int32 livecounter_epb1 = 5;
+  optional int32 reserved_epb_1_1 = 6;
+  optional int32 reserved_epb_1_2 = 7;
+  optional int32 reserved_epb_1_3 = 8;
+}
+
+message CDS_2_10b {
+  // Report Message
+  enum DCDC2_StatusType {
+    DCDC2_STATUS_NOT_WORKING = 0;
+    DCDC2_STATUS_WORKING = 1;
+    DCDC2_STATUS_NORMAL_ERROR = 2;
+    DCDC2_STATUS_CRITICAL_ERROR = 3;
+  }
+
+  optional DCDC2_StatusType dcdc2_status = 1;
+  optional double reserved_cds_2_1 = 2;
+  optional int32 hcu_batterypacksoc = 3;
+  optional int32 livecounter_cds2 = 4;
+  optional int32 checksum_cds2 = 5;
+}
+
+message HCU_4_122 {
+  // Report Message
+  enum HCU_BrakeSwitchType {
+    HCU_BRAKE_SWITCH_BRAKE_NOT_ACTUATED = 0;
+    HCU_BRAKE_SWITCH_BRAKE_ACTUATED = 1;
+    HCU_BRAKE_SWITCH_RESERVED = 2;
+    HCU_BRAKE_SWITCH_INVALID_VALUE = 3;
+  }
+
+  optional HCU_BrakeSwitchType hcu_brakeswitch = 1;
+  optional double hcu_accelerationpedalposition = 2;
+  optional int32 hcu_reserved_8 = 3;
+  optional int32 hcu_reserved_7 = 4;
+  optional int32 hcu_reserved_6 = 5;
+}
+
+message Hongqi_nbooster {
+  optional Lock_CMD_78 lock_cmd_78 = 1; 
+  optional SVB_1_108 svb_1_108 = 2; 
+  optional SVB_2_1a0 svb_2_1a0 = 3; 
+  optional SVB_3_2c0 svb_3_2c0 = 4; 
+  optional SVB_4_2c2 svb_4_2c2 = 5; 
+  optional SVB_NBS_REQ_109 svb_nbs_req_109 = 6; 
+  optional SVB1_Temperature_618 svb1_temperature_618 = 7; 
+  optional CDS_1_10a cds_1_10a = 8; 
+  optional HCU_Torque_Status_ToNBS_191 hcu_torque_status_tonbs_191 = 9; 
+  optional NBS_STATUS_1_10d nbs_status_1_10d = 10; 
+  optional CCU_2_632 ccu_2_632 = 11;
+  optional ABS_1_b4 abs_1_b4 = 12;
+  optional HCU_14_248 hcu_14_248 = 13;
+  optional SAS_1_96 sas_1_96 = 14;
+  optional EPB_1_104 epb_1_104 = 15;
+  optional CDS_2_10b cds_2_10b = 16;
+  optional HCU_4_122 hcu_4_122 = 17;
+}

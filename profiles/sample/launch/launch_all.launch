@@ -1,0 +1,214 @@
+<cyber>
+    <![CDATA[
+        launch apollo system, include tf,localization,drivers,perception,prediction,pnc
+        dreamview and other tools.
+    ]]>
+    <module>
+        <name>static_transform</name>
+        <process_name>static_transform</process_name>
+        <dag_conf>/apollo/modules/transform/dag/static_transform.dag</dag_conf>
+    </module>
+
+    <module>
+        <name>gnss_driver</name>
+        <process_name>gnss</process_name>
+        <!-- gnss drivers -->
+        <dag_conf>/apollo/modules/drivers/gnss/dag/gnss.dag</dag_conf>
+        <!-- respawn config -->
+        <exception_handler>respawn</exception_handler>
+        <respawn_limit>2</respawn_limit>
+    </module>
+
+    <module>
+        <name>localization</name>
+        <process_name>localization</process_name>
+        <!-- rtk localization -->
+        <dag_conf>/apollo/modules/localization/dag/dag_streaming_rtk_localization.dag</dag_conf>
+        <!-- slam localization-->
+        <!-- <dag_conf>/apollo/modules/slam_local/dag/laser_multiscan_registration.dag</dag_conf>
+        <dag_conf>/apollo/modules/slam_local/dag/laser_odometry.dag</dag_conf>
+        <dag_conf>/apollo/modules/slam_local/dag/localization_mapping.dag</dag_conf> -->
+        <!-- respawn config -->
+        <exception_handler>respawn</exception_handler>
+        <respawn_limit>2</respawn_limit>
+    </module>
+
+    <module>
+        <name>lidar_drivers</name>
+        <process_name>lidar</process_name>
+        <dag_conf>/apollo/modules/drivers/lidar/dag/lidar.dag</dag_conf>
+    </module>
+
+    <module>
+        <name>radar_drivers</name>
+        <process_name>radar</process_name>
+        <dag_conf>/apollo/modules/drivers/radar/dag/radar.dag</dag_conf>
+    </module>
+
+    <module>
+        <name>camera_drivers</name>
+        <process_name>camera</process_name>
+        <dag_conf>/apollo/modules/drivers/camera/dag/camera.dag</dag_conf>
+    </module>
+
+    <module>
+        <name>lidar_perception</name>
+        <dag_conf>/apollo/modules/perception/msg_adapter/dag/msg_adapter.dag</dag_conf>
+        <dag_conf>/apollo/modules/perception/pointcloud_preprocess/dag/pointcloud_preprocess.dag</dag_conf>
+        <dag_conf>/apollo/modules/perception/pointcloud_map_based_roi/dag/pointcloud_map_based_roi.dag</dag_conf>
+        <dag_conf>/apollo/modules/perception/pointcloud_ground_detection/dag/pointcloud_ground_detection.dag</dag_conf>
+        <dag_conf>/apollo/modules/perception/lidar_detection/dag/lidar_detection.dag</dag_conf>
+        <dag_conf>/apollo/modules/perception/lidar_segmentation/dag/lidar_segmentation.dag</dag_conf>
+        <dag_conf>/apollo/modules/perception/lidar_detection_filter/dag/lidar_detection_filter.dag</dag_conf>
+        <dag_conf>/apollo/modules/perception/lidar_tracking/dag/lidar_tracking.dag</dag_conf>
+
+        <process_name>perception</process_name>
+        <version>1.0.0</version>
+    </module>
+
+    <module>
+        <name>storytelling</name>
+        <process_name>storytelling</process_name>
+        <dag_conf>/apollo/modules/storytelling/dag/storytelling.dag</dag_conf>
+        <exception_handler>respawn</exception_handler>
+        <respawn_limit>2</respawn_limit>
+    </module>
+
+    <module>
+        <name>prediction</name>
+        <process_name>prediction</process_name>
+        <dag_conf>/apollo/modules/prediction/dag/prediction.dag</dag_conf>
+        <exception_handler>respawn</exception_handler>
+        <respawn_limit>2</respawn_limit>
+    </module>
+
+    <!--
+    <module>
+        <name>v2x_traffic_light</name>
+        <process_name>traffic_light</process_name>
+        <dag_conf>/apollo/modules/traffic_light_wj/dag/traffic_light.dag</dag_conf>
+        <exception_handler>respawn</exception_handler>
+        <respawn_limit>2</respawn_limit>
+    </module>
+    -->
+
+     <!--
+    <module>
+        <name>perception_traffic_light</name>
+        <process_name>traffic_light</process_name>
+        <dag_conf>/apollo/modules/perception/traffic_light_region_proposal/dag/traffic_light_region_proposal.dag</dag_conf>
+        <dag_conf>/apollo/modules/perception/traffic_light_detection/dag/traffic_light_detection.dag</dag_conf>
+        <dag_conf>/apollo/modules/perception/traffic_light_recognition/dag/traffic_light_recognition.dag</dag_conf>
+        <dag_conf>/apollo/modules/perception/traffic_light_tracking/dag/traffic_light_tracking.dag</dag_conf>
+        <exception_handler>respawn</exception_handler>
+        <respawn_limit>2</respawn_limit>
+    </module>
+    -->
+
+    <module>
+        <name>task_manager</name>
+        <process_name>task_manager</process_name>
+        <dag_conf>/apollo/modules/task_manager/dag/task_manager.dag</dag_conf>
+        <!-- respawn config -->
+        <exception_handler>respawn</exception_handler>
+        <respawn_limit>1</respawn_limit>
+    </module>
+
+    <module>
+        <name>planning</name>
+        <process_name>planning</process_name>
+        <dag_conf>/apollo/modules/planning/planning_component/dag/planning.dag</dag_conf>
+        <!-- respawn config -->
+        <exception_handler>respawn</exception_handler>
+        <respawn_limit>1</respawn_limit>
+    </module>
+    <module>
+        <name>external_command</name>
+        <process_name>external_command</process_name>
+        <dag_conf>/apollo/modules/external_command/process_component/dag/external_command_process.dag</dag_conf>
+        <!-- respawn config -->
+        <exception_handler>respawn</exception_handler>
+        <respawn_limit>1</respawn_limit>
+    </module>
+    <module>
+        <name>control</name>
+        <process_name>control</process_name>
+        <dag_conf>/apollo/modules/control/control_component/dag/control.dag</dag_conf>
+        <!-- respawn config -->
+        <exception_handler>respawn</exception_handler>
+        <respawn_limit>1</respawn_limit>
+    </module>
+    <module>
+        <name>canbus</name>
+        <process_name>canbus</process_name>
+        <dag_conf>/apollo/modules/canbus/dag/canbus.dag</dag_conf>
+        <!-- respawn config -->
+        <exception_handler>respawn</exception_handler>
+        <respawn_limit>1</respawn_limit>
+    </module>
+
+    <module>
+        <name>monitor</name>
+        <process_name>monitor</process_name>
+        <dag_conf>/apollo/modules/monitor/dag/monitor.dag</dag_conf>
+        <exception_handler>respawn</exception_handler>
+        <respawn_limit>2</respawn_limit>
+    </module>
+
+    <module>
+        <name>statistics</name>
+        <process_name>statistics</process_name>
+        <dag_conf>/apollo/modules/statistics/resource/dag/resource_statistic.dag</dag_conf>
+        <dag_conf>/apollo/modules/statistics/process/dag/process_statistic.dag</dag_conf>
+        <dag_conf>/apollo/modules/statistics/latency/dag/latency_statistic.dag</dag_conf>
+    </module>
+
+    <module>
+        <name>safety_manager</name>
+        <process_name>safety_manager</process_name>
+        <dag_conf>/apollo/modules/safety_manager/analyzer/dag/safety_analyzer.dag</dag_conf>
+        <dag_conf>/apollo/modules/safety_manager/checker/localization_checker/dag/localization_checker.dag</dag_conf>
+        <dag_conf>/apollo/modules/safety_manager/checker/channel_freq_checker/dag/channel_freq_checker.dag</dag_conf>
+        <dag_conf>/apollo/modules/safety_manager/checker/process_checker/dag/process_checker.dag</dag_conf>
+        <dag_conf>/apollo/modules/safety_manager/checker/latency_checker/dag/latency_checker.dag</dag_conf>
+        <dag_conf>/apollo/modules/safety_manager/checker/resource_checker/dag/recource_checker.dag</dag_conf>
+        <dag_conf>/apollo/modules/safety_manager/guardian/dag/guardian.dag</dag_conf>
+
+        <exception_handler>respawn</exception_handler>
+        <respawn_limit>3</respawn_limit>
+    </module>
+
+    <module>
+        <name>dreamview</name>
+        <type>binary</type>
+        <process_name>
+            dreamview_plus --flagfile=/apollo/modules/dreamview_plus/conf/dreamview.conf
+        </process_name>
+    </module>
+
+    <module>
+        <name>recorder</name>
+        <type>binary</type>
+        <process_name>
+            /apollo/scripts/data_record.py --middle --with_compensator --foreground
+        </process_name>
+        <exception_handler>respawn</exception_handler>
+        <respawn_limit>10</respawn_limit>
+    </module>
+
+    <module>
+        <name>data_cleaner</name>
+        <type>binary</type>
+        <process_name>
+            data_cleaner -c /apollo/modules/tools/data_cleaner/data_cleaner.yaml
+        </process_name>
+    </module>
+
+    <module>
+        <name>nperf</name>
+        <type>binary</type>
+        <process_name>
+            /apollo_workspace/edu_scripts/perf/nperf.sh
+        </process_name>
+    </module>
+</cyber>

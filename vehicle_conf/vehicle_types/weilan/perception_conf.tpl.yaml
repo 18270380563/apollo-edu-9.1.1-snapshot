@@ -1,0 +1,11 @@
+# 高精地图ROI过滤：分割算法识别区域，默认只识别地图道路内部的，如果需要外扩，调整extend_dist阈值
+# 注意：模型识别默认是全部点云区域，即改了这个配置道路外的车、人等模型训练过的障碍物还是可以正常感知的
+hdmap_roi_filter:
+  extend_dist: 0.0
+
+# 以主lidar为中心车身点云过滤，前后是X，左右是Y
+pointcloud_filer_zone:
+  box_forward_x: 1.8
+  box_backward_x: -1.3
+  box_forward_y: 0.9
+  box_backward_y: -0.9

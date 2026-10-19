@@ -1,0 +1,12 @@
+controller {
+  name: "LAT_PLUS_CONTROLLER"
+  type: "LatPlusController"
+}
+controller {
+  name: "LON_PLUS_CONTROLLER"
+  type: "LonPlusController"
+}
+controller {
+  name: "DEBUG_INFO_TASK"
+  type: "DebugInfoControlTask"
+}

@@ -1,0 +1,11 @@
+module_config {
+    module_library : "modules/slam_local_indoor/liblaser_multiscan_registration_component.so"
+    components {
+      class_name : "MultiScanRegistrationNode"
+      config {
+        name : "laser_multiscan_registration"
+        config_file_path : "modules/slam_local_indoor/conf/laser_multiscan_registration_conf.pb.txt"
+        flag_file_path: "modules/slam_local_indoor/conf/slam_local_indoor.flag"
+      }
+    }
+}

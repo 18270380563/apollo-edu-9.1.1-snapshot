@@ -1,0 +1,10 @@
+max_s_distance:10.0
+max_lateral_distance:3.0
+path_optimizer_config {
+  l_weight: 600.0
+  dl_weight: 20.0
+  ddl_weight: 200.0
+  dddl_weight: 1000.0
+  lateral_derivative_bound_default: 2.0
+  path_reference_l_weight:3000
+}

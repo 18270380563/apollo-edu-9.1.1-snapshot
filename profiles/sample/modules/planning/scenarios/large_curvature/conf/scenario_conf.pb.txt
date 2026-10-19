@@ -1,0 +1,4 @@
+min_curvature:0.2
+curvature_check_delta_s:0.3
+curvature_check_distance:3.0
+curvature_check_max:0.1

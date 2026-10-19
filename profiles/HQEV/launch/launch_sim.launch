@@ -1,0 +1,31 @@
+<cyber>
+    <![CDATA[
+        simulation launch, include planing, monitor, dreamview.
+    ]]>
+
+    <module>
+        <name>pnc</name>
+        <process_name>pnc</process_name>
+        <dag_conf>/apollo/modules/external_command/process_component/dag/external_command_process.dag</dag_conf>
+        <dag_conf>/apollo/modules/planning/planning_component/dag/planning.dag</dag_conf>
+        <!-- respawn config -->
+        <exception_handler>respawn</exception_handler>
+        <respawn_limit>1</respawn_limit>
+    </module>
+
+    <module>
+        <name>monitor</name>
+        <process_name>monitor</process_name>
+        <dag_conf>/apollo/modules/monitor/dag/monitor.dag</dag_conf>
+        <exception_handler>respawn</exception_handler>
+        <respawn_limit>2</respawn_limit>
+    </module>
+
+    <module>
+        <name>dreamview</name>
+        <type>binary</type>
+        <process_name>
+            dreamview_plus --flagfile=/apollo/modules/dreamview_plus/conf/dreamview.conf
+        </process_name>
+    </module>
+</cyber>

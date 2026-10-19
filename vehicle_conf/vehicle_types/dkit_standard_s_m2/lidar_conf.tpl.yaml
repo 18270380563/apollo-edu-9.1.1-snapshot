@@ -1,0 +1,18 @@
+# 速腾：RoboSense, 览沃: Livox
+lidar_list:
+  - frame_id: "lidar16_back"
+    # 主lidar只能指定一个，slam定位使用主lidar点云匹配，多个lidar点云数据会融合到主lidar的点云中
+    is_main_lidar: true
+    # 如果指定了主lidar，必须指定lidar_nscan
+    lidar_nscan: 16
+    scan_channel: "/apollo/sensor/lidar16/back/Scan"
+    point_cloud_channel: "/apollo/sensor/lidar16/back/PointCloud2"
+    lidar_type: "RoboSense"
+    lidar_params:
+      # sample: "RS16", "RS32", "RS80", "RS128", "RSBP", "RSHELIOS", "RSHELIOS_16P", "RSM1"
+      model: "RS16"
+      msop_port: 6699
+      difop_port: 7788
+
+fusion_and_compensator:
+  transform_query_timeout: 0.02 # tf查询超时时间, 如果时间没对齐导致运动补偿频率不足，可以尝试调大这个值

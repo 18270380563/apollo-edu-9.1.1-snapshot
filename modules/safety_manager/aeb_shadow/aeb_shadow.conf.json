@@ -1,0 +1,20 @@
+{
+  "node_name": "aeb_shadow",
+  "obstacles_channel": "/apollo/perception/obstacles",
+  "chassis_channel": "/apollo/canbus/chassis",
+  "localization_channel": "/apollo/localization/pose",
+  "status_channel": "/apollo/safety/aeb_shadow_status",
+  "max_chassis_age_sec": 0.2,
+  "max_localization_age_sec": 0.2,
+  "min_ego_speed_mps": 1.0,
+  "min_forward_distance_m": 0.2,
+  "max_forward_distance_m": 80.0,
+  "lane_half_width_m": 1.75,
+  "ego_front_offset_m": 3.62,
+  "min_closing_speed_mps": 0.5,
+  "warning_ttc_sec": 5.0,
+  "brake_ttc_sec": 3.0,
+  "min_confirmed_frames": 3,
+  "telemetry_interval_sec": 1.0,
+  "max_recommended_deceleration_mps2": 5.0
+}

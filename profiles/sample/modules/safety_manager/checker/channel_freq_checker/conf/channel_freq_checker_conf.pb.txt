@@ -1,0 +1,29 @@
+# sensor drivers
+item {name: "/apollo/sensor/lidar16/back/PointCloud2", level: ERROR, expect_freq: 10, lower_limit: 6, upper_limit: 15}
+item {name: "/apollo/sensor/lidar/compensator/PointCloud2", level: ERROR, expect_freq: 10, lower_limit: 6, upper_limit: 15}
+#item {name: "/apollo/sensor/camera/front/image", level: ERROR, expect_freq: 10, lower_limit: 6, upper_limit: 20}
+#item {name: "/apollo/sensor/camera/rear/image", level: ERROR, expect_freq: 10, lower_limit: 6, upper_limit: 20}
+#item {name: "/apollo/sensor/radar/front", level: ERROR, expect_freq: 15, lower_limit: 8, upper_limit: 30}
+
+# perception and prediction
+item {name: "/apollo/perception/obstacles", level: ERROR, expect_freq: 10, lower_limit: 6, upper_limit: 15}
+
+# prediction channel
+item {name: "/apollo/prediction", level: ERROR, expect_freq: 10, lower_limit: 6, upper_limit: 15}
+
+# pnc channel
+item {name: "/apollo/planning", level: ERROR, expect_freq: 10, lower_limit: 6, upper_limit: 15}
+item {name: "/apollo/control", level: ERROR, expect_freq: 100, lower_limit: 80, upper_limit: 150}
+item {name: "/apollo/canbus/chassis", level: ERROR, expect_freq: 100, lower_limit: 80, upper_limit: 150}
+item {name: "/apollo/canbus/chassis_detail", level: ERROR, expect_freq: 100, lower_limit: 80, upper_limit: 150} 
+
+# guardian
+item {name: "/apollo/guardian", level: ERROR, expect_freq: 100, lower_limit: 80, upper_limit: 150}
+
+# localization channel
+item {name: "/apollo/sensor/gnss/best_pose", level: ERROR, expect_freq: 1, lower_limit: 0.3, upper_limit: 3}
+item {name: "/apollo/sensor/gnss/corrected_imu", level: ERROR, expect_freq: 100, lower_limit: 60, upper_limit: 150}
+item {name: "/apollo/localization/pose", level: ERROR, expect_freq: 100, lower_limit: 80, upper_limit: 150}
+
+# tf
+item {name: "/tf", level: ERROR, expect_freq: 100, lower_limit: 70, upper_limit: 150}

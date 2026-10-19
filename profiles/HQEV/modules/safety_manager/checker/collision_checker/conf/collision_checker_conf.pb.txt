@@ -1,0 +1,100 @@
+# The seconds time to collision in different level
+warn_sec: 5.0  # Do nothing, just sending a warning status
+error_sec: 4.0 # Comfortable brake
+fatal_sec: 3.0 # Emergency brake
+
+# strategy type:
+#   SENSITIVE: a relatively conservative strategy that may raise alarm at low level risk.
+#   ACCURATE: calculate ttc only by prediction result, few alarm raised in this strategy usually.
+#   NORMAL: a neutral strategy between SENSITIVE and ACCURATE.
+type: NORMAL
+
+# sensitive strategy
+sensitive_strategy_conf {
+  # front collision check angle
+  collision_check_angle: 90.0
+  # front collision check distance
+  collision_check_distance: 100.0
+
+  # if predict adc trajectory by acceleration, 
+  # when adc is decelerating, deceleration is not calculated.
+  predict_adc_by_acc: true
+
+  # acceleration calculation time, after which speed is regared as constant
+  acc_calculate_sec: 3.0
+
+  # obstacles prediction method, at least one method need to be selected
+  # optional: perception, prediction, stationary
+  predict_obs_by_perception: true
+  predict_obs_by_prediction: true
+  predict_obs_by_stationary: true
+
+  # auto driving car box extended in meters
+  adc_front_extended_len: 0.2
+  adc_lateral_extended_len: 0.2
+  adc_back_extended_len: 0.2
+
+  # do not check at low speed or turning
+  speed_threshold_mps: 0.01
+  steering_threshold_percentage: 50
+}
+
+# normal strategy
+normal_strategy_conf {
+  # front collision check angle
+  collision_check_angle: 90.0
+  # front collision check distance
+  collision_check_distance: 100.0
+
+  # if predict adc trajectory by acceleration, 
+  # when adc is decelerating, deceleration is not calculated.
+  predict_adc_by_acc: true
+
+  # acceleration calculation time, after which speed is regared as constant
+  acc_calculate_sec: 3.0
+
+  # obstacles prediction method, at least one method need to be selected
+  # optional: perception, prediction, stationary
+  predict_obs_by_perception: true
+  predict_obs_by_prediction: true
+  predict_obs_by_stationary: false
+
+  # auto driving car box extended in meters
+  adc_front_extended_len: 0.1
+  adc_lateral_extended_len: 0.1
+  adc_back_extended_len: 0.1
+
+  # do not check at low speed or turning
+  speed_threshold_mps: 1.0
+  steering_threshold_percentage: 10
+}
+
+# accurate strategy
+accurate_strategy_conf {
+  # front collision check angle
+  collision_check_angle: 90.0
+  # front collision check distance
+  collision_check_distance: 100.0
+
+  # if predict adc trajectory by acceleration, 
+  # when adc is decelerating, deceleration is not calculated.
+  predict_adc_by_acc: true
+
+  # acceleration calculation time, after which speed is regared as constant
+  acc_calculate_sec: 3.0
+
+  # obstacles prediction method, at least one method need to be selected
+  # optional: perception, prediction, stationary
+  predict_obs_by_perception: false
+  predict_obs_by_prediction: true
+  predict_obs_by_stationary: false
+
+  # auto driving car box extended in meters
+  adc_front_extended_len: 0.0;
+  adc_lateral_extended_len: 0.0;
+  adc_back_extended_len: 0.0;
+
+  # do not check at low speed or turning
+  speed_threshold_mps: 1.0
+  steering_threshold_percentage: 10
+}

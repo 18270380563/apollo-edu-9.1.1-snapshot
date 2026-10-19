@@ -1,0 +1,8 @@
+roi_type: PARKING
+roi_longitudinal_range_start: 20
+roi_longitudinal_range_end: 20
+parking_depth_buffer: 1.2
+expand_polygon_of_obstacle_by_distance: false
+perception_obstacle_buffer: 0.3
+expand_parking_buffer: 0.0
+parallel_parking_depth: 0.6

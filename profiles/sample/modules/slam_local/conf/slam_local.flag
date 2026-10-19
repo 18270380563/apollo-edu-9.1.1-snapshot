@@ -1,0 +1,27 @@
+--flagfile=/apollo/modules/common/data/global_flagfile.txt
+
+--enable_slam_debug_flag=false
+
+--pose_path=SLAMMap
+
+--threeTracePath=/3D-Pose.txt
+--sixTracePath=/6D-Pose.txt
+--surfFilePath=/surfPointCloud.txt
+--offsetFile=/gnss-map-offset.txt
+
+--trajectory_slam=/apollo/data/trajectory_slam.txt
+--trajectory_slam_local=/apollo/data/trajectory_slam_local.txt
+--trajectory_rtk=/apollo/data/trajectory_rtk.txt
+
+--slam_pose_result=/slam_pose_result.bin
+
+--imu_gps_translation_x=-0.10
+--imu_gps_translation_y=0.60
+--imu_gps_translation_z=-1.18
+--local_map_downsize=true
+
+--mean_filter_window_size=20
+--icp_threshold_change_slam_to_rtk=0.15
+--downsize_interval_distance=4.0
+--nearestk_search_distance_threshold = 2.0
+--nearestk_search_angle_threshold = 0.05

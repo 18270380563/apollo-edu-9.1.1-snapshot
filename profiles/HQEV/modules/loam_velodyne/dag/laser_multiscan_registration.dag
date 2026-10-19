@@ -1,0 +1,10 @@
+module_config {
+    module_library : "modules/loam_velodyne/liblaser_multiscan_registration_component.so"
+    components {
+      class_name : "MultiScanRegistrationNode"
+      config {
+        name : "laser_multiscan_registration"
+        config_file_path : "/apollo/modules/loam_velodyne/conf/laser_multiscan_registration_conf.pb.txt"
+      }
+    }
+}

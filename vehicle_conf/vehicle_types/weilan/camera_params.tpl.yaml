@@ -1,0 +1,59 @@
+# 注意：所有lidar的外参配置都是相对imu作为父坐标系的
+# 以下外参配置的key必须与lidar_config.yaml中的frame_id一致
+# 通常imu坐标系为车前是Y轴，车左是X轴；lidar坐标系为前方是X轴，右侧是Y轴
+# rotation统一写四元数，欧拉角转四元数查询网站: https://quaternions.online/
+
+camera_front_6mm:
+  extrinsics:
+    parent_frame_id: lidar16_back
+    transform:
+      rotation:
+        x: -0.5090692569566782
+        y: 0.5096539036039291
+        z: -0.4782621974758038
+        w: 0.5023610859018319
+      translation:
+        x: 1.26
+        y: 0.0
+        z: -0.46
+  intrinsics:
+    height: 1080
+    width: 1920
+    D:
+    - -0.557344913482666
+    - 0.30081263184547424
+    - -0.0013572277966886759
+    - 0.0016863294877111912
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    K:
+    - 1970.1998291015625
+    - 0.0
+    - 955.6033935546875
+    - 0.0
+    - 1969.90283203125
+    - 465.751708984375
+    - 0.0
+    - 0.0
+    - 1.0
+    R:
+    - 1.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 1.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 1.0
+    binning_x: 0
+    binning_y: 0
+    distortion_model: plumb_bob
+    roi:
+      do_rectify: false
+      height: 0
+      width: 0
+      x_offset: 0
+      y_offset: 0

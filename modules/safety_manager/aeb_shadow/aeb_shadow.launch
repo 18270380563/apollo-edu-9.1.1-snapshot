@@ -1,0 +1,11 @@
+<cyber>
+  <module>
+    <name>aeb_shadow</name>
+    <type>binary</type>
+    <process_name>
+      /apollo_workspace/modules/safety_manager/aeb_shadow/start_aeb_shadow.sh --config /apollo_workspace/profiles/HQEV/modules/safety_manager/aeb_shadow/conf/aeb_shadow.conf.json
+    </process_name>
+    <exception_handler>respawn</exception_handler>
+    <respawn_limit>1</respawn_limit>
+  </module>
+</cyber>

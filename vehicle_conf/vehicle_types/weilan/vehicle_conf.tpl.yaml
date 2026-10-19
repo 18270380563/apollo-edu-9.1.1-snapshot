@@ -1,0 +1,45 @@
+# 线控配置
+canbus:
+  brand: "DKIT"
+  channel_id: "CHANNEL_ID_ZERO"
+  canbus_vehicle_lib: "devkit/libdevkit_vehicle_factory_lib.so"
+  canbus_vehicle_class: "DevkitVehicleFactory"
+
+# 车辆配置文件
+vehicle_param:
+  # 车辆类型
+  vehicle_id: weilan
+  # 长宽高
+  length: 3.085
+  width: 1.725
+  height: 1.835
+
+  # 定义后轴中心位置
+  front_edge_to_center: 2.70
+  back_edge_to_center: 0.32
+  left_edge_to_center: 0.84
+  right_edge_to_center: 0.84
+
+  # 控制参数
+  min_turn_radius: 4.788
+  max_acceleration: 1.4
+  max_deceleration: -3.0
+  max_steer_angle: 5.23598
+  max_steer_angle_rate: 100
+  min_steer_angle_rate: 0
+  steer_ratio: 12.157021013728903
+  wheel_base: 2.2
+  wheel_rolling_radius: 0.317
+  max_abs_speed_when_stopped: 0.025
+  brake_deadzone: 0.1
+  throttle_deadzone: 2.0
+
+
+# controllers:
+  # 控制器, 选填，不填则使用默认控制器
+  # - 
+  #   name: "LAT_PLUS_CONTROLLER"
+  #   type: "LatPlusController"
+  # -
+  #   name: "LON_PLUS_CONTROLLER"
+  #   type: "LonPlusController"

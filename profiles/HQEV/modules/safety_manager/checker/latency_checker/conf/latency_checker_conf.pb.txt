@@ -1,0 +1,28 @@
+# item config
+# name: unique check name
+# module enums: LIDAR_COMPENSATOR,PERCEPTION,PREDICTION,PLANNING,CONTROL
+# type enums: PROC_MS, CHAIN_MS
+# level: alarm level, enums WARN,ERROR,FATAL
+# avg: avg latency condition, in milliseconds
+# min: min latency condition, in milliseconds
+# max: max latency condition, in milliseconds
+# sample_size_lower_limit: sample_size less than the limit will be ignored
+
+# lidar compensator
+#item {name: "lidar compensator proc time", module: LIDAR_COMPENSATOR, type: PROC_MS, level: ERROR, avg: 150, sample_size_lower_limit: 10}
+#item {name: "lidar compensator chain time", module: LIDAR_COMPENSATOR, type: CHAIN_MS, level: ERROR, avg: 150, sample_size_lower_limit: 10}
+
+# perception
+item {name: "perception proc time", module: PERCEPTION, type: PROC_MS, level: ERROR, avg: 300, sample_size_lower_limit: 10}
+item {name: "perception chain time", module: PERCEPTION, type: CHAIN_MS, level: ERROR, avg: 350, sample_size_lower_limit: 10}
+
+# prediction
+item {name: "prediction proc time", module: PREDICTION, type: PROC_MS, level: ERROR, avg: 100, sample_size_lower_limit: 10}
+item {name: "prediction chain time", module: PREDICTION, type: CHAIN_MS, level: ERROR, avg: 450, sample_size_lower_limit: 10}
+
+# planning
+item {name: "planning proc time", module: PLANNING, type: PROC_MS, level: ERROR, avg: 300, sample_size_lower_limit: 10}
+item {name: "planning chain time", module: PLANNING, type: CHAIN_MS, level: ERROR, avg: 650, sample_size_lower_limit: 10}
+
+# control
+item {name: "control chain time", module: CONTROL, type: CHAIN_MS, level: ERROR, avg: 850, sample_size_lower_limit: 10}

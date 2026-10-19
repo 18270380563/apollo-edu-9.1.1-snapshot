@@ -1,0 +1,13 @@
+item {name: "Static Transform", type: MAINBOARD_PROCESS_GROUP, value: "static_transform", level: FATAL}
+item {name: "GNSS DRIVER", type: MAINBOARD_PROCESS_GROUP, value: "gnss", level: FATAL}
+item {name: "Localization Process Group", type: MAINBOARD_PROCESS_GROUP, value: "localization", level: FATAL}
+item {name: "LIDAR DRIVER", type: MAINBOARD_PROCESS_GROUP, value: "lidar", level: FATAL}
+item {name: "Perception Process Group", type: MAINBOARD_PROCESS_GROUP, value: "perception", level: FATAL}
+item {name: "PREDICTION Process Group", type: MAINBOARD_PROCESS_GROUP, value: "prediction", level: FATAL}
+item {name: "Planning", type: MAINBOARD_PROCESS_GROUP, value: "planning", level: FATAL}
+item {name: "Control", type: MAINBOARD_PROCESS_GROUP, value: "control", level: FATAL}
+item {name: "Canbus", type: MAINBOARD_PROCESS_GROUP, value: "canbus", level: FATAL}
+item {name: "Statistics Process Group", type: MAINBOARD_PROCESS_GROUP, value: "statistics", level: ERROR}
+item {name: "DreamviewPlus Process", type: GENERAL_PROCESS, value: "dreamview_plus", level: WARN}
+item {name: "Recorder Process", type: GENERAL_PROCESS, value: "cyber_recorder record", level: WARN}
+item {name: "Data Clean Process", type: GENERAL_PROCESS, value: "data_cleaner", level: WARN}

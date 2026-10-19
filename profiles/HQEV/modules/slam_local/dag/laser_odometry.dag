@@ -1,0 +1,11 @@
+module_config {
+    module_library : "modules/slam_local/liblaser_odometry_component.so"
+    components {
+      class_name : "LaserOdoMetryNode"
+      config {
+        name : "laser_odometry"
+        config_file_path : "/apollo/modules/slam_local/conf/laser_odometry_conf.pb.txt"
+        flag_file_path: "/apollo/modules/slam_local/conf/slam_local.flag"
+      }
+    }
+}

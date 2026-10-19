@@ -1,0 +1,3 @@
+modules/slam_local_indoor/conf/slam_local_indoor.flag:
+  update:
+    - init_DV_position_channel: /apollo/indoor_localization/init_pose

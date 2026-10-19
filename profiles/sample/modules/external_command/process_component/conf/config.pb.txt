@@ -1,0 +1,8 @@
+output_command_status_name: "/apollo/external_command/command_status"
+processor: "apollo::external_command::LaneFollowCommandProcessor"
+processor: "apollo::external_command::ValetParkingCommandProcessor"
+processor: "apollo::external_command::ActionCommandProcessor"
+processor: "apollo::external_command::ChassisCommandProcessor"
+processor: "apollo::external_command::FreeSpaceCommandProcessor"
+processor: "apollo::external_command::PathFollowCommandProcessor"
+processor: "apollo::external_command::SpeedCommandProcessor"

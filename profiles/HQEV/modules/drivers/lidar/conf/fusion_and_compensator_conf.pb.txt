@@ -1,0 +1,12 @@
+max_interval_ms: 50
+drop_expired_data : true
+input_channel: [
+    # name: "/apollo/sensor/lidar16/back/PointCloud2"
+    # frame_id: "lidar16_back"
+]
+# wait time after main channel receive msg, unit second
+wait_time_s: 0.02
+world_frame_id: "world"
+transform_query_timeout: 0.02
+output_channel: "/apollo/sensor/lidar/compensator/PointCloud2"
+rotation_compensation: false

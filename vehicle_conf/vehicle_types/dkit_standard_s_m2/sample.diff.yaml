@@ -1,0 +1,27 @@
+# 以下是样例
+# modules/control/control_component/conf/pipeline.pb.txt:
+#   insert:
+#     - controller[2]:
+#         name: '"LON_PLUS_CONTROLLER"'
+#         type: '"LonPlusController"'
+
+# modules/planning/planning_component/conf/planning.conf:
+#   update:
+#     - obstacle_lat_buffer: 0.5
+#   add:
+#     - axxxx: 0.6
+#     - ayyyy: "afs"
+#   delete:
+#     - static_obstacle_nudge_l_buffer
+#     - min_stop_distance_obstacle
+
+# modules/control/controllers/lat_based_lqr_controller/conf/controller_conf.pb.txt:
+#   update:
+#     - query_relative_time: 0.0
+#     - reverse_leadlag_conf.innerstate_saturation_level: 2000
+#   delete:
+#     - steer_mrac_conf
+#   insert:
+#     - heading_err_gain_scheduler.scheduler[1]:
+#         speed: 100
+#         ratio: 2.0

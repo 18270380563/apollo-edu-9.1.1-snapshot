@@ -1,0 +1,18 @@
+cpu {
+  usage_warning: 75
+  usage_error: 80
+  temperature_warning: 75
+  temperature_error: 85
+}
+memory {
+  usage_warning: 80
+  usage_error: 90
+  available_warning: 3000
+  available_error: 2000
+}
+disk {
+  name: "DisK"
+  device: "nvme0n1p2"
+  usage_warning: 80
+  usage_error: 90
+}

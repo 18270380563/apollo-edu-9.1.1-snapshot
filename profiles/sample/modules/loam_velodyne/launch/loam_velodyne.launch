@@ -1,0 +1,9 @@
+<cyber>
+    <module>
+        <name>loam_velodyne</name>
+        <dag_conf>/apollo/modules/loam_velodyne/dag/laser_multiscan_registration.dag</dag_conf>
+        <dag_conf>/apollo/modules/loam_velodyne/dag/laser_odometry.dag</dag_conf>
+        <dag_conf>/apollo/modules/loam_velodyne/dag/localization_mapping.dag</dag_conf>
+        <process_name>loam_velodyne</process_name>
+    </module>
+</cyber>

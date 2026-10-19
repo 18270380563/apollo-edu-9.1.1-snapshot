@@ -1,0 +1,46 @@
+# optional control check item: gear, throttle, brake, steer, sliding, speed
+# optional risk level: WARN, ERROR, FATAL.
+
+# if the item is not configured, it will not be checked.
+# if level is not configured, the default level would be used.
+
+# check gear location consistency.
+ gear {
+  # default level: ERROR
+  level: ERROR 
+ }
+
+# check throttle percentage consistency.
+ throttle {
+  # default level: ERROR
+  level: ERROR
+}
+
+# check brake percentage consistency.
+ brake {
+  # default level: FATAL
+  level: FATAL
+ }
+
+# check steer percentage consistency.
+ steer {
+  # default level: ERROR
+  level: ERROR
+ }
+
+# check sliding accident.
+ sliding {
+  # default level: FATAL
+  level: FATAL
+ }
+
+# check speed percentage and absolute value consistency, absolute speed check is optional.
+ speed {
+  # default level: ERROR    
+  level: ERROR
+  # speed diff limit in m/s
+  # if speed_diff_limit not configured, only check speed difference percentage.
+  speed_diff_limit: 2
+ }
+
+

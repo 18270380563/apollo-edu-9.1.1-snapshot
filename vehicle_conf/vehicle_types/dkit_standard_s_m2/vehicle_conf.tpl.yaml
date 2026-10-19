@@ -1,0 +1,45 @@
+# 线控配置
+canbus:
+  brand: "DKIT"
+  channel_id: "CHANNEL_ID_ZERO"
+  canbus_vehicle_lib: "devkit/libdevkit_vehicle_factory_lib.so"
+  canbus_vehicle_class: "DevkitVehicleFactory"
+
+# 车辆配置文件
+vehicle_param:
+  # 车辆类型
+  vehicle_id: standard_s
+  # 长宽高
+  length: 1.40
+  width: 0.80
+  height: 1.02
+
+  # 定义后轴中心位置
+  front_edge_to_center: 1.14
+  back_edge_to_center: 0.26
+  left_edge_to_center: 0.4
+  right_edge_to_center: 0.4
+
+  # 控制参数
+  min_turn_radius: 2.55
+  max_acceleration: 3.0
+  max_deceleration: -7.34
+  max_steer_angle: 4.72984
+  max_steer_angle_rate: 0.6108
+  min_steer_angle_rate: 0
+  steer_ratio: 12.445
+  wheel_base: 1.015
+  wheel_rolling_radius: 0.16
+  max_abs_speed_when_stopped: 0.1
+  brake_deadzone: 0.1
+  throttle_deadzone: 0.1
+
+
+# controllers:
+  # 控制器, 选填，不填则使用默认控制器
+  # - 
+  #   name: "LAT_PLUS_CONTROLLER"
+  #   type: "LatPlusController"
+  # -
+  #   name: "LON_PLUS_CONTROLLER"
+  #   type: "LonPlusController"

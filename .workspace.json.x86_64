@@ -1,0 +1,7 @@
+{
+    "repositories" : [
+        {"name": "apollo-edu", "version": "9.1.1"},
+        {"name": "apollo-tools", "version": "9.1.1"},
+        {"name": "apollo-core", "version": "9.1.1"}
+    ]
+}

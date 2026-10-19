@@ -1,0 +1,41 @@
+# note: matched rule will override rule in safety status item
+
+rule_matcher {
+  matcher {
+    # full name match list
+    #name: Memory
+    # or
+    #name: ["CPU", "Memory"]
+
+    # name contains match list
+    #contains: ["Mem"]
+
+    # name prefix match list
+    #prefix: ["Mem"]
+
+    # name regex match list
+    #regex: ["Mem.*"]
+
+    # tags contains one match list
+    #tags_contains_one: ["resource", "load"] # contain resource or load
+ 
+    # tags contains many match list
+    #tags_contains_many: ["resource", "load"] # contain resource and load
+  }
+  rule {
+    # note: at most one rule can be configured at the same time,
+    # if multi rules are configured, the result may not be what you expected
+
+    # timeout seconds
+    #timeout: 3.0
+
+    # duration rule in seconds
+    #duration: 10.0
+
+    # filter rule
+    #filter {
+    #  required_cycles: 3
+    #  total_cycles: 5
+    #}
+  }
+}

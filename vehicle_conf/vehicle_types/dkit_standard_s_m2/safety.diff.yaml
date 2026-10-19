@@ -1,0 +1,4 @@
+# 功能安全DIFF
+modules/safety_manager/checker/resource_checker/conf/resource_checker_conf.pb.txt:
+    update:
+      - disk.device: nvme0n1p2

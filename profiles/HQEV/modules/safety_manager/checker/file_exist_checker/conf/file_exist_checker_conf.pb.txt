@@ -1,0 +1,17 @@
+# The file path, risk level need to be given, file name is optional.
+
+# file name: file alias or short name.
+# file path: absolute path or relative path base on current directory, usually in "/apollo/".
+# risk level: WARN, ERROR, FATAL.
+
+item {
+    name: "novatel_localization_extrinsics.yaml"
+    path: "/apollo/modules/localization/msf/params/novatel_localization_extrinsics.yaml"
+    level: FATAL
+}
+
+item {
+    name: "static_transform_conf.pb.txt"
+    path: "/apollo/modules/transform/conf/static_transform_conf.pb.txt"
+    level: FATAL
+}

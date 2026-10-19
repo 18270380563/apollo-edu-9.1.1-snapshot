@@ -1,0 +1,9 @@
+<cyber>
+  <module>
+    <name>slam_local_indoor</name>
+    <dag_conf>modules/slam_local_indoor/dag/laser_multiscan_registration.dag</dag_conf>
+    <dag_conf>modules/slam_local_indoor/dag/laser_odometry.dag</dag_conf>
+    <dag_conf>modules/slam_local_indoor/dag/localization_mapping.dag</dag_conf>
+    <process_name>slam_local_indoor</process_name>
+  </module>
+</cyber>

@@ -1,0 +1,27 @@
+# 泊车参数diff
+modules/planning/scenarios/valet_parking_park/conf/valet_parking_parking_park/open_space_roi_decider_park.pb.txt:
+    update:
+      - expand_parking_buffer: 1.0
+      - parking_depth_buffer: 0.3
+      - parallel_parking_depth: 0.2
+modules/planning/scenarios/valet_parking_park/conf/valet_parking_parking_park/open_space_trajectory_post_process.pb.txt:
+    update:
+      - stop_check_window: 60
+modules/planning/scenarios/valet_parking_park/conf/scenario_conf.pb.txt:
+    update:
+      - max_valid_stop_distance: 1.0
+modules/planning/planning_component/conf/planning.conf:
+    add:
+      - enable_corner_constraint: false
+      - enable_adc_vertex_constraint: false
+modules/planning/scenarios/valet_parking_park/conf/valet_parking_parking_park/open_space_path_planning.pb.txt:
+    update:
+      - warm_start_config.traj_short_length_penalty: 3.0
+modules/planning/scenarios/park_and_go/conf/park_and_go_adjust/open_space_trajectory_provider.pb.txt:
+    update:
+      - planner_open_space_config.warm_start_config.traj_kappa_contraint_ratio: 1.5
+modules/planning/tasks/open_space_trajectory_provider/conf/default_conf.pb.txt:
+    update:
+      - open_space_trajectory_optimizer_config.planner_open_space_config.warm_start_config.traj_kappa_contraint_ratio: 1.4
+      - open_space_trajectory_optimizer_config.planner_open_space_config.warm_start_config.traj_expected_shortest_length: 0.5
+      - open_space_trajectory_optimizer_config.planner_open_space_config.warm_start_config.desired_explored_num: 1000

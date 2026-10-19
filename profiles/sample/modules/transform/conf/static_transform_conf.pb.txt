@@ -1,0 +1,76 @@
+extrinsic_file {
+    frame_id: "localization"
+    child_frame_id: "novatel"
+    file_path: "/apollo/modules/localization/msf/params/novatel_localization_extrinsics.yaml"
+    enable: true
+}
+
+extrinsic_file {
+    frame_id: "localization"
+    child_frame_id: "imu"
+    file_path: "/apollo/modules/localization/msf/params/imu_localization_extrinsics.yaml"
+    enable: true
+}
+
+extrinsic_file {
+    frame_id: "lidar16_back"
+    child_frame_id: "camera_front"
+    file_path: "/apollo/modules/perception/data/params/camera_front_lidar16_back_extrinsics.yaml"
+    enable: true
+}
+
+extrinsic_file {
+    frame_id: "lidar16_back"
+    child_frame_id: "camera_rear"
+    file_path: "/apollo/modules/perception/data/params/camera_rear_lidar16_back_extrinsics.yaml"
+    enable: true
+}
+
+extrinsic_file {
+    frame_id: "lidar16_back"
+    child_frame_id: "camera_left"
+    file_path: "/apollo/modules/perception/data/params/camera_left_lidar16_back_extrinsics.yaml"
+    enable: true
+}
+
+extrinsic_file {
+    frame_id: "lidar16_back"
+    child_frame_id: "camera_right"
+    file_path: "/apollo/modules/perception/data/params/camera_right_lidar16_back_extrinsics.yaml"
+    enable: true
+}
+
+extrinsic_file {
+    frame_id: "lidar16"
+    child_frame_id: "radar_front"
+    file_path: "/apollo/modules/perception/data/params/radar_front_extrinsics.yaml"
+    enable: true
+}
+
+extrinsic_file {
+    frame_id: "novatel"
+    child_frame_id: "lidar16_back"
+    file_path: "/apollo/modules/perception/data/params/robo_back_novatel_extrinsics.yaml"
+    enable: true
+}
+
+extrinsic_file {
+    frame_id: "novatel"
+    child_frame_id: "lidar16_left"
+    file_path: "/apollo/modules/perception/data/params/robo_left_novatel_extrinsics.yaml"
+    enable: true
+}
+
+extrinsic_file {
+    frame_id: "novatel"
+    child_frame_id: "lidar16_right"
+    file_path: "/apollo/modules/perception/data/params/robo_right_novatel_extrinsics.yaml"
+    enable: true
+}
+
+extrinsic_file {
+    frame_id: "novatel"
+    child_frame_id: "lidar16"
+    file_path: "/apollo/modules/perception/data/params/lidar16_novatel_extrinsics.yaml"
+    enable: true
+}

@@ -1,0 +1,15 @@
+# 以下都是可选项，不填则使用默认值
+map_tool_params:
+  intensity_sigmoid_k: 0.35
+  intensity_sigmoid_x0: 15.0
+  upper_height_limit_relative_to_pose: 0.4
+  lower_height_limit_relative_to_pose: -3.0
+  upper_distance_limit: 20.0
+  lower_distance_limit: 5.0
+  sample_distance: 0.0
+
+calibration_tool_params:
+  angle: 0.2
+  distance: 2.0
+  total: 200
+  calib_height: true

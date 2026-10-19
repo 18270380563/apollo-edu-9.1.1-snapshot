@@ -1,0 +1,18 @@
+<cyber>
+    <module>
+        <name>safety_manager</name>
+        <process_name>safety_manager</process_name>
+        <dag_conf>/apollo/modules/safety_manager/analyzer/dag/safety_analyzer.dag</dag_conf>
+
+        <dag_conf>/apollo/modules/safety_manager/checker/file_exist_checker/dag/file_exist_checker.dag</dag_conf>
+        <dag_conf>/apollo/modules/safety_manager/checker/localization_checker/dag/localization_checker.dag</dag_conf>
+        <dag_conf>/apollo/modules/safety_manager/checker/control_checker/dag/control_checker.dag</dag_conf>
+        <dag_conf>/apollo/modules/safety_manager/checker/channel_freq_checker/dag/channel_freq_checker.dag</dag_conf>
+        <dag_conf>/apollo/modules/safety_manager/checker/collision_checker/dag/collision_checker.dag</dag_conf>
+        <dag_conf>/apollo/modules/safety_manager/checker/process_checker/dag/process_checker.dag</dag_conf>
+        <dag_conf>/apollo/modules/safety_manager/checker/latency_checker/dag/latency_checker.dag</dag_conf>
+        <dag_conf>/apollo/modules/safety_manager/checker/resource_checker/dag/recource_checker.dag</dag_conf>
+
+        <dag_conf>/apollo/modules/safety_manager/guardian/dag/guardian.dag</dag_conf>
+    </module>
+</cyber>

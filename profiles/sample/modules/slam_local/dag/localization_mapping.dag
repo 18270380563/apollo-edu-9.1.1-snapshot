@@ -1,0 +1,11 @@
+module_config {
+    module_library : "modules/slam_local/liblocalization_mapping_node_component.so"
+    components {
+      class_name : "MapOptimization"
+      config {
+        name : "localization_mapping"
+        config_file_path : "/apollo/modules/slam_local/conf/localization_conf.pb.txt"
+        flag_file_path: "/apollo/modules/slam_local/conf/slam_local.flag"
+      }
+    }
+}

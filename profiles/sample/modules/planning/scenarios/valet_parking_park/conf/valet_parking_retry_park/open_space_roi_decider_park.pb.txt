@@ -1,0 +1,4 @@
+roi_type: PARKING
+parking_depth_buffer: 0.3
+expand_polygon_of_obstacle_by_distance: false
+perception_obstacle_buffer: 0.3
