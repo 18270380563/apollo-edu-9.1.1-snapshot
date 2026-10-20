@@ -9,8 +9,8 @@ data {
 rtk_from {
     format: RTCM_V3
     ntrip {
-        address: "203.107.45.154"
-        port: 8003
+        address: "XXXXXXXX"
+        port: xxxx
         mount_point: "AUTO"
         user: "REDACTED"
         password: "REDACTED"
