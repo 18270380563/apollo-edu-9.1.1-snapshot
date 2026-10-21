@@ -1,0 +1,362 @@
+{
+  "schema_version": 1,
+  "description": "Apollo 实车只读状态监控的模块清单。路径均相对 Apollo 根目录（容器内通常是 /apollo），采集器不会修改任何文件。",
+  "apollo": {
+    "root_candidates": [
+      "/apollo"
+    ],
+    "root_markers": [
+      "cyber",
+      "modules"
+    ],
+    "library_search_dirs": [
+      "bazel-bin",
+      ""
+    ],
+    "cyber_tool_subdir": "bazel-bin/cyber/tools"
+  },
+  "modules": [
+    {
+      "id": "canbus",
+      "name": "底盘与车辆接口",
+      "description": "读取车辆底盘并发布 chassis；同时消费控制指令。",
+      "process_keywords": [
+        "mainboard",
+        "modules/canbus/dag/canbus.dag"
+      ],
+      "dags": [
+        "modules/canbus/dag/canbus.dag"
+      ],
+      "launch": "modules/canbus/launch/canbus.launch",
+      "conf": [
+        "modules/canbus/conf/canbus_conf.pb.txt",
+        "modules/canbus/conf/canbus.conf"
+      ],
+      "suggested_channels": [
+        "/apollo/canbus/chassis",
+        "/apollo/canbus/chassis_detail",
+        "/apollo/control"
+      ]
+    },
+    {
+      "id": "control",
+      "name": "控制",
+      "description": "消费规划轨迹、定位和底盘状态，输出控制指令。",
+      "process_keywords": [
+        "mainboard",
+        "modules/control/control_component/dag/control.dag"
+      ],
+      "dags": [
+        "modules/control/control_component/dag/control.dag"
+      ],
+      "launch": "modules/control/control_component/launch/control.launch",
+      "conf": [
+        "modules/control/control_component/conf/control.conf"
+      ],
+      "suggested_channels": [
+        "/apollo/control",
+        "/apollo/canbus/chassis",
+        "/apollo/localization/pose",
+        "/apollo/planning"
+      ]
+    },
+    {
+      "id": "localization",
+      "name": "定位",
+      "description": "RTK、MSF 或 NDT 定位组件，发布车辆位姿。三个 DAG 任选其一。",
+      "process_keywords": [
+        "mainboard"
+      ],
+      "process_keywords_any": [
+        "modules/localization/dag/dag_streaming_rtk_localization.dag",
+        "modules/localization/dag/dag_streaming_msf_localization.dag",
+        "modules/localization/dag/dag_streaming_ndt_localization.dag"
+      ],
+      "dags": [
+        "modules/localization/dag/dag_streaming_rtk_localization.dag",
+        "modules/localization/dag/dag_streaming_msf_localization.dag",
+        "modules/localization/dag/dag_streaming_ndt_localization.dag"
+      ],
+      "launch": "modules/localization/launch/localization.launch",
+      "conf": [
+        "modules/localization/conf/localization.conf",
+        "modules/localization/conf/localization_config.pb.txt"
+      ],
+      "suggested_channels": [
+        "/apollo/localization/pose",
+        "/apollo/sensor/gnss/odometry",
+        "/apollo/sensor/gnss/best_pose"
+      ]
+    },
+    {
+      "id": "perception",
+      "name": "感知",
+      "description": "激光、相机、红绿灯等感知组件。实车 HMI 配置引用的 production DAG 不在本源码快照内，需现场确认。",
+      "process_keywords": [
+        "mainboard"
+      ],
+      "process_keywords_any": [
+        "modules/perception/production/dag/dag_streaming_perception.dag",
+        "modules/perception/lidar_output/dag/lidar_output.dag",
+        "modules/perception/lidar_detection/dag/lidar_detection.dag",
+        "modules/perception/traffic_light_detection/dag/traffic_light_detection.dag",
+        "modules/perception/camera_detection_multi_stage/dag/camera_detection_multi_stage.dag"
+      ],
+      "dags": [
+        "modules/perception/production/dag/dag_streaming_perception.dag",
+        "modules/perception/lidar_output/dag/lidar_output.dag",
+        "modules/perception/lidar_detection/dag/lidar_detection.dag",
+        "modules/perception/traffic_light_detection/dag/traffic_light_detection.dag",
+        "modules/perception/camera_detection_multi_stage/dag/camera_detection_multi_stage.dag"
+      ],
+      "launch": "modules/perception/lidar_output/launch/lidar_output.launch",
+      "conf": [
+        "modules/perception/lidar_detection/conf/lidar_detection_config.pb.txt"
+      ],
+      "suggested_channels": [
+        "/apollo/perception/obstacles",
+        "/apollo/perception/traffic_light",
+        "/apollo/sensor/lidar128/compensator/PointCloud2",
+        "/apollo/sensor/camera/front_6mm/image"
+      ],
+      "notes": "production DAG 路径来自 modules/dreamview/conf/hmi_modes/*.pb.txt；该文件在当前源码快照中不存在。"
+    },
+    {
+      "id": "planning",
+      "name": "规划",
+      "description": "消费预测、底盘和定位，发布规划轨迹。",
+      "process_keywords": [
+        "mainboard",
+        "modules/planning/planning_component/dag/planning.dag"
+      ],
+      "dags": [
+        "modules/planning/planning_component/dag/planning.dag"
+      ],
+      "launch": "modules/planning/planning_component/launch/planning.launch",
+      "conf": [
+        "modules/planning/planning_component/conf/planning.conf",
+        "modules/planning/planning_component/conf/planning_config.pb.txt"
+      ],
+      "suggested_channels": [
+        "/apollo/planning",
+        "/apollo/prediction",
+        "/apollo/localization/pose",
+        "/apollo/canbus/chassis"
+      ]
+    },
+    {
+      "id": "prediction",
+      "name": "预测",
+      "description": "消费感知障碍物，发布预测轨迹。",
+      "process_keywords": [
+        "mainboard",
+        "modules/prediction/dag/prediction.dag"
+      ],
+      "dags": [
+        "modules/prediction/dag/prediction.dag"
+      ],
+      "launch": "modules/prediction/launch/prediction.launch",
+      "conf": [
+        "modules/prediction/conf/prediction.conf",
+        "modules/prediction/conf/prediction_conf.pb.txt"
+      ],
+      "suggested_channels": [
+        "/apollo/prediction",
+        "/apollo/perception/obstacles",
+        "/apollo/localization/pose"
+      ]
+    },
+    {
+      "id": "routing",
+      "name": "路由",
+      "description": "消费原始路由请求，发布原始路由响应。",
+      "process_keywords": [
+        "mainboard",
+        "modules/routing/dag/routing.dag"
+      ],
+      "dags": [
+        "modules/routing/dag/routing.dag"
+      ],
+      "launch": "modules/routing/launch/routing.launch",
+      "conf": [
+        "modules/routing/conf/routing.conf",
+        "modules/routing/conf/routing_config.pb.txt"
+      ],
+      "suggested_channels": [
+        "/apollo/raw_routing_request",
+        "/apollo/raw_routing_response"
+      ],
+      "notes": "该 launch 的 process_name 为空，匹配以 mainboard 和 DAG 路径为准。"
+    },
+    {
+      "id": "storytelling",
+      "name": "场景叙事",
+      "description": "定时发布车辆场景与故事信息。",
+      "process_keywords": [
+        "mainboard",
+        "modules/storytelling/dag/storytelling.dag"
+      ],
+      "dags": [
+        "modules/storytelling/dag/storytelling.dag"
+      ],
+      "launch": "modules/storytelling/launch/storytelling.launch",
+      "conf": [
+        "modules/storytelling/conf/storytelling_conf.pb.txt"
+      ],
+      "suggested_channels": [
+        "/apollo/storytelling",
+        "/apollo/planning"
+      ]
+    },
+    {
+      "id": "monitor",
+      "name": "系统监控",
+      "description": "Apollo 自带的健康监控组件，发布系统状态。",
+      "process_keywords": [
+        "mainboard",
+        "modules/monitor/dag/monitor.dag"
+      ],
+      "dags": [
+        "modules/monitor/dag/monitor.dag"
+      ],
+      "launch": "modules/monitor/launch/monitor.launch",
+      "conf": [],
+      "suggested_channels": [
+        "/apollo/monitor",
+        "/apollo/monitor/system_status",
+        "/apollo/monitor/static_info"
+      ]
+    },
+    {
+      "id": "transform",
+      "name": "坐标变换",
+      "description": "发布静态坐标变换。该 launch 的 process_name 为空，按 DAG 路径匹配。",
+      "process_keywords": [
+        "mainboard",
+        "modules/transform/dag/static_transform.dag"
+      ],
+      "dags": [
+        "modules/transform/dag/static_transform.dag"
+      ],
+      "launch": "modules/transform/launch/static_transform.launch",
+      "conf": [
+        "modules/transform/conf/static_transform_conf.pb.txt"
+      ],
+      "suggested_channels": [
+        "/tf",
+        "/tf_static"
+      ]
+    },
+    {
+      "id": "dreamview",
+      "name": "DreamView",
+      "description": "Apollo 可视化与 HMI 后端，是二进制进程而不是 mainboard 组件。",
+      "process_keywords": [
+        "dreamview",
+        "--flagfile="
+      ],
+      "process_keywords_any": [
+        "modules/dreamview/conf/dreamview.conf"
+      ],
+      "binary": true,
+      "library_check": false,
+      "launch": "modules/dreamview/launch/dreamview.launch",
+      "conf": [
+        "modules/dreamview/conf/dreamview.conf"
+      ],
+      "suggested_channels": [],
+      "notes": "DreamView 默认监听 8899 端口，本监控不连接它。"
+    },
+    {
+      "id": "dreamview_plus",
+      "name": "DreamView Plus",
+      "description": "Apollo 新版可视化与 HMI 后端，是二进制进程。",
+      "process_keywords": [
+        "dreamview_plus"
+      ],
+      "binary": true,
+      "library_check": false,
+      "launch": "modules/dreamview_plus/launch/dreamview_plus.launch",
+      "conf": [
+        "modules/dreamview_plus/conf/dreamview.conf"
+      ],
+      "suggested_channels": []
+    },
+    {
+      "id": "gnss",
+      "name": "GNSS 驱动",
+      "description": "组合导航接收机驱动，发布定位与惯导相关原始数据。",
+      "process_keywords": [
+        "mainboard",
+        "modules/drivers/gnss/dag/gnss.dag"
+      ],
+      "dags": [
+        "modules/drivers/gnss/dag/gnss.dag"
+      ],
+      "launch": "modules/drivers/gnss/launch/gnss.launch",
+      "conf": [
+        "modules/drivers/gnss/conf/gnss_conf.pb.txt"
+      ],
+      "suggested_channels": [
+        "/apollo/sensor/gnss/odometry",
+        "/apollo/sensor/gnss/corrected_imu",
+        "/apollo/sensor/gnss/best_pose",
+        "/apollo/sensor/gnss/gnss_status"
+      ]
+    },
+    {
+      "id": "lidar",
+      "name": "激光雷达驱动",
+      "description": "Velodyne 系列驱动、转换与补偿组件。",
+      "process_keywords": [
+        "mainboard"
+      ],
+      "process_keywords_any": [
+        "modules/drivers/lidar/velodyne/dag/velodyne.dag",
+        "modules/drivers/lidar/velodyne/dag/velodyne16.dag",
+        "modules/drivers/lidar/velodyne/dag/velodyne128.dag",
+        "modules/drivers/lidar/velodyne/dag/velodyne_64_16.dag"
+      ],
+      "dags": [
+        "modules/drivers/lidar/velodyne/dag/velodyne.dag",
+        "modules/drivers/lidar/velodyne/dag/velodyne16.dag",
+        "modules/drivers/lidar/velodyne/dag/velodyne128.dag",
+        "modules/drivers/lidar/velodyne/dag/velodyne_64_16.dag"
+      ],
+      "launch": "modules/drivers/lidar/velodyne/launch/velodyne.launch",
+      "conf": [
+        "modules/drivers/lidar/velodyne/conf/velodyne64_conf.pb.txt"
+      ],
+      "suggested_channels": [
+        "/apollo/sensor/lidar128/compensator/PointCloud2",
+        "/apollo/sensor/lidar16/compensator/PointCloud2",
+        "/apollo/sensor/velodyne64/compensator/PointCloud2"
+      ]
+    },
+    {
+      "id": "camera",
+      "name": "相机驱动",
+      "description": "USB 相机或相机压缩/解压组件。",
+      "process_keywords": [
+        "mainboard"
+      ],
+      "process_keywords_any": [
+        "modules/drivers/camera/dag/camera.dag",
+        "modules/drivers/camera/dag/camera_no_compress.dag"
+      ],
+      "dags": [
+        "modules/drivers/camera/dag/camera.dag",
+        "modules/drivers/camera/dag/camera_no_compress.dag"
+      ],
+      "launch": "modules/drivers/camera/launch/camera.launch",
+      "conf": [
+        "modules/drivers/camera/conf/camera_front_6mm.pb.txt"
+      ],
+      "suggested_channels": [
+        "/apollo/sensor/camera/front_6mm/image",
+        "/apollo/sensor/camera/front_12mm/image",
+        "/apollo/sensor/camera/front_6mm/image/compressed"
+      ]
+    }
+  ]
+}

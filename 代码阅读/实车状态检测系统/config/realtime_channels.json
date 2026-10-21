@@ -1,0 +1,449 @@
+{
+  "schema_version": 1,
+  "description": "Apollo Cyber 只读实时订阅清单。所有通道都来自本机 Apollo 9.1.1 源码核对；generated *_pb2 模块是否存在、通道是否真的发布，需要在实车/容器内现场确认。本文件不会让监控服务创建 writer 或发送任何消息。",
+  "read_only": true,
+  "limits": {
+    "max_depth": 8,
+    "max_items": 200,
+    "max_json_bytes": 262144,
+    "max_image_bytes": 2097152,
+    "max_string_chars": 2000
+  },
+  "can": {
+    "chassis_channel_id": "chassis",
+    "detail_channel_id": "chassis_detail",
+    "fields": [
+      {
+        "source": "chassis",
+        "path": "speed_mps",
+        "label": "车速",
+        "unit": "m/s",
+        "kind": "float"
+      },
+      {
+        "source": "chassis",
+        "path": "engine_rpm",
+        "label": "发动机转速",
+        "unit": "rpm",
+        "kind": "float"
+      },
+      {
+        "source": "chassis",
+        "path": "throttle_percentage",
+        "label": "油门开度",
+        "unit": "%",
+        "kind": "float"
+      },
+      {
+        "source": "chassis",
+        "path": "brake_percentage",
+        "label": "制动开度",
+        "unit": "%",
+        "kind": "float"
+      },
+      {
+        "source": "chassis",
+        "path": "steering_percentage",
+        "label": "转向比例",
+        "unit": "%",
+        "kind": "float"
+      },
+      {
+        "source": "chassis",
+        "path": "gear_location",
+        "label": "挡位",
+        "kind": "enum",
+        "enum_labels": {
+          "GEAR_NEUTRAL": "空挡",
+          "GEAR_DRIVE": "前进挡",
+          "GEAR_REVERSE": "倒挡",
+          "GEAR_PARKING": "驻车挡",
+          "GEAR_LOW": "低速挡",
+          "GEAR_INVALID": "无效挡位",
+          "GEAR_NONE": "无挡位"
+        }
+      },
+      {
+        "source": "chassis",
+        "path": "driving_mode",
+        "label": "驾驶模式",
+        "kind": "enum",
+        "enum_labels": {
+          "COMPLETE_MANUAL": "完全手动",
+          "COMPLETE_AUTO_DRIVE": "完全自动驾驶",
+          "AUTO_STEER_ONLY": "仅自动转向",
+          "AUTO_SPEED_ONLY": "仅自动速度",
+          "EMERGENCY_MODE": "紧急模式"
+        }
+      },
+      {
+        "source": "chassis",
+        "path": "error_code",
+        "label": "底盘故障码",
+        "kind": "enum",
+        "enum_labels": {
+          "NO_ERROR": "无故障",
+          "CMD_NOT_IN_PERIOD": "控制指令未按时到达",
+          "CHASSIS_ERROR": "底盘故障",
+          "MANUAL_INTERVENTION": "人工介入",
+          "CHASSIS_CAN_NOT_IN_PERIOD": "CAN 帧未按时到达",
+          "UNKNOWN_ERROR": "未知故障",
+          "CHASSIS_ERROR_ON_STEER": "转向故障",
+          "CHASSIS_ERROR_ON_BRAKE": "制动故障",
+          "CHASSIS_ERROR_ON_THROTTLE": "油门故障",
+          "CHASSIS_ERROR_ON_GEAR": "挡位故障",
+          "CHASSIS_CAN_LOST": "CAN 通信丢失"
+        }
+      },
+      {
+        "source": "chassis",
+        "path": "battery_soc_percentage",
+        "label": "电池电量",
+        "unit": "%",
+        "kind": "int"
+      },
+      {
+        "source": "chassis",
+        "path": "odometer_m",
+        "label": "里程",
+        "unit": "m",
+        "kind": "float"
+      },
+      {
+        "source": "chassis",
+        "path": "fuel_range_m",
+        "label": "剩余续航",
+        "unit": "m",
+        "kind": "int"
+      },
+      {
+        "source": "chassis",
+        "path": "steering_torque_nm",
+        "label": "转向扭矩",
+        "unit": "Nm",
+        "kind": "float"
+      },
+      {
+        "source": "chassis",
+        "path": "engine_started",
+        "label": "发动机已启动",
+        "kind": "bool"
+      },
+      {
+        "source": "chassis",
+        "path": "parking_brake",
+        "label": "驻车制动",
+        "kind": "bool"
+      },
+      {
+        "source": "chassis",
+        "path": "chassis_error_mask",
+        "label": "底盘故障掩码",
+        "kind": "int"
+      },
+      {
+        "source": "chassis",
+        "path": "front_bumper_event",
+        "label": "前保险杠状态",
+        "kind": "enum",
+        "enum_labels": {
+          "BUMPER_INVALID": "无效",
+          "BUMPER_NORMAL": "正常",
+          "BUMPER_PRESSED": "被按下"
+        }
+      },
+      {
+        "source": "detail",
+        "path": "battery.battery_percent",
+        "label": "电池百分比（ChassisDetail）",
+        "unit": "%",
+        "kind": "float"
+      },
+      {
+        "source": "detail",
+        "path": "eps.steering_angle",
+        "label": "方向盘转角（ChassisDetail）",
+        "unit": "deg",
+        "kind": "float"
+      },
+      {
+        "source": "detail",
+        "path": "eps.is_eps_fail",
+        "label": "EPS 故障（ChassisDetail）",
+        "kind": "bool"
+      },
+      {
+        "source": "detail",
+        "path": "vehicle_spd.is_vehicle_spd_valid",
+        "label": "车速信号有效（ChassisDetail）",
+        "kind": "bool"
+      },
+      {
+        "source": "detail",
+        "path": "check_response.is_eps_online",
+        "label": "EPS 在线",
+        "kind": "bool",
+        "fallback_source": "chassis",
+        "fallback_path": "check_response.is_eps_online"
+      },
+      {
+        "source": "detail",
+        "path": "check_response.is_epb_online",
+        "label": "EPB 在线",
+        "kind": "bool",
+        "fallback_source": "chassis",
+        "fallback_path": "check_response.is_epb_online"
+      },
+      {
+        "source": "detail",
+        "path": "check_response.is_esp_online",
+        "label": "ESP 在线",
+        "kind": "bool",
+        "fallback_source": "chassis",
+        "fallback_path": "check_response.is_esp_online"
+      },
+      {
+        "source": "detail",
+        "path": "check_response.is_vtog_online",
+        "label": "VTOG 在线",
+        "kind": "bool",
+        "fallback_source": "chassis",
+        "fallback_path": "check_response.is_vtog_online"
+      },
+      {
+        "source": "detail",
+        "path": "check_response.is_scu_online",
+        "label": "SCU 在线",
+        "kind": "bool",
+        "fallback_source": "chassis",
+        "fallback_path": "check_response.is_scu_online"
+      },
+      {
+        "source": "detail",
+        "path": "check_response.is_switch_online",
+        "label": "开关在线",
+        "kind": "bool",
+        "fallback_source": "chassis",
+        "fallback_path": "check_response.is_switch_online"
+      },
+      {
+        "source": "detail",
+        "path": "check_response.is_vcu_online",
+        "label": "VCU 在线",
+        "kind": "bool",
+        "fallback_source": "chassis",
+        "fallback_path": "check_response.is_vcu_online"
+      }
+    ]
+  },
+  "channels": [
+    {
+      "id": "chassis",
+      "label": "底盘 Chassis",
+      "channel": "/apollo/canbus/chassis",
+      "kind": "protobuf",
+      "python_module": "modules.common_msgs.chassis_msgs.chassis_pb2",
+      "message_class": "Chassis",
+      "enabled": true,
+      "max_fps": 20,
+      "group": "can",
+      "source": "modules/common/adapters/adapter_gflags.cc:27；modules/canbus/canbus_component.cc:129,158,194",
+      "site_confirm": "需现场确认：车型 canbus 是否真的发布该通道、字段是否被车型驱动填充，以及 generated chassis_pb2 是否可导入。"
+    },
+    {
+      "id": "chassis_detail",
+      "label": "底盘明细 ChassisDetail",
+      "channel": "/apollo/canbus/chassis_detail",
+      "kind": "protobuf",
+      "python_module": "modules.common_msgs.chassis_msgs.chassis_detail_pb2",
+      "message_class": "ChassisDetail",
+      "enabled": true,
+      "max_fps": 10,
+      "group": "can",
+      "source": "modules/common/adapters/adapter_gflags.cc:28；modules/canbus/canbus_component.cc:195-197；默认 enable_chassis_detail_pub=true",
+      "site_confirm": "需现场确认：canbus.conf 是否保留 --enable_chassis_detail_pub，车型是否实现 PublishChassisDetail，generated chassis_detail_pb2 是否存在。"
+    },
+    {
+      "id": "localization_pose",
+      "label": "定位位姿 LocalizationEstimate",
+      "channel": "/apollo/localization/pose",
+      "kind": "protobuf",
+      "python_module": "modules.common_msgs.localization_msgs.localization_pb2",
+      "message_class": "LocalizationEstimate",
+      "enabled": true,
+      "max_fps": 20,
+      "group": "localization",
+      "source": "modules/common/adapters/adapter_gflags.cc:35",
+      "site_confirm": "需现场确认：实际定位 DAG（RTK/MSF/NDT）是否运行并发布该通道，generated localization_pb2 是否可导入。"
+    },
+    {
+      "id": "control",
+      "label": "控制指令 ControlCommand",
+      "channel": "/apollo/control",
+      "kind": "protobuf",
+      "python_module": "modules.common_msgs.control_msgs.control_cmd_pb2",
+      "message_class": "ControlCommand",
+      "enabled": true,
+      "max_fps": 20,
+      "group": "control",
+      "source": "modules/common/adapters/adapter_gflags.cc:48",
+      "site_confirm": "需现场确认：control 模块是否运行并发布该通道，generated control_cmd_pb2 是否可导入。"
+    },
+    {
+      "id": "planning",
+      "label": "规划轨迹 ADCTrajectory",
+      "channel": "/apollo/planning",
+      "kind": "protobuf",
+      "python_module": "modules.common_msgs.planning_msgs.planning_pb2",
+      "message_class": "ADCTrajectory",
+      "enabled": true,
+      "max_fps": 5,
+      "group": "planning",
+      "source": "modules/common/adapters/adapter_gflags.cc:39；planning.proto:69",
+      "site_confirm": "需现场确认：planning 模块是否运行并发布该通道，generated planning_pb2 是否可导入；该消息可能很大，网页只显示截断后的 JSON。"
+    },
+    {
+      "id": "perception_obstacles",
+      "label": "感知障碍物 PerceptionObstacles",
+      "channel": "/apollo/perception/obstacles",
+      "kind": "protobuf",
+      "python_module": "modules.common_msgs.perception_msgs.perception_obstacle_pb2",
+      "message_class": "PerceptionObstacles",
+      "enabled": true,
+      "max_fps": 5,
+      "group": "perception",
+      "source": "modules/common/adapters/adapter_gflags.cc:120；perception_obstacle.proto:238",
+      "site_confirm": "需现场确认：实际感知 DAG 是否运行并发布该通道，generated perception_obstacle_pb2 是否可导入；障碍物列表可能被安全上限截断。"
+    },
+    {
+      "id": "prediction",
+      "label": "预测障碍物 PredictionObstacles",
+      "channel": "/apollo/prediction",
+      "kind": "protobuf",
+      "python_module": "modules.common_msgs.prediction_msgs.prediction_obstacle_pb2",
+      "message_class": "PredictionObstacles",
+      "enabled": true,
+      "max_fps": 5,
+      "group": "prediction",
+      "source": "modules/common/adapters/adapter_gflags.cc:117；prediction_obstacle.proto:59",
+      "site_confirm": "需现场确认：prediction 模块是否运行并发布该通道，generated prediction_obstacle_pb2 是否可导入；轨迹数组可能被安全上限截断。"
+    },
+    {
+      "id": "routing_response",
+      "label": "路由响应 RoutingResponse",
+      "channel": "/apollo/routing_response",
+      "kind": "protobuf",
+      "python_module": "modules.common_msgs.routing_msgs.routing_pb2",
+      "message_class": "RoutingResponse",
+      "enabled": true,
+      "max_fps": 1,
+      "group": "routing",
+      "source": "modules/common/adapters/adapter_gflags.cc:129；planning_config.pb.txt:10 订阅该名",
+      "site_confirm": "需现场确认：本车 routing 实际写的是 /apollo/routing_response 还是 /apollo/raw_routing_response（routing_config.pb.txt 默认是后者），generated routing_pb2 是否可导入。"
+    },
+    {
+      "id": "routing_raw_response",
+      "label": "原始路由响应 RoutingResponse（raw 通道）",
+      "channel": "/apollo/raw_routing_response",
+      "kind": "protobuf",
+      "python_module": "modules.common_msgs.routing_msgs.routing_pb2",
+      "message_class": "RoutingResponse",
+      "enabled": true,
+      "max_fps": 1,
+      "group": "routing",
+      "source": "modules/routing/conf/routing_config.pb.txt:8",
+      "site_confirm": "需现场确认：routing_config.pb.txt 是否仍是这个通道名；两个路由通道可能只有其中一个有数据，没有数据的会明确显示不可用。"
+    },
+    {
+      "id": "traffic_light",
+      "label": "红绿灯检测 TrafficLightDetection",
+      "channel": "/apollo/perception/traffic_light",
+      "kind": "protobuf",
+      "python_module": "modules.common_msgs.perception_msgs.traffic_light_detection_pb2",
+      "message_class": "TrafficLightDetection",
+      "enabled": true,
+      "max_fps": 5,
+      "group": "perception",
+      "source": "modules/common/adapters/adapter_gflags.cc:124；traffic_light_detection.proto:59",
+      "site_confirm": "需现场确认：红绿灯感知是否启用并发布该通道，generated traffic_light_detection_pb2 是否可导入。"
+    },
+    {
+      "id": "camera_front_6mm",
+      "label": "前视 6mm 相机",
+      "channel": "/apollo/sensor/camera/front_6mm/image/compressed",
+      "kind": "compressed_image",
+      "python_module": "modules.common_msgs.sensor_msgs.sensor_image_pb2",
+      "message_class": "CompressedImage",
+      "enabled": true,
+      "max_fps": 15,
+      "group": "camera",
+      "source": "modules/drivers/camera/conf/camera_front_6mm.pb.txt compress_conf.output_channel；adapter_gflags.cc:189",
+      "site_confirm": "需现场确认：front_6mm 相机驱动已启用、compress_conf 正在发布该通道，sensor_image_pb2 可导入；没有画面时页面会显示通道原因。"
+    },
+    {
+      "id": "camera_front_12mm",
+      "label": "前视 12mm 相机",
+      "channel": "/apollo/sensor/camera/front_12mm/image/compressed",
+      "kind": "compressed_image",
+      "python_module": "modules.common_msgs.sensor_msgs.sensor_image_pb2",
+      "message_class": "CompressedImage",
+      "enabled": true,
+      "max_fps": 15,
+      "group": "camera",
+      "source": "modules/drivers/camera/conf/camera_front_12mm.pb.txt compress_conf.output_channel；adapter_gflags.cc:191",
+      "site_confirm": "需现场确认：front_12mm 相机驱动已启用、压缩通道正在发布，sensor_image_pb2 可导入。"
+    },
+    {
+      "id": "camera_rear_6mm",
+      "label": "后视 6mm 相机",
+      "channel": "/apollo/sensor/camera/rear_6mm/image/compressed",
+      "kind": "compressed_image",
+      "python_module": "modules.common_msgs.sensor_msgs.sensor_image_pb2",
+      "message_class": "CompressedImage",
+      "enabled": true,
+      "max_fps": 15,
+      "group": "camera",
+      "source": "modules/drivers/camera/conf/camera_rear_6mm.pb.txt compress_conf.output_channel；adapter_gflags.cc:200",
+      "site_confirm": "需现场确认：rear_6mm 相机驱动已启用、压缩通道正在发布，sensor_image_pb2 可导入。"
+    },
+    {
+      "id": "camera_left_fisheye",
+      "label": "左鱼眼相机",
+      "channel": "/apollo/sensor/camera/left_fisheye/image/compressed",
+      "kind": "compressed_image",
+      "python_module": "modules.common_msgs.sensor_msgs.sensor_image_pb2",
+      "message_class": "CompressedImage",
+      "enabled": true,
+      "max_fps": 15,
+      "group": "camera",
+      "source": "modules/drivers/camera/conf/camera_left_fisheye.pb.txt compress_conf.output_channel；adapter_gflags.cc:194",
+      "site_confirm": "需现场确认：left_fisheye 相机驱动已启用、压缩通道正在发布，sensor_image_pb2 可导入。"
+    },
+    {
+      "id": "camera_right_fisheye",
+      "label": "右鱼眼相机",
+      "channel": "/apollo/sensor/camera/right_fisheye/image/compressed",
+      "kind": "compressed_image",
+      "python_module": "modules.common_msgs.sensor_msgs.sensor_image_pb2",
+      "message_class": "CompressedImage",
+      "enabled": true,
+      "max_fps": 15,
+      "group": "camera",
+      "source": "modules/drivers/camera/conf/camera_right_fisheye.pb.txt compress_conf.output_channel；adapter_gflags.cc:197",
+      "site_confirm": "需现场确认：right_fisheye 相机驱动已启用、压缩通道正在发布，sensor_image_pb2 可导入。"
+    },
+    {
+      "id": "camera_traffic_long",
+      "label": "长焦红绿灯相机",
+      "channel": "/apollo/sensor/camera/traffic/image_long/compressed",
+      "kind": "compressed_image",
+      "python_module": "modules.common_msgs.sensor_msgs.sensor_image_pb2",
+      "message_class": "CompressedImage",
+      "enabled": true,
+      "max_fps": 15,
+      "group": "camera",
+      "source": "modules/drivers/camera/conf/camera_long_conf.pb.txt channel_name/compress_conf.output_channel",
+      "site_confirm": "需现场确认：长焦相机驱动已启用并发布 traffic/image_long/compressed；源码同时存在 traffic/image_long 原始 Image 通道，本配置优先压缩通道。"
+    }
+  ]
+}
