@@ -1,1 +1,2 @@
 records/**/*.record* filter=lfs diff=lfs merge=lfs -text
+2026-10-29_cruise10_cruise5/records/**/*.record* filter=lfs diff=lfs merge=lfs -text

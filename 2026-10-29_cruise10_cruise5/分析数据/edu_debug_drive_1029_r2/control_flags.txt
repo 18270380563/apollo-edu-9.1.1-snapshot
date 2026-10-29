@@ -1,0 +1,283 @@
+flagfile=/apollo/modules/control/control_component/conf/control.conf	#default=	#file=/build/gflags-6Vsjoz/gflags-2.2.1/src/gflags.cc
+fromenv=	#file=/build/gflags-6Vsjoz/gflags-2.2.1/src/gflags.cc
+tryfromenv=	#file=/build/gflags-6Vsjoz/gflags-2.2.1/src/gflags.cc
+undefok=	#file=/build/gflags-6Vsjoz/gflags-2.2.1/src/gflags.cc
+tab_completion_columns=80	#file=/build/gflags-6Vsjoz/gflags-2.2.1/src/gflags_completions.cc
+tab_completion_word=	#file=/build/gflags-6Vsjoz/gflags-2.2.1/src/gflags_completions.cc
+help=false	#file=/build/gflags-6Vsjoz/gflags-2.2.1/src/gflags_reporting.cc
+helpfull=false	#file=/build/gflags-6Vsjoz/gflags-2.2.1/src/gflags_reporting.cc
+helpmatch=	#file=/build/gflags-6Vsjoz/gflags-2.2.1/src/gflags_reporting.cc
+helpon=	#file=/build/gflags-6Vsjoz/gflags-2.2.1/src/gflags_reporting.cc
+helppackage=false	#file=/build/gflags-6Vsjoz/gflags-2.2.1/src/gflags_reporting.cc
+helpshort=false	#file=/build/gflags-6Vsjoz/gflags-2.2.1/src/gflags_reporting.cc
+helpxml=false	#file=/build/gflags-6Vsjoz/gflags-2.2.1/src/gflags_reporting.cc
+version=false	#file=/build/gflags-6Vsjoz/gflags-2.2.1/src/gflags_reporting.cc
+audio_capture_topic=/apollo/hmi/audio_capture	#file=modules/common/adapters/adapter_gflags.cc
+audio_detection_topic=/apollo/audio_detection	#file=modules/common/adapters/adapter_gflags.cc
+audio_event_topic=/apollo/audio_event	#file=modules/common/adapters/adapter_gflags.cc
+camera_front_12mm_compressed_topic=/apollo/sensor/camera/front_12mm/image/compressed	#file=modules/common/adapters/adapter_gflags.cc
+camera_front_12mm_topic=/apollo/sensor/camera/front_12mm/image	#file=modules/common/adapters/adapter_gflags.cc
+camera_front_12mm_video_compressed_topic=/apollo/sensor/camera/front_12mm/video/compressed	#file=modules/common/adapters/adapter_gflags.cc
+camera_front_6mm_2_topic=/apollo/sensor/camera/front_6mm_2/image	#file=modules/common/adapters/adapter_gflags.cc
+camera_front_6mm_compressed_topic=/apollo/sensor/camera/front_6mm/image/compressed	#file=modules/common/adapters/adapter_gflags.cc
+camera_front_6mm_topic=/apollo/sensor/camera/front_6mm/image	#file=modules/common/adapters/adapter_gflags.cc
+camera_front_6mm_video_compressed_topic=/apollo/sensor/camera/front_6mm/video/compressed	#file=modules/common/adapters/adapter_gflags.cc
+camera_image_long_topic=/apollo/sensor/camera/image_long	#file=modules/common/adapters/adapter_gflags.cc
+camera_image_short_topic=/apollo/sensor/camera/image_short	#file=modules/common/adapters/adapter_gflags.cc
+camera_left_fisheye_compressed_topic=/apollo/sensor/camera/left_fisheye/image/compressed	#file=modules/common/adapters/adapter_gflags.cc
+camera_left_fisheye_video_compressed_topic=/apollo/sensor/camera/left_fisheye/video/compressed	#file=modules/common/adapters/adapter_gflags.cc
+camera_rear_6mm_compressed_topic=/apollo/sensor/camera/rear_6mm/image/compressed	#file=modules/common/adapters/adapter_gflags.cc
+camera_rear_6mm_video_compressed_topic=/apollo/sensor/camera/rear_6mm/video/compressed	#file=modules/common/adapters/adapter_gflags.cc
+camera_right_fisheye_compressed_topic=/apollo/sensor/camera/right_fisheye/image/compressed	#file=modules/common/adapters/adapter_gflags.cc
+camera_right_fisheye_video_compressed_topic=/apollo/sensor/camera/right_fisheye/video/compressed	#file=modules/common/adapters/adapter_gflags.cc
+chassis_command_topic=/apollo/chassis_control	#file=modules/common/adapters/adapter_gflags.cc
+chassis_detail_sender_topic=/apollo/canbus/chassis_detail_sender	#file=modules/common/adapters/adapter_gflags.cc
+chassis_detail_topic=/apollo/canbus/chassis_detail	#file=modules/common/adapters/adapter_gflags.cc
+chassis_topic=/apollo/canbus/chassis	#file=modules/common/adapters/adapter_gflags.cc
+compressed_image_topic=camera/image_raw	#file=modules/common/adapters/adapter_gflags.cc
+conti_radar_topic=/apollo/sensor/conti_radar	#file=modules/common/adapters/adapter_gflags.cc
+control_command_topic=/apollo/control	#file=modules/common/adapters/adapter_gflags.cc
+control_core_command_topic=/apollo/control/controlcore	#file=modules/common/adapters/adapter_gflags.cc
+control_debug_info_topic=/apollo/control/debug	#file=modules/common/adapters/adapter_gflags.cc
+control_interative_topic=/apollo/control/interactive	#file=modules/common/adapters/adapter_gflags.cc
+control_local_view_topic=/apollo/control/localview	#file=modules/common/adapters/adapter_gflags.cc
+control_preprocessor_topic=/apollo/control/preprocessor	#file=modules/common/adapters/adapter_gflags.cc
+delphi_esr_topic=/apollo/sensor/delphi_esr	#file=modules/common/adapters/adapter_gflags.cc
+drive_event_topic=/apollo/drive_event	#file=modules/common/adapters/adapter_gflags.cc
+enable_adapter_dump=false	#file=modules/common/adapters/adapter_gflags.cc
+front_radar_topic=/apollo/sensor/radar/front	#file=modules/common/adapters/adapter_gflags.cc
+gnss_best_pose_topic=/apollo/sensor/gnss/best_pose	#file=modules/common/adapters/adapter_gflags.cc
+gnss_raw_data_topic=/apollo/sensor/gnss/raw_data	#file=modules/common/adapters/adapter_gflags.cc
+gnss_rtk_eph_topic=/apollo/sensor/gnss/rtk_eph	#file=modules/common/adapters/adapter_gflags.cc
+gnss_rtk_obs_topic=/apollo/sensor/gnss/rtk_obs	#file=modules/common/adapters/adapter_gflags.cc
+gnss_status_topic=/apollo/sensor/gnss/gnss_status	#file=modules/common/adapters/adapter_gflags.cc
+gps_topic=/apollo/sensor/gnss/odometry	#file=modules/common/adapters/adapter_gflags.cc
+guardian_topic=/apollo/guardian	#file=modules/common/adapters/adapter_gflags.cc
+heading_topic=/apollo/sensor/gnss/heading	#file=modules/common/adapters/adapter_gflags.cc
+hmi_status_topic=/apollo/hmi/status	#file=modules/common/adapters/adapter_gflags.cc
+image_front_topic=/apollo/sensor/camera/front_6mm/image	#file=modules/common/adapters/adapter_gflags.cc
+image_long_topic=/apollo/sensor/camera/traffic/image_long	#file=modules/common/adapters/adapter_gflags.cc
+image_short_topic=/apollo/sensor/camera/front_6mm/image/compressed	#file=modules/common/adapters/adapter_gflags.cc
+image_usb_cam_topic=/apollo/sensor/camera/image_usb_cam	#file=modules/common/adapters/adapter_gflags.cc
+imu_topic=/apollo/sensor/gnss/corrected_imu	#file=modules/common/adapters/adapter_gflags.cc
+ins_stat_topic=/apollo/sensor/gnss/ins_stat	#file=modules/common/adapters/adapter_gflags.cc
+ins_status_topic=/apollo/sensor/gnss/ins_status	#file=modules/common/adapters/adapter_gflags.cc
+latency_recording_topic=/apollo/common/latency_records	#file=modules/common/adapters/adapter_gflags.cc
+latency_reporting_topic=/apollo/common/latency_reports	#file=modules/common/adapters/adapter_gflags.cc
+lidar_128_topic=/apollo/sensor/lidar128/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+lidar_16_front_center_topic=/apollo/sensor/lidar16/front/center/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+lidar_16_front_up_topic=/apollo/sensor/lidar16/front/up/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+lidar_16_fusion_compensator_topic=/apollo/sensor/lidar16/fusion/compensator/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+lidar_16_fusion_topic=/apollo/sensor/lidar16/fusion/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+lidar_16_rear_left_topic=/apollo/sensor/lidar16/rear/left/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+lidar_16_rear_right_topic=/apollo/sensor/lidar16/rear/right/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+lidar_model_version=	#file=modules/common/adapters/adapter_gflags.cc
+localization_gnss_topic=/apollo/localization/msf_gnss	#file=modules/common/adapters/adapter_gflags.cc
+localization_lidar_topic=/apollo/localization/msf_lidar	#file=modules/common/adapters/adapter_gflags.cc
+localization_msf_status=/apollo/localization/msf_status	#file=modules/common/adapters/adapter_gflags.cc
+localization_ndt_topic=/apollo/localization/ndt_lidar	#file=modules/common/adapters/adapter_gflags.cc
+localization_sins_pva_topic=/apollo/localization/msf_sins_pva	#file=modules/common/adapters/adapter_gflags.cc
+localization_topic=/apollo/localization/pose	#file=modules/common/adapters/adapter_gflags.cc
+mobileye_topic=/apollo/sensor/mobileye	#file=modules/common/adapters/adapter_gflags.cc
+monitor_topic=/apollo/monitor	#file=modules/common/adapters/adapter_gflags.cc
+navigation_topic=/apollo/navigation	#file=modules/common/adapters/adapter_gflags.cc
+pad_topic=/apollo/control/pad	#file=modules/common/adapters/adapter_gflags.cc
+perception_lane_mask_segmentation_topic=/apollo/perception/lane_mask	#file=modules/common/adapters/adapter_gflags.cc
+perception_obstacle_topic=/apollo/perception/obstacles	#file=modules/common/adapters/adapter_gflags.cc
+planning_command=/apollo/planning/command	#file=modules/common/adapters/adapter_gflags.cc
+planning_command_status=/apollo/planning/command_status	#file=modules/common/adapters/adapter_gflags.cc
+planning_learning_data_topic=/apollo/planning/learning_data	#file=modules/common/adapters/adapter_gflags.cc
+planning_trajectory_topic=/apollo/planning	#file=modules/common/adapters/adapter_gflags.cc
+pointcloud_128_topic=/apollo/sensor/lidar128/compensator/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+pointcloud_16_front_left_raw_topic=/apollo/sensor/lidar16/left/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+pointcloud_16_front_right_raw_topic=/apollo/sensor/lidar16/right/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+pointcloud_16_front_up_topic=/apollo/sensor/lidar16/front/up/compensator/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+pointcloud_16_raw_topic=/apollo/sensor/lidar16/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+pointcloud_16_topic=/apollo/sensor/lidar16/compensator/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+pointcloud_64_topic=/apollo/sensor/velodyne64/compensator/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+pointcloud_fusion_topic=/apollo/sensor/velodyne64/fusion/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+pointcloud_hesai_40p_topic=/apollo/sensor/hesai40/compensator/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+pointcloud_raw_topic=/apollo/sensor/velodyne64/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+pointcloud_topic=/apollo/sensor/lidar128/compensator/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+prediction_container_topic=/apollo/prediction_container	#file=modules/common/adapters/adapter_gflags.cc
+prediction_topic=/apollo/prediction	#file=modules/common/adapters/adapter_gflags.cc
+racobit_radar_topic=/apollo/sensor/racobit_radar	#file=modules/common/adapters/adapter_gflags.cc
+raw_imu_topic=/apollo/sensor/gnss/imu	#file=modules/common/adapters/adapter_gflags.cc
+rear_radar_topic=/apollo/sensor/radar/rear	#file=modules/common/adapters/adapter_gflags.cc
+record_info_topic=/apollo/cyber/record_info	#file=modules/common/adapters/adapter_gflags.cc
+recorder_status_topic=/apollo/data/recorder/status	#file=modules/common/adapters/adapter_gflags.cc
+relative_map_topic=/apollo/relative_map	#file=modules/common/adapters/adapter_gflags.cc
+relative_odometry_topic=/apollo/calibration/relative_odometry	#file=modules/common/adapters/adapter_gflags.cc
+routing_response_history_topic=/apollo/routing_response_history	#file=modules/common/adapters/adapter_gflags.cc
+routing_response_topic=/apollo/routing_response	#file=modules/common/adapters/adapter_gflags.cc
+rtcm_data_topic=/apollo/sensor/gnss/rtcm_data	#file=modules/common/adapters/adapter_gflags.cc
+smartereye_image_topic=/apollo/sensor/smartereye/image	#file=modules/common/adapters/adapter_gflags.cc
+smartereye_lanemark_topic=/apollo/sensor/smartereye/lanemark	#file=modules/common/adapters/adapter_gflags.cc
+smartereye_obstacles_topic=/apollo/sensor/smartereye/obstacles	#file=modules/common/adapters/adapter_gflags.cc
+static_info_topic=/apollo/monitor/static_info	#file=modules/common/adapters/adapter_gflags.cc
+storytelling_topic=/apollo/storytelling	#file=modules/common/adapters/adapter_gflags.cc
+stream_status_topic=/apollo/sensor/gnss/stream_status	#file=modules/common/adapters/adapter_gflags.cc
+system_status_topic=/apollo/monitor/system_status	#file=modules/common/adapters/adapter_gflags.cc
+task_topic=/apollo/task_manager	#file=modules/common/adapters/adapter_gflags.cc
+tf_static_topic=/tf_static	#file=modules/common/adapters/adapter_gflags.cc
+tf_topic=/tf	#file=modules/common/adapters/adapter_gflags.cc
+traffic_light_detection_topic=/apollo/perception/traffic_light	#file=modules/common/adapters/adapter_gflags.cc
+ultrasonic_radar_topic=/apollo/sensor/ultrasonic_radar	#file=modules/common/adapters/adapter_gflags.cc
+v2x_internal_obstacle_topic=/apollo/v2x/obu/internal/obstacles	#file=modules/common/adapters/adapter_gflags.cc
+v2x_obstacle_topic=/apollo/v2x/obstacles	#file=modules/common/adapters/adapter_gflags.cc
+v2x_obu_traffic_light_topic=/apollo/v2x/obu/internal/traffic_light	#file=modules/common/adapters/adapter_gflags.cc
+v2x_rsi_topic=/apollo/v2x/rsi	#file=modules/common/adapters/adapter_gflags.cc
+v2x_traffic_light_for_hmi_topic=/apollo/v2x/traffic_light/for_hmi	#file=modules/common/adapters/adapter_gflags.cc
+v2x_traffic_light_topic=/apollo/v2x/traffic_light	#file=modules/common/adapters/adapter_gflags.cc
+velodyne_raw_topic=/apollo/sensor/velodyne64/VelodyneScanUnified	#file=modules/common/adapters/adapter_gflags.cc
+vlp16_pointcloud_topic=/apollo/sensor/velodyne16/compensator/PointCloud2	#file=modules/common/adapters/adapter_gflags.cc
+base_map_filename=base_map.bin|base_map.xml|base_map.txt	#file=modules/common/configs/config_gflags.cc
+current_start_point_filename=current_start_point.txt	#file=modules/common/configs/config_gflags.cc
+default_routing_filename=default_cycle_routing.txt	#file=modules/common/configs/config_gflags.cc
+enable_map_reference_unify=true	#file=modules/common/configs/config_gflags.cc
+end_way_point_filename=default_end_way_point.txt	#file=modules/common/configs/config_gflags.cc
+half_vehicle_width=1.05	#file=modules/common/configs/config_gflags.cc
+local_utm_zone_id=10	#file=modules/common/configs/config_gflags.cc
+localization_tf2_child_frame_id=localization	#file=modules/common/configs/config_gflags.cc
+localization_tf2_frame_id=world	#file=modules/common/configs/config_gflags.cc
+look_forward_time_sec=8	#file=modules/common/configs/config_gflags.cc
+map_dir=/apollo/modules/map/data/sunnyvale_loop	#file=modules/common/configs/config_gflags.cc
+multithread_run=false	#file=modules/common/configs/config_gflags.cc
+navigation_mode_end_way_point_file=modules/dreamview/conf/navigation_mode_default_end_way_point.txt	#file=modules/common/configs/config_gflags.cc
+park_go_routing_filename=park_go_routing.txt	#file=modules/common/configs/config_gflags.cc
+reverse_heading_vehicle_state=false	#default=false	#file=modules/common/configs/config_gflags.cc
+routing_map_filename=routing_map.bin|routing_map.txt	#file=modules/common/configs/config_gflags.cc
+sim_map_filename=sim_map.bin|sim_map.txt	#file=modules/common/configs/config_gflags.cc
+speed_control_filename=speed_control.pb.txt	#file=modules/common/configs/config_gflags.cc
+state_transform_to_com_drive=true	#default=true	#file=modules/common/configs/config_gflags.cc
+state_transform_to_com_reverse=true	#default=false	#file=modules/common/configs/config_gflags.cc
+test_base_map_filename=	#file=modules/common/configs/config_gflags.cc
+use_cyber_time=false	#file=modules/common/configs/config_gflags.cc
+use_navigation_mode=false	#file=modules/common/configs/config_gflags.cc
+use_sim_time=false	#file=modules/common/configs/config_gflags.cc
+vehicle_config_path=/apollo/modules/common/data/vehicle_param.pb.txt	#file=modules/common/configs/config_gflags.cc
+vehicle_model_config_filename=/apollo/modules/common/vehicle_model/conf/vehicle_model_config.pb.txt	#file=modules/common/configs/config_gflags.cc
+action=1	#default=1	#file=modules/control/control_component/common/control_gflags.cc
+aeb_brake_ttc_sec=3	#file=modules/control/control_component/common/control_gflags.cc
+aeb_front_offset_m=3.6200000000000001	#file=modules/control/control_component/common/control_gflags.cc
+aeb_lane_half_width_m=1.75	#file=modules/control/control_component/common/control_gflags.cc
+aeb_max_obstacle_age_sec=0.20000000000000001	#file=modules/control/control_component/common/control_gflags.cc
+aeb_min_closing_speed_mps=0.5	#file=modules/control/control_component/common/control_gflags.cc
+aeb_min_confirmed_frames=3	#file=modules/control/control_component/common/control_gflags.cc
+aeb_min_ego_speed_mps=1	#file=modules/control/control_component/common/control_gflags.cc
+aeb_obstacles_topic=/apollo/perception/obstacles	#file=modules/control/control_component/common/control_gflags.cc
+calibration_table_file=/apollo/modules/control/control_component/conf/calibration_table.pb.txt	#file=modules/control/control_component/common/control_gflags.cc
+chassis_pending_queue_size=10	#default=10	#file=modules/control/control_component/common/control_gflags.cc
+chassis_period=0.01	#default=0.01	#file=modules/control/control_component/common/control_gflags.cc
+control_conf_file=/apollo/modules/control/conf/control_conf.pb.txt	#default=/apollo/modules/control/conf/control_conf.pb.txt	#file=modules/control/control_component/common/control_gflags.cc
+control_period=0.01	#default=0.01	#file=modules/control/control_component/common/control_gflags.cc
+control_test_duration=-1	#default=-1	#file=modules/control/control_component/common/control_gflags.cc
+enable_aeb_estop=true	#default=false	#file=modules/control/control_component/common/control_gflags.cc
+enable_csv_debug=false	#default=false	#file=modules/control/control_component/common/control_gflags.cc
+enable_gain_scheduler=true	#default=false	#file=modules/control/control_component/common/control_gflags.cc
+enable_gear_drive_negative_speed_protection=false	#default=false	#file=modules/control/control_component/common/control_gflags.cc
+enable_input_timestamp_check=true	#default=false	#file=modules/control/control_component/common/control_gflags.cc
+enable_persistent_estop=true	#default=true	#file=modules/control/control_component/common/control_gflags.cc
+is_control_test_mode=false	#default=false	#file=modules/control/control_component/common/control_gflags.cc
+is_control_ut_test_mode=false	#file=modules/control/control_component/common/control_gflags.cc
+lat_lon_controller_submodule_name=LatLonControllerSubmodule	#default=LatLonControllerSubmodule	#file=modules/control/control_component/common/control_gflags.cc
+lateral_controller_conf_file=/apollo/modules/control/conf/lateral_controller_conf.pb.txt	#default=/apollo/modules/control/conf/lateral_controller_conf.pb.txt	#file=modules/control/control_component/common/control_gflags.cc
+localization_pending_queue_size=10	#default=10	#file=modules/control/control_component/common/control_gflags.cc
+localization_period=0.01	#default=0.01	#file=modules/control/control_component/common/control_gflags.cc
+longitudinal_controller_conf_file=/apollo/modules/control/conf/longitudinal_controller_conf.pb.txt	#default=/apollo/modules/control/conf/longitudinal_controller_conf.pb.txt	#file=modules/control/control_component/common/control_gflags.cc
+max_acceleration_when_stopped=0.01	#default=0.01	#file=modules/control/control_component/common/control_gflags.cc
+max_chassis_miss_num=20	#default=20	#file=modules/control/control_component/common/control_gflags.cc
+max_localization_miss_num=20	#default=20	#file=modules/control/control_component/common/control_gflags.cc
+max_path_remain_when_stopped=0.10000000000000001	#default=0.29999999999999999	#file=modules/control/control_component/common/control_gflags.cc
+max_planning_miss_num=5	#default=20	#file=modules/control/control_component/common/control_gflags.cc
+minimum_speed_protection=0.10000000000000001	#default=0.10000000000000001	#file=modules/control/control_component/common/control_gflags.cc
+minimum_speed_resolution=0.20000000000000001	#default=0.20000000000000001	#file=modules/control/control_component/common/control_gflags.cc
+mpc_controller_conf_file=/apollo/modules/control/conf/mpc_controller_conf.pb.txt	#default=/apollo/modules/control/conf/mpc_controller_conf.pb.txt	#file=modules/control/control_component/common/control_gflags.cc
+mpc_controller_submodule_name=MPCControllerSubmodule	#default=MPCControllerSubmodule	#file=modules/control/control_component/common/control_gflags.cc
+pad_msg_pending_queue_size=10	#default=10	#file=modules/control/control_component/common/control_gflags.cc
+pipeline_file=/apollo/modules/control/control_component/conf/pipeline.pb.txt	#default=/apollo/modules/control/control_component/conf/pipeline.pb.txt	#file=modules/control/control_component/common/control_gflags.cc
+pitch_offset_deg=0.90000000000000002	#default=0	#file=modules/control/control_component/common/control_gflags.cc
+planning_pending_queue_size=10	#default=10	#file=modules/control/control_component/common/control_gflags.cc
+planning_status_msg_pending_queue_size=10	#file=modules/control/control_component/common/control_gflags.cc
+postprocessor_submodule_name=PostprocessorSubmodule	#default=PostprocessorSubmodule	#file=modules/control/control_component/common/control_gflags.cc
+preprocessor_submodule_name=PreprocessorSubmodule	#default=PreprocessorSubmodule	#file=modules/control/control_component/common/control_gflags.cc
+publish_control_debug_info=true	#default=false	#file=modules/control/control_component/common/control_gflags.cc
+query_forward_station_point_only=false	#default=false	#file=modules/control/control_component/common/control_gflags.cc
+query_forward_time_point_only=false	#default=false	#file=modules/control/control_component/common/control_gflags.cc
+reverse_heading_control=false	#default=false	#file=modules/control/control_component/common/control_gflags.cc
+set_steer_limit=true	#default=false	#file=modules/control/control_component/common/control_gflags.cc
+soft_estop_brake=15	#default=50	#file=modules/control/control_component/common/control_gflags.cc
+speed_smoothing_factor=0.10000000000000001	#default=0.050000000000000003	#file=modules/control/control_component/common/control_gflags.cc
+steer_angle_rate=100	#default=100	#file=modules/control/control_component/common/control_gflags.cc
+throttle_smoothing_factor=0.080000000000000002	#default=0.050000000000000003	#file=modules/control/control_component/common/control_gflags.cc
+trajectory_period=0.10000000000000001	#default=0.10000000000000001	#file=modules/control/control_component/common/control_gflags.cc
+use_calibration_dimension_equal_check=false	#file=modules/control/control_component/common/control_gflags.cc
+use_control_submodules=false	#default=false	#file=modules/control/control_component/common/control_gflags.cc
+use_preview_speed_for_table=false	#default=false	#file=modules/control/control_component/common/control_gflags.cc
+use_speed_filter=true	#default=false	#file=modules/control/control_component/common/control_gflags.cc
+use_throttle_filter=true	#default=false	#file=modules/control/control_component/common/control_gflags.cc
+use_vehicle_epb=true	#default=false	#file=modules/control/control_component/common/control_gflags.cc
+alsologtoemail=	#file=src/logging.cc
+alsologtostderr=false	#file=src/logging.cc
+colorlogtostderr=true	#file=src/logging.cc
+drop_log_memory=true	#file=src/logging.cc
+log_backtrace_at=	#file=src/logging.cc
+log_dir=/apollo/data/log	#file=src/logging.cc
+log_link=	#file=src/logging.cc
+log_prefix=true	#file=src/logging.cc
+logbuflevel=0	#file=src/logging.cc
+logbufsecs=30	#file=src/logging.cc
+logemaillevel=999	#file=src/logging.cc
+logfile_mode=436	#file=src/logging.cc
+logmailer=/bin/mail	#file=src/logging.cc
+logtostderr=false	#file=src/logging.cc
+max_log_size=500	#file=src/logging.cc
+minloglevel=0	#file=src/logging.cc
+stderrthreshold=2	#file=src/logging.cc
+stop_logging_if_full_disk=false	#file=src/logging.cc
+symbolize_stacktrace=true	#file=src/utilities.cc
+v=0	#file=src/vlog_is_on.cc
+vmodule=	#file=src/vlog_is_on.cc
+reuse_addr=true	#file=third_party/var/butil/endpoint.cpp
+reuse_port=false	#file=third_party/var/butil/endpoint.cpp
+reuse_uds_path=false	#file=third_party/var/butil/endpoint.cpp
+async_log=false	#file=third_party/var/butil/logging.cc
+async_log_in_background_always=false	#file=third_party/var/butil/logging.cc
+bvar_minloglevel=0	#file=third_party/var/butil/logging.cc
+bvar_v=0	#file=third_party/var/butil/logging.cc
+bvar_vmodule=	#file=third_party/var/butil/logging.cc
+crash_on_fatal_log=false	#file=third_party/var/butil/logging.cc
+escape_log=false	#file=third_party/var/butil/logging.cc
+log_as_json=false	#file=third_party/var/butil/logging.cc
+log_func_name=false	#file=third_party/var/butil/logging.cc
+log_hostname=false	#file=third_party/var/butil/logging.cc
+log_pid=false	#file=third_party/var/butil/logging.cc
+log_year=false	#file=third_party/var/butil/logging.cc
+max_async_log_queue_size=100000	#file=third_party/var/butil/logging.cc
+print_stack_on_check=true	#file=third_party/var/butil/logging.cc
+sleep_to_flush_async_log_s=0	#file=third_party/var/butil/logging.cc
+run_command_through_clone=false	#file=third_party/var/butil/popen.cpp
+bvar_collector_expected_per_second=1000	#file=third_party/var/bvar/collector.cpp
+bvar_collector_max_pending_samples=1000	#file=third_party/var/bvar/collector.cpp
+bvar_enable_sampling=true	#file=third_party/var/bvar/detail/sampler.cpp
+bvar_sampler_thread_start_delay_us=10000	#file=third_party/var/bvar/detail/sampler.cpp
+bvar_latency_p1=80	#file=third_party/var/bvar/latency_recorder.cpp
+bvar_latency_p2=90	#file=third_party/var/bvar/latency_recorder.cpp
+bvar_latency_p3=99	#file=third_party/var/bvar/latency_recorder.cpp
+bvar_max_dump_multi_dimension_metric_number=1024	#file=third_party/var/bvar/mvariable.cpp
+bvar_max_multi_dimension_metric_number=1024	#file=third_party/var/bvar/mvariable.cpp
+bvar_abort_on_same_name=false	#file=third_party/var/bvar/variable.cpp
+bvar_dump=true	#default=false	#file=third_party/var/bvar/variable.cpp
+bvar_dump_exclude=*qps	#default=	#file=third_party/var/bvar/variable.cpp
+bvar_dump_file=/apollo_workspace/dumps/control.dag	#default=dumps/bvar.<app>.data	#file=third_party/var/bvar/variable.cpp
+bvar_dump_include=	#file=third_party/var/bvar/variable.cpp
+bvar_dump_interval=10	#file=third_party/var/bvar/variable.cpp
+bvar_dump_prefix=<app>	#file=third_party/var/bvar/variable.cpp
+bvar_dump_tabs=latency=*_latency*;qps=*_qps*;error=*_error*;system=*process_*,*malloc_*,*kernel_*	#file=third_party/var/bvar/variable.cpp
+bvar_log_dumpped=false	#file=third_party/var/bvar/variable.cpp
+mbvar_dump=false	#file=third_party/var/bvar/variable.cpp
+mbvar_dump_file=monitor/mbvar.<app>.data	#file=third_party/var/bvar/variable.cpp
+mbvar_dump_format=common	#file=third_party/var/bvar/variable.cpp
+mbvar_dump_prefix=<app>	#file=third_party/var/bvar/variable.cpp
+quote_vector=true	#file=third_party/var/bvar/variable.cpp
+save_series=true	#file=third_party/var/bvar/variable.cpp
