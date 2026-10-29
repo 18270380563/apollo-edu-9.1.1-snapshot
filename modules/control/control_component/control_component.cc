@@ -16,6 +16,8 @@
 
 #include <algorithm>
 #include <cmath>
+#include <string>
+#include <vector>
 
 #include "absl/strings/str_cat.h"
 
@@ -26,6 +28,7 @@
 #include "modules/common/latency_recorder/latency_recorder.h"
 #include "modules/common/vehicle_state/vehicle_state_provider.h"
 #include "modules/control/control_component/common/control_gflags.h"
+#include "modules/edu_debug/debug_logger.h"
 
 namespace apollo {
 namespace control {
@@ -35,10 +38,166 @@ using apollo::common::ErrorCode;
 using apollo::common::Status;
 using apollo::common::VehicleStateProvider;
 using apollo::cyber::Clock;
+using apollo::edu_debug::Entry;
+using apollo::edu_debug::EduDebugLogger;
 using apollo::localization::LocalizationEstimate;
 using apollo::planning::ADCTrajectory;
 
 const double kDoubleEpsilon = 1e-6;
+
+namespace {
+
+// Per-cycle lateral/longitudinal details published on /apollo/edu_debug/control.
+constexpr double kControlStateIntervalSec = 0.1;  // 10 Hz
+constexpr std::size_t kControlTextLimit = 600;
+
+std::string Truncated(const std::string& text, const std::size_t limit) {
+  if (text.size() <= limit) {
+    return text;
+  }
+  return text.substr(0, limit) + "...";
+}
+
+void DumpControlState(const ControlCommand& command, const LocalView& view,
+                      const double cycle_time_ms, const bool estop,
+                      const std::string& estop_reason) {
+  auto& logger = EduDebugLogger::Instance();
+  if (!logger.ShouldPublish(kControlStateIntervalSec, "control_state")) {
+    return;
+  }
+  std::vector<Entry> kv;
+  auto add = [&kv](const std::string& key, const std::string& value) {
+    kv.emplace_back(key, value);
+  };
+
+  add("cycle_ms", std::to_string(cycle_time_ms));
+  add("estop", estop ? "1" : "0");
+  add("estop_reason", estop_reason);
+
+  const auto& chassis = view.chassis();
+  add("chassis_v", std::to_string(chassis.speed_mps()));
+  add("chassis_throttle", std::to_string(chassis.throttle_percentage()));
+  add("chassis_brake", std::to_string(chassis.brake_percentage()));
+  add("chassis_steer_pct", std::to_string(chassis.steering_percentage()));
+  add("chassis_steer_torque", std::to_string(chassis.steering_torque_nm()));
+  add("chassis_throttle_cmd",
+      std::to_string(chassis.throttle_percentage_cmd()));
+  add("chassis_brake_cmd", std::to_string(chassis.brake_percentage_cmd()));
+  add("chassis_steer_cmd",
+      std::to_string(chassis.steering_percentage_cmd()));
+  add("chassis_engine_rpm", std::to_string(chassis.engine_rpm()));
+  add("chassis_parking_brake", chassis.parking_brake() ? "1" : "0");
+  add("chassis_gear",
+      std::to_string(static_cast<int>(chassis.gear_location())));
+  add("chassis_mode",
+      std::to_string(static_cast<int>(chassis.driving_mode())));
+
+  const auto& trajectory = view.trajectory();
+  add("traj_seq", std::to_string(trajectory.header().sequence_num()));
+  add("traj_age_s",
+      std::to_string(Clock::NowInSeconds() -
+                     trajectory.header().timestamp_sec()));
+  add("traj_points", std::to_string(trajectory.trajectory_point_size()));
+  if (trajectory.trajectory_point_size() > 0) {
+    const auto& first = trajectory.trajectory_point(0);
+    const auto& last =
+        trajectory.trajectory_point(trajectory.trajectory_point_size() - 1);
+    add("traj_v0", std::to_string(first.v()));
+    add("traj_a0", std::to_string(first.a()));
+    add("traj_v_end", std::to_string(last.v()));
+    add("traj_t_end", std::to_string(last.relative_time()));
+    add("traj_estop", trajectory.estop().is_estop() ? "1" : "0");
+    add("traj_replan", trajectory.is_replan() ? "1" : "0");
+  }
+
+  add("cmd_throttle", std::to_string(command.throttle()));
+  add("cmd_brake", std::to_string(command.brake()));
+  add("cmd_steer", std::to_string(command.steering_target()));
+  add("cmd_steer_rate", std::to_string(command.steering_rate()));
+  add("cmd_speed", std::to_string(command.speed()));
+  add("cmd_gear",
+      std::to_string(static_cast<int>(command.gear_location())));
+  add("cmd_latency_ms",
+      std::to_string(command.latency_stats().total_time_ms()));
+  add("cmd_latency_exceeded",
+      command.latency_stats().total_time_exceeded() ? "1" : "0");
+  add("status_msg",
+      Truncated(command.header().status().msg(), kControlTextLimit));
+
+  if (command.has_debug() && command.debug().has_simple_lat_debug()) {
+    const auto& lat = command.debug().simple_lat_debug();
+    add("lat.lateral_error", std::to_string(lat.lateral_error()));
+    add("lat.heading", std::to_string(lat.heading()));
+    add("lat.ref_heading", std::to_string(lat.ref_heading()));
+    add("lat.heading_error", std::to_string(lat.heading_error()));
+    add("lat.heading_error_rate", std::to_string(lat.heading_error_rate()));
+    add("lat.lateral_error_rate", std::to_string(lat.lateral_error_rate()));
+    add("lat.curvature", std::to_string(lat.curvature()));
+    add("lat.steer_angle", std::to_string(lat.steer_angle()));
+    add("lat.steer_angle_feedforward",
+        std::to_string(lat.steer_angle_feedforward()));
+    add("lat.steer_angle_feedback",
+        std::to_string(lat.steer_angle_feedback()));
+    add("lat.steer_angle_limited", std::to_string(lat.steer_angle_limited()));
+    add("lat.steer_lat_contribution",
+        std::to_string(lat.steer_angle_lateral_contribution()));
+    add("lat.steer_heading_contribution",
+        std::to_string(lat.steer_angle_heading_contribution()));
+    add("lat.lateral_acceleration",
+        std::to_string(lat.lateral_acceleration()));
+    add("lat.lateral_centripetal_accel",
+        std::to_string(lat.lateral_centripetal_acceleration()));
+    add("lat.ref_speed", std::to_string(lat.ref_speed()));
+    add("lat.steer_mrac_enable", lat.steer_mrac_enable_status() ? "1" : "0");
+  }
+  if (command.has_debug() && command.debug().has_simple_lon_debug()) {
+    const auto& lon = command.debug().simple_lon_debug();
+    add("lon.station_reference", std::to_string(lon.station_reference()));
+    add("lon.station_error", std::to_string(lon.station_error()));
+    add("lon.station_error_limited",
+        std::to_string(lon.station_error_limited()));
+    add("lon.speed_reference", std::to_string(lon.speed_reference()));
+    add("lon.speed_error", std::to_string(lon.speed_error()));
+    add("lon.speed_ctrl_input_limited",
+        std::to_string(lon.speed_controller_input_limited()));
+    add("lon.preview_speed_reference",
+        std::to_string(lon.preview_speed_reference()));
+    add("lon.preview_accel_reference",
+        std::to_string(lon.preview_acceleration_reference()));
+    add("lon.accel_reference", std::to_string(lon.acceleration_reference()));
+    add("lon.accel_cmd", std::to_string(lon.acceleration_cmd()));
+    add("lon.accel_cmd_closeloop",
+        std::to_string(lon.acceleration_cmd_closeloop()));
+    add("lon.accel_lookup", std::to_string(lon.acceleration_lookup()));
+    add("lon.accel_lookup_limit",
+        std::to_string(lon.acceleration_lookup_limit()));
+    add("lon.speed_lookup", std::to_string(lon.speed_lookup()));
+    add("lon.calibration_value", std::to_string(lon.calibration_value()));
+    add("lon.throttle_cmd", std::to_string(lon.throttle_cmd()));
+    add("lon.brake_cmd", std::to_string(lon.brake_cmd()));
+    add("lon.current_speed", std::to_string(lon.current_speed()));
+    add("lon.current_acceleration",
+        std::to_string(lon.current_acceleration()));
+    add("lon.acceleration_error", std::to_string(lon.acceleration_error()));
+    add("lon.jerk_reference", std::to_string(lon.jerk_reference()));
+    add("lon.current_jerk", std::to_string(lon.current_jerk()));
+    add("lon.slope_offset", std::to_string(lon.slope_offset_compensation()));
+    add("lon.speed_offset", std::to_string(lon.speed_offset()));
+    add("lon.current_station", std::to_string(lon.current_station()));
+    add("lon.path_remain", std::to_string(lon.path_remain()));
+    add("lon.pid_saturation",
+        std::to_string(lon.pid_saturation_status()));
+    add("lon.leadlag_saturation",
+        std::to_string(lon.leadlag_saturation_status()));
+    add("lon.is_full_stop", lon.is_full_stop() ? "1" : "0");
+    add("lon.is_full_stop_soft", lon.is_full_stop_soft() ? "1" : "0");
+    add("lon.is_epb_brake", lon.is_epb_brake() ? "1" : "0");
+    add("lon.vehicle_pitch", std::to_string(lon.vehicle_pitch()));
+  }
+  logger.DumpState("control_component.Proc", "control_state", kv);
+}
+
+}  // namespace
 
 ControlComponent::ControlComponent()
     : monitor_logger_buffer_(common::monitor::MonitorMessageItem::CONTROL) {}
@@ -55,6 +214,19 @@ bool ControlComponent::Init() {
 
   AINFO << "ControlTask pipeline config file: " << FLAGS_pipeline_file
         << " is loaded.";
+
+  // ---- EDUDBG: snapshot every config file and gflag control runs with ----
+  EduDebugLogger::Instance().Init("control");
+  auto& edu_dbg = EduDebugLogger::Instance();
+  edu_dbg.DumpAllFlags("control_component.Init");
+  edu_dbg.DumpText("control_component.Init", "config_value", "pipeline_file",
+                   FLAGS_pipeline_file);
+  edu_dbg.DumpText("control_component.Init", "config_value",
+                   "control_pipeline", control_pipeline_.DebugString());
+  edu_dbg.DumpFile("control_component.Init", FLAGS_calibration_table_file);
+  edu_dbg.DumpTree("control_component.Init", "/apollo/modules/control",
+                   {".pb.txt", ".conf", ".xml", ".dag", ".launch", ".json"});
+  // ------------------------------------------------------------------------
 
   // initial controller agent when not using control submodules
   ADEBUG << "FLAGS_use_control_submodules: " << FLAGS_use_control_submodules;
@@ -438,6 +610,9 @@ Status ControlComponent::ProduceControlCommand(
 bool ControlComponent::Proc() {
   const auto start_time = Clock::Now();
 
+  // EDUDBG: replay cached startup dumps / watch config files on disk.
+  EduDebugLogger::Instance().Tick();
+
   injector_->control_debug_info_clear();
 
   chassis_reader_->Observe();
@@ -622,6 +797,12 @@ bool ControlComponent::Proc() {
 
   common::util::FillHeader(node_->Name(), &control_command);
   ADEBUG << control_command.ShortDebugString();
+
+  // EDUDBG: lateral/longitudinal detail for this cycle.
+  DumpControlState(control_command, local_view_,
+                   (Clock::Now() - start_time).ToSecond() * 1e3, estop_,
+                   estop_reason_);
+
   control_cmd_writer_->Write(control_command);
 
   // save current control command

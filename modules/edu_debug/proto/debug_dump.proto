@@ -1,0 +1,43 @@
+syntax = "proto2";
+
+package apollo.edu_debug;
+
+message DebugEntry {
+  optional string key = 1;
+  optional string value = 2;
+}
+
+// A self-describing chunk of module debug information. Planning and control
+// publish these on /apollo/edu_debug/<module> so that cyber_recorder captures
+// configuration snapshots and per-cycle internal states together with the
+// regular topics.
+message DebugDump {
+  // Logical module that produced the dump: "planning" or "control".
+  optional string module = 2;
+
+  // Code location of the dump, e.g. "planning_component.Init".
+  optional string source = 3;
+
+  // One of: config_file, config_value, manifest, flags, state, event.
+  optional string kind = 4;
+
+  // File path or block name this dump refers to.
+  optional string name = 5;
+
+  // Free-form payload (file content, manifest lines, flag lines). Large
+  // payloads are split into several messages sharing name and chunk_total.
+  optional string text = 6;
+
+  repeated DebugEntry entries = 7;
+
+  optional uint32 sequence_num = 8;
+  optional uint32 chunk_index = 9;
+  optional uint32 chunk_total = 10;
+
+  // Wall clock at the moment the dump was produced (seconds since epoch).
+  optional double wall_time = 11;
+
+  // True when this message is a replay of startup data that was produced
+  // before the current recording started.
+  optional bool cached = 12;
+}

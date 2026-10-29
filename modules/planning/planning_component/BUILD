@@ -28,6 +28,7 @@ apollo_component(
         "//modules/common_msgs/external_command_msgs:lane_follow_command_cc_proto",
         "//modules/common_msgs/external_command_msgs:command_status_cc_proto",
         "//modules/common_msgs/control_msgs:control_interactive_msg_cc_proto",
+        "//modules/edu_debug:edu_debug_logger",
         "//cyber",
     ],
 )

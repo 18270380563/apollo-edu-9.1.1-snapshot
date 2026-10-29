@@ -28,6 +28,7 @@ apollo_cc_library(
         "//modules/control/control_component/submodules:mpc_controller_submodule_lib",
         "//modules/control/control_component/submodules:postprocessor_submodule_lib",
         "//modules/control/control_component/submodules:preprocessor_submodule_lib",
+        "//modules/edu_debug:edu_debug_logger",
         "@com_github_gflags_gflags//:gflags",
     ],
 )

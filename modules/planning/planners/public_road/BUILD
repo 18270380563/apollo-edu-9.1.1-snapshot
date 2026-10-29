@@ -24,6 +24,7 @@ apollo_plugin(
     copts = ["-DMODULE_NAME=\\\"planning\\\""],
     deps = [
         "//cyber",
+        "//modules/edu_debug:edu_debug_logger",
         "//modules/planning/planning_interface_base:apollo_planning_planning_interface_base",
         "//modules/planning/planners/public_road/proto:planner_config_cc_proto",
     ],

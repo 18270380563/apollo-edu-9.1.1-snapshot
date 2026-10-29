@@ -15,7 +15,13 @@
  *****************************************************************************/
 #include "modules/planning/planning_component/planning_component.h"
 
+#include <algorithm>
+#include <cmath>
+#include <string>
+#include <vector>
+
 #include "cyber/common/file.h"
+#include "modules/edu_debug/debug_logger.h"
 #include "modules/common/adapters/adapter_gflags.h"
 #include "modules/common/configs/config_gflags.h"
 #include "modules/common/math/vec2d.h"
@@ -25,6 +31,7 @@
 #include "modules/planning/planning_base/common/history.h"
 #include "modules/planning/planning_base/common/planning_context.h"
 #include "modules/planning/planning_base/common/util/util.h"
+#include "modules/planning/planning_base/gflags/planning_gflags.h"
 #include "modules/planning/planning_component/navi_planning.h"
 #include "modules/planning/planning_component/on_lane_planning.h"
 namespace apollo {
@@ -32,6 +39,8 @@ namespace planning {
 
 using apollo::common::math::Vec2d;
 using apollo::cyber::ComponentBase;
+using apollo::edu_debug::Entry;
+using apollo::edu_debug::EduDebugLogger;
 using apollo::hdmap::HDMapUtil;
 
 using apollo::control::ControlInteractiveMsg;
@@ -41,6 +50,20 @@ using apollo::routing::RoutingRequest;
 using apollo::routing::RoutingResponse;
 using apollo::storytelling::Stories;
 using apollo::perception::PerceptionEdgeInfo;
+
+namespace {
+
+// Per-cycle output summary published on /apollo/edu_debug/planning.
+constexpr double kOutputStateIntervalSec = 0.5;
+
+std::string Truncated(const std::string& text, const std::size_t limit) {
+  if (text.size() <= limit) {
+    return text;
+  }
+  return text.substr(0, limit) + "...";
+}
+
+}  // namespace
 
 bool PlanningComponent::Init() {
   AINFO << "PLANNING_SOURCE_SMOKE: workspace planning component initialized";
@@ -55,6 +78,19 @@ bool PlanningComponent::Init() {
   ACHECK(ComponentBase::GetProtoConfig(&config_))
       << "failed to load planning config file "
       << ComponentBase::ConfigFilePath();
+
+  // ---- EDUDBG: snapshot everything planning was started with ----
+  EduDebugLogger::Instance().Init("planning");
+  auto& edu_dbg = EduDebugLogger::Instance();
+  edu_dbg.DumpAllFlags("planning_component.Init");
+  edu_dbg.DumpText("planning_component.Init", "config_value",
+                   "component_config_path", ComponentBase::ConfigFilePath());
+  edu_dbg.DumpText("planning_component.Init", "config_value",
+                   "planning_config", config_.DebugString());
+  edu_dbg.DumpFile("planning_component.Init", FLAGS_planner_config_path);
+  edu_dbg.DumpTree("planning_component.Init", "/apollo/modules/planning",
+                   {".pb.txt", ".conf", ".xml", ".dag", ".launch", ".json"});
+  // ----------------------------------------------------------------
 
   if (FLAGS_planning_offline_learning ||
       config_.learning_mode() != PlanningConfig::NO_LEARNING) {
@@ -146,6 +182,9 @@ bool PlanningComponent::Proc(
     const std::shared_ptr<localization::LocalizationEstimate>&
         localization_estimate) {
   ACHECK(prediction_obstacles != nullptr);
+
+  // EDUDBG: replay cached startup dumps / watch config files on disk.
+  EduDebugLogger::Instance().Tick();
 
   // check and process possible rerouting request
   CheckRerouting();
@@ -252,6 +291,89 @@ bool PlanningComponent::Proc(
   for (auto& p : *adc_trajectory_pb.mutable_trajectory_point()) {
     p.set_relative_time(p.relative_time() + dt);
   }
+
+  // EDUDBG: what planning finally publishes, plus the speed command it obeyed.
+  if (EduDebugLogger::Instance().ShouldPublish(kOutputStateIntervalSec,
+                                               "planning_output")) {
+    std::vector<Entry> kv;
+    auto add = [&kv](const std::string& key, const std::string& value) {
+      kv.emplace_back(key, value);
+    };
+    add("frame_seq", std::to_string(adc_trajectory_pb.header().sequence_num()));
+    add("trajectory_type",
+        ADCTrajectory::TrajectoryType_Name(adc_trajectory_pb.trajectory_type()));
+    add("estop", adc_trajectory_pb.estop().is_estop() ? "1" : "0");
+    add("estop_reason", adc_trajectory_pb.estop().reason());
+    add("status_code",
+        std::to_string(static_cast<int>(
+            adc_trajectory_pb.header().status().error_code())));
+    add("status_msg", adc_trajectory_pb.header().status().msg());
+    add("gear", std::to_string(static_cast<int>(adc_trajectory_pb.gear())));
+    const int point_count = adc_trajectory_pb.trajectory_point_size();
+    add("n_points", std::to_string(point_count));
+    if (point_count > 0) {
+      double v_max = -1e9;
+      double a_abs_max = 0.0;
+      for (const auto& point : adc_trajectory_pb.trajectory_point()) {
+        v_max = std::max(v_max, point.v());
+        a_abs_max = std::max(a_abs_max, std::abs(point.a()));
+      }
+      const auto& first = adc_trajectory_pb.trajectory_point(0);
+      const auto& last =
+          adc_trajectory_pb.trajectory_point(point_count - 1);
+      add("v_first", std::to_string(first.v()));
+      add("v_max", std::to_string(v_max));
+      add("v_end", std::to_string(last.v()));
+      add("a_abs_max", std::to_string(a_abs_max));
+      add("t_end", std::to_string(last.relative_time()));
+    }
+    add("latency_total_ms",
+        std::to_string(adc_trajectory_pb.latency_stats().total_time_ms()));
+    add("latency_init_frame_ms",
+        std::to_string(
+            adc_trajectory_pb.latency_stats().init_frame_time_ms()));
+    add("default_cruise_speed", std::to_string(FLAGS_default_cruise_speed));
+    add("upper_speed_limit", std::to_string(FLAGS_planning_upper_speed_limit));
+    if (local_view_.planning_command != nullptr) {
+      const auto& command = *local_view_.planning_command;
+      add("cmd_id", std::to_string(command.command_id()));
+      add("cmd_is_motion", command.is_motion_command() ? "1" : "0");
+      add("cmd_has_target_speed", command.has_target_speed() ? "1" : "0");
+      add("cmd_target_speed",
+          command.has_target_speed() ? std::to_string(command.target_speed())
+                                     : std::string("unset"));
+    } else {
+      add("cmd", "null");
+    }
+    if (local_view_.chassis != nullptr) {
+      add("chassis_v", std::to_string(local_view_.chassis->speed_mps()));
+      add("chassis_throttle",
+          std::to_string(local_view_.chassis->throttle_percentage()));
+      add("chassis_brake",
+          std::to_string(local_view_.chassis->brake_percentage()));
+      add("chassis_steer",
+          std::to_string(local_view_.chassis->steering_percentage()));
+      add("chassis_gear", std::to_string(static_cast<int>(
+                              local_view_.chassis->gear_location())));
+      add("chassis_mode", std::to_string(static_cast<int>(
+                              local_view_.chassis->driving_mode())));
+    }
+    if (adc_trajectory_pb.has_debug() &&
+        adc_trajectory_pb.debug().has_planning_data() &&
+        adc_trajectory_pb.debug().planning_data().has_scenario()) {
+      const auto& scenario =
+          adc_trajectory_pb.debug().planning_data().scenario();
+      add("scenario", scenario.scenario_plugin_type());
+      add("stage", scenario.stage_plugin_type());
+      add("scenario_msg", Truncated(scenario.msg(), 200));
+    }
+    add("main_decision",
+        Truncated(adc_trajectory_pb.decision().main_decision().DebugString(),
+                  800));
+    EduDebugLogger::Instance().DumpState("planning_component.Proc",
+                                         "planning_output", kv);
+  }
+
   planning_writer_->Write(adc_trajectory_pb);
 
   // Send command execution feedback.
