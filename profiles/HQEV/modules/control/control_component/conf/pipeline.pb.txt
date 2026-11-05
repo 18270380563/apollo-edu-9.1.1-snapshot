@@ -1,6 +1,6 @@
 controller {
-  name: "LAT_PLUS_CONTROLLER"
-  type: "LatPlusController"
+  name: "LAT_CONTROLLER"
+  type: "LatController"
 }
 controller {
   name: "LON_PLUS_CONTROLLER"

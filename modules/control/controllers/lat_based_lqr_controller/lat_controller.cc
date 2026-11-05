@@ -17,6 +17,7 @@
 #include "modules/control/controllers/lat_based_lqr_controller/lat_controller.h"
 
 #include <algorithm>
+#include <cmath>
 #include <iomanip>
 #include <utility>
 #include <vector>
@@ -264,6 +265,15 @@ Status LatController::Init(std::shared_ptr<DependencyInjector> injector) {
 
   enable_look_ahead_back_control_ =
       lat_based_lqr_controller_conf_.enable_look_ahead_back_control();
+
+  const auto &conf = lat_based_lqr_controller_conf_;
+  AINFO << "Delay compensation: time=" << conf.delay_compensation_time()
+        << " dead_time=" << conf.steer_actuator_dead_time()
+        << " tau=" << conf.steer_actuator_time_constant()
+        << " min_speed=" << conf.delay_compensation_min_speed()
+        << " ("
+        << (conf.delay_compensation_time() > 0.0 ? "ENABLED" : "DISABLED")
+        << ")";
 
   return Status::OK();
 }
@@ -609,6 +619,16 @@ Status LatController::ComputeControlCommand(
 
   pre_steer_angle_ = cmd->steering_target();
 
+  // Record what the EPS is (or will be) asked to do; outside auto mode the
+  // command is not executed, so record the measured position instead.
+  steer_cmd_history_.push_back(
+      chassis->driving_mode() == canbus::Chassis::COMPLETE_AUTO_DRIVE
+          ? cmd->steering_target()
+          : chassis->steering_percentage());
+  while (steer_cmd_history_.size() > 200) {
+    steer_cmd_history_.pop_front();
+  }
+
   // compute extra information for logging and debugging
   const double steer_angle_lateral_contribution =
       -matrix_k_(0, 0) * matrix_state_(0, 0) * 180 / M_PI * steer_ratio_ /
@@ -649,7 +669,82 @@ Status LatController::Reset() {
   if (enable_mrac_) {
     mrac_controller_.Reset();
   }
+  steer_cmd_history_.clear();
+  delay_comp_active_logged_ = false;
   return Status::OK();
+}
+
+void LatController::CompensateActuatorDelay(SimpleLateralDebug *debug,
+                                            const canbus::Chassis *chassis) {
+  const auto &conf = lat_based_lqr_controller_conf_;
+  const double td = conf.delay_compensation_time();
+  if (td <= 0.0) {
+    return;
+  }
+  auto vehicle_state = injector_->vehicle_state();
+  const double v = vehicle_state->linear_velocity();
+  if (vehicle_state->gear() != canbus::Chassis::GEAR_DRIVE ||
+      v < conf.delay_compensation_min_speed()) {
+    return;
+  }
+  if (!delay_comp_active_logged_) {
+    AINFO << "Delay compensation active at v=" << v << " m/s, Td=" << td
+          << " s";
+    delay_comp_active_logged_ = true;
+  }
+
+  const int n_pred =
+      std::min(100, static_cast<int>(std::lround(td / ts_)));
+  const int n_dead = std::max(
+      0, static_cast<int>(std::lround(conf.steer_actuator_dead_time() / ts_)));
+  const double tau = std::max(conf.steer_actuator_time_constant(), ts_);
+  // steering percentage -> front wheel angle (rad)
+  const double pct_to_rad = vehicle_param_.max_steer_angle() / steer_ratio_ / 100.0;
+
+  const double steer0 = chassis->steering_percentage();
+  const int hist_size = static_cast<int>(steer_cmd_history_.size());
+  const double latest_cmd =
+      hist_size > 0 ? steer_cmd_history_.back() : steer0;
+
+  // same reference yaw rate as ComputeLateralErrors (kappa * v_ref)
+  const double ref_heading_rate = debug->ref_heading_rate();
+  const double yaw_rate0 = debug->heading_rate();
+  const double tan0 = std::tan(steer0 * pct_to_rad);
+
+  const double e_lat0 = debug->lateral_error();
+  const double e_head0 = debug->heading_error();
+  double e_lat = e_lat0;
+  double e_head = e_head0;
+  double steer = steer0;
+  double yaw_rate = yaw_rate0;
+
+  for (int j = 0; j < n_pred; ++j) {
+    // EPS input at this future step: command issued n_dead cycles earlier
+    const int back = n_dead - j;  // 1 == last issued command
+    double u = latest_cmd;
+    if (back >= 1 && back <= hist_size) {
+      u = steer_cmd_history_[hist_size - back];
+    }
+    steer += ts_ / tau * (u - steer);
+    // measured yaw rate plus kinematic change caused by the steering change
+    yaw_rate = yaw_rate0 +
+               v / wheelbase_ * (std::tan(steer * pct_to_rad) - tan0);
+    e_lat += v * std::sin(e_head) * ts_;
+    e_head += (yaw_rate - ref_heading_rate) * ts_;
+  }
+
+  matrix_state_(0, 0) += e_lat - e_lat0;
+  if (enable_look_ahead_back_control_) {
+    matrix_state_(0, 0) +=
+        lookahead_station_used_ * (std::sin(e_head) - std::sin(e_head0));
+  }
+  matrix_state_(1, 0) = v * std::sin(e_head);
+  matrix_state_(2, 0) += e_head - e_head0;
+  matrix_state_(3, 0) = yaw_rate - ref_heading_rate;
+
+  // expose the predicted feedback states for offline checking
+  debug->set_lateral_error_feedback(matrix_state_(0, 0));
+  debug->set_heading_error_feedback(matrix_state_(2, 0));
 }
 
 void LatController::UpdateState(SimpleLateralDebug *debug,
@@ -682,6 +777,8 @@ void LatController::UpdateState(SimpleLateralDebug *debug,
   }
   matrix_state_(1, 0) = debug->lateral_error_rate();
   matrix_state_(3, 0) = debug->heading_error_rate();
+
+  CompensateActuatorDelay(debug, chassis);
 
   // Next elements are depending on preview window size;
   for (int i = 0; i < preview_window_; ++i) {
@@ -837,6 +934,8 @@ void LatController::ComputeLateralErrors(
         lookback_station_low_speed_, low_speed_bound_ - low_speed_window_,
         lookback_station_high_speed_, low_speed_bound_, std::fabs(linear_v));
   }
+
+  lookahead_station_used_ = lookahead_station;
 
   // Estimate the heading error with look-ahead/look-back windows as feedback
   // signal for special driving scenarios

@@ -1,95 +1,74 @@
 ts: 0.01
 preview_window: 0
-cf: 126050
-cr: 126050
-mass_fl: 100
-mass_fr: 100
-mass_rl: 100
-mass_rr: 100
+cf: 275159.24
+cr: 275159.24
+mass_fl: 563
+mass_fr: 563
+mass_rl: 563
+mass_rr: 563
 eps: 0.01
-matrix_q: 6.0
-matrix_q: 1.0
-matrix_q: 3.0
-matrix_q: 0.0
-reverse_matrix_q: 5.0
-reverse_matrix_q: 1.0
-reverse_matrix_q: 2.0
-reverse_matrix_q: 0.0
+matrix_q: 0.6
+matrix_q: 0.2
+matrix_q: 0.6
+matrix_q: 0.2
+reverse_matrix_q: 0.6
+reverse_matrix_q: 0.2
+reverse_matrix_q: 0.6
+reverse_matrix_q: 0.2
 cutoff_freq: 5
 mean_filter_window_size: 10
-max_iteration: 300
+max_iteration: 1000
 max_lateral_acceleration: 4.0
 enable_reverse_leadlag_compensation: false
 enable_steer_mrac_control: false
 enable_look_ahead_back_control: true
-lookahead_station: 0.5
-lookback_station: 1.05
-lookahead_station_high_speed: 0.0
+lookahead_station: 0.0
+lookback_station: 0.95
+lookahead_station_high_speed: 1.0
 lookback_station_high_speed: 0.0
 switch_speed: 2.0
 switch_speed_window: 0.0
-query_relative_time: 0.8
+query_relative_time: 0.0
 enable_navigation_mode_position_update: true
-trajectory_transform_to_com_reverse: true
-trajectory_transform_to_com_drive: true
+trajectory_transform_to_com_reverse: false
+trajectory_transform_to_com_drive: false
 enable_feedback_augment_on_high_speed: false
-enable_maximum_steer_rate_limit: false
+enable_maximum_steer_rate_limit: true
 lock_steer_speed: -0.081
 query_time_nearest_point_only: false
 enable_navigation_mode_error_filter: false
-reverse_feedforward_ratio: 1.4
+reverse_feedforward_ratio: 0.5
 reverse_use_dynamic_model: false
+
+# actuator delay compensation (0 = off). Phase A: 0. Phase B: 0.25
+delay_compensation_time: 0.25
+steer_actuator_dead_time: 0.06
+steer_actuator_time_constant: 0.22
+delay_compensation_min_speed: 3.0
+
 lat_err_gain_scheduler {
-  scheduler {
-    speed: 2.0
-    ratio: 1.0
-  }
-  scheduler {
-    speed: 2.5
-    ratio: 0.8
-  }
-  scheduler {
-    speed: 3.0
-    ratio: 0.6
-  }
-  scheduler {
-    speed: 3.5
-    ratio: 0.3
-  }
-  scheduler {
-    speed: 4.0
-    ratio: 0.1
-  }
-  scheduler {
-    speed: 4.5
-    ratio: 0.08
-  }
+  scheduler { speed: 2.0 ratio: 1.0 }
+  scheduler { speed: 2.5 ratio: 0.8 }
+  scheduler { speed: 3.0 ratio: 0.6 }
+  scheduler { speed: 3.5 ratio: 0.3 }
+  scheduler { speed: 4.0 ratio: 0.15 }
+  scheduler { speed: 4.5 ratio: 0.15 }
+  scheduler { speed: 9.0 ratio: 0.12 }
+  scheduler { speed: 10.0 ratio: 0.10 }
+  scheduler { speed: 11.0 ratio: 0.085 }
+  scheduler { speed: 12.5 ratio: 0.075 }
 }
 heading_err_gain_scheduler {
-  scheduler {
-    speed: 2.0
-    ratio: 1.0
-  }
-  scheduler {
-    speed: 2.5
-    ratio: 0.8
-  }
-  scheduler {
-    speed: 3.0
-    ratio: 0.6
-  }
-  scheduler {
-    speed: 3.5
-    ratio: 0.2
-  }
-  scheduler {
-    speed: 4.0
-    ratio: 0.1
-  }
-  scheduler {
-    speed: 4.5
-    ratio: 0.008
-  }
+  scheduler { speed: 2.0 ratio: 1.0 }
+  scheduler { speed: 2.5 ratio: 0.8 }
+  scheduler { speed: 3.0 ratio: 0.6 }
+  scheduler { speed: 3.5 ratio: 0.20 }
+  scheduler { speed: 4.0 ratio: 0.05 }
+  scheduler { speed: 4.5 ratio: 0.030 }
+  scheduler { speed: 9.0 ratio: 0.024 }
+  scheduler { speed: 10.0 ratio: 0.020 }
+  scheduler { speed: 11.0 ratio: 0.017 }
+  scheduler { speed: 12.5 ratio: 0.014 }
 }
 reverse_leadlag_conf {
   innerstate_saturation_level: 3000
@@ -109,3 +88,4 @@ steer_mrac_conf {
   mrac_saturation_level: 1.0
   anti_windup_compensation_gain: 0.0
 }
+

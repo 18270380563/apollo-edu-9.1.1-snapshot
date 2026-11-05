@@ -53,4 +53,13 @@ message LatBaseLqrControllerConf{
   optional double reverse_feedforward_ratio = 38 [default = 1.0];
 
   optional bool reverse_use_dynamic_model = 39 [default = false];
+
+  // Actuator delay compensation (forward drive only). The lateral/heading
+  // errors are predicted delay_compensation_time seconds ahead with a
+  // kinematic model, driven by an EPS model (dead time + first-order lag)
+  // and the recent steering command history. 0 disables it.
+  optional double delay_compensation_time = 40 [default = 0.0];
+  optional double steer_actuator_dead_time = 41 [default = 0.06];
+  optional double steer_actuator_time_constant = 42 [default = 0.22];
+  optional double delay_compensation_min_speed = 43 [default = 1.0];
 }

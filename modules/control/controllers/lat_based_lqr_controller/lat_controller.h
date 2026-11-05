@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <deque>
 #include <fstream>
 #include <memory>
 #include <string>
@@ -122,6 +123,11 @@ class LatController : public ControlTask {
                             const TrajectoryAnalyzer &trajectory_analyzer,
                             SimpleLateralDebug *debug,
                             const canbus::Chassis *chassis);
+  // Predict lateral/heading errors over the actuator delay and overwrite
+  // matrix_state_(0,0)/(2,0). No-op when delay_compensation_time <= 0.
+  void CompensateActuatorDelay(SimpleLateralDebug *debug,
+                               const canbus::Chassis *chassis);
+
   bool LoadControlConf();
   void InitializeFilters();
   void LoadLatGainScheduler();
@@ -265,6 +271,14 @@ class LatController : public ControlTask {
   double low_speed_window_ = 0.0;
 
   double driving_orientation_ = 0.0;
+
+  // steering command history (%, newest at back), one entry per cycle,
+  // used by CompensateActuatorDelay
+  std::deque<double> steer_cmd_history_;
+  // forward lookahead station applied in the latest ComputeLateralErrors
+  double lookahead_station_used_ = 0.0;
+  // log once when the delay compensation actually takes effect
+  bool delay_comp_active_logged_ = false;
 
   std::shared_ptr<DependencyInjector> injector_;
 };
