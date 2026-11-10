@@ -1,0 +1,133 @@
+Log file created at: 2026/11/10 19:05:42
+Running on machine: in-dev-docker
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I1110 19:05:42.996992  6279 class_loader_utility.h:79] registerclass:EvaluatorSubmodule,apollo::cyber::ComponentBase,/opt/apollo/neo/lib/modules/prediction/libprediction_component.so
+I1110 19:05:42.997584  6279 class_loader_utility.h:79] registerclass:PredictorSubmodule,apollo::cyber::ComponentBase,/opt/apollo/neo/lib/modules/prediction/libprediction_component.so
+I1110 19:05:42.997877  6279 class_loader_utility.h:79] registerclass:PredictionComponent,apollo::cyber::ComponentBase,/opt/apollo/neo/lib/modules/prediction/libprediction_component.so
+I1110 19:05:43.005852  6279 component_base.h:79] use config file: /apollo/modules/prediction/conf/prediction_conf.pb.txt
+I1110 19:05:43.006078  6279 component_base.h:89] use flag file: /apollo/modules/prediction/conf/prediction.conf
+I1110 19:05:43.006734  6279 predictor_manager.cc:334] Predictor [0] is registered.
+I1110 19:05:43.006744  6279 predictor_manager.cc:334] Predictor [3] is registered.
+I1110 19:05:43.006748  6279 predictor_manager.cc:334] Predictor [5] is registered.
+I1110 19:05:43.006752  6279 predictor_manager.cc:334] Predictor [1] is registered.
+I1110 19:05:43.006754  6279 predictor_manager.cc:334] Predictor [4] is registered.
+I1110 19:05:43.006757  6279 predictor_manager.cc:334] Predictor [6] is registered.
+I1110 19:05:43.006759  6279 predictor_manager.cc:334] Predictor [7] is registered.
+I1110 19:05:43.006762  6279 predictor_manager.cc:334] Predictor [8] is registered.
+I1110 19:05:43.008713  6279 container_manager.cc:63] Container [11] is registered.
+I1110 19:05:43.008720  6279 container_manager.cc:63] Container [5] is registered.
+I1110 19:05:43.008726  6279 container_manager.cc:63] Container [6] is registered.
+I1110 19:05:43.008728  6279 container_manager.cc:63] Container [40] is registered.
+I1110 19:05:43.008730  6279 container_manager.cc:63] Container [75] is registered.
+I1110 19:05:43.017344  6279 evaluator_manager.cc:185] Defined vehicle on lane obstacle evaluator [3]
+I1110 19:05:43.017354  6279 evaluator_manager.cc:187] Defined cyclist on lane obstacle evaluator [5]
+I1110 19:05:43.017355  6279 evaluator_manager.cc:189] Defined default on lane obstacle evaluator [0]
+I1110 19:05:43.017359  6279 predictor_manager.cc:108] Defined vehicle on lane obstacle predictor [1].
+I1110 19:05:43.017361  6279 predictor_manager.cc:110] Defined vehicle off lane obstacle predictor [1].
+I1110 19:05:43.017362  6279 predictor_manager.cc:112] Defined bicycle on lane obstacle predictor [1].
+I1110 19:05:43.017364  6279 predictor_manager.cc:114] Defined bicycle off lane obstacle predictor [1].
+I1110 19:05:43.017365  6279 predictor_manager.cc:116] Defined pedestrian obstacle predictor [1].
+I1110 19:05:43.017367  6279 predictor_manager.cc:118] Defined default on lane obstacle predictor [1].
+I1110 19:05:43.017369  6279 predictor_manager.cc:120] Defined default off lane obstacle predictor [1].
+W1110 19:05:47.002578  6283 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[2] current_index[3] 
+W1110 19:05:47.034852  6297 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[32] current_index[33] 
+W1110 19:05:47.035020  6284 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[34] current_index[35] 
+W1110 19:05:47.035830  6290 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[41] current_index[42] 
+W1110 19:05:47.036695  6296 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[47] current_index[48] 
+W1110 19:05:47.037822  6288 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[56] current_index[57] 
+W1110 19:05:47.039038  6296 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[64] current_index[65] 
+E1110 19:05:51.332893  6284 obstacles_prioritizer.cc:107] Ego obstacle nullptr found
+E1110 19:05:51.332945  6284 obstacles_container.cc:305] Ego vehicle not inserted
+E1110 19:05:51.332953  6284 obstacles_prioritizer.cc:183] Ego vehicle not found
+E1110 19:05:51.332960  6284 interaction_filter.cc:104] Ego vehicle not found
+W1110 19:06:10.608062  6288 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[2204] current_index[2205] 
+W1110 19:06:10.813464  6283 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[2223] current_index[2224] 
+W1110 19:06:30.099323  6292 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[3940] current_index[3941] 
+W1110 19:07:03.405973  6295 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[6911] current_index[6912] 
+W1110 19:07:15.031800  6297 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[7933] current_index[7934] 
+W1110 19:07:27.815923  6287 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[9074] current_index[9075] 
+W1110 19:07:36.810890  6284 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[9893] current_index[9894] 
+W1110 19:08:02.808211  6296 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[12153] current_index[12154] 
+W1110 19:08:22.178588  6292 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[13843] current_index[13844] 
+W1110 19:09:12.099150  6290 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[18225] current_index[18226] 
+W1110 19:11:27.946201  6285 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[30003] current_index[30004] 
+E1110 19:11:48.668293  6290 obstacle.cc:150] Obstacle [-1] received an older frame [1794309108.6679298878] than the most recent timestamp [ 1794309109.1342573166].
+E1110 19:11:48.668341  6290 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:11:48.780944  6282 obstacle.cc:150] Obstacle [-1] received an older frame [1794309108.7804603577] than the most recent timestamp [ 1794309109.1342573166].
+E1110 19:11:48.781028  6282 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+W1110 19:12:00.077543  6289 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[32716] current_index[32717] 
+W1110 19:12:48.039680  6285 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[36779] current_index[36780] 
+W1110 19:13:10.854307  6291 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[38750] current_index[38751] 
+W1110 19:13:58.850870  6294 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[42915] current_index[42916] 
+W1110 19:15:07.282771  6294 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[48878] current_index[48879] 
+W1110 19:15:19.609984  6294 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[49964] current_index[49965] 
+W1110 19:15:23.202870  6287 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[50277] current_index[50278] 
+W1110 19:15:56.284438  6290 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[53183] current_index[53184] 
+W1110 19:15:57.606863  6296 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[53290] current_index[53291] 
+W1110 19:16:03.040446  6284 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[53774] current_index[53775] 
+W1110 19:16:03.480232  6291 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[53809] current_index[53810] 
+W1110 19:16:03.531508  6295 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[53813] current_index[53814] 
+W1110 19:16:04.136693  6292 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[53864] current_index[53865] 
+W1110 19:16:06.484483  6284 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[54070] current_index[54071] 
+W1110 19:16:08.942682  6284 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[54283] current_index[54284] 
+W1110 19:16:12.136687  6293 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[54550] current_index[54551] 
+W1110 19:16:13.425738  6294 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[54669] current_index[54670] 
+W1110 19:16:15.044143  6282 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[54811] current_index[54812] 
+W1110 19:16:24.275137  6296 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[55615] current_index[55616] 
+W1110 19:16:29.809264  6297 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[56116] current_index[56117] 
+W1110 19:16:30.511459  6285 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[56181] current_index[56182] 
+W1110 19:16:32.700166  6295 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[56382] current_index[56383] 
+W1110 19:16:32.777161  6296 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[56389] current_index[56390] 
+W1110 19:16:33.489468  6287 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[56453] current_index[56454] 
+W1110 19:16:33.525197  6284 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[56456] current_index[56457] 
+W1110 19:16:34.040361  6286 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[56499] current_index[56500] 
+W1110 19:16:34.281526  6284 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[56518] current_index[56519] 
+W1110 19:16:34.547833  6296 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[56541] current_index[56542] 
+W1110 19:16:34.678198  6283 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[56551] current_index[56552] 
+W1110 19:16:35.063578  6289 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[56586] current_index[56587] 
+W1110 19:16:35.371074  6287 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[56615] current_index[56616] 
+W1110 19:16:36.294829  6285 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[56692] current_index[56693] 
+W1110 19:16:39.457064  6287 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[56971] current_index[56972] 
+W1110 19:16:40.014277  6284 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[57023] current_index[57024] 
+W1110 19:16:41.204960  6288 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[57129] current_index[57130] 
+W1110 19:16:41.567281  6284 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[57161] current_index[57162] 
+W1110 19:16:43.972952  6287 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[57363] current_index[57364] 
+W1110 19:16:45.055454  6295 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[57466] current_index[57467] 
+W1110 19:16:45.357349  6291 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[57491] current_index[57492] 
+W1110 19:16:54.840405  6289 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[58356] current_index[58357] 
+W1110 19:16:55.413292  6288 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[58409] current_index[58410] 
+W1110 19:16:57.377169  6291 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[58587] current_index[58588] 
+W1110 19:17:01.816340  6295 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[58986] current_index[58987] 
+W1110 19:17:07.389216  6290 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[59484] current_index[59485] 
+W1110 19:17:09.909191  6292 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[59712] current_index[59713] 
+W1110 19:17:10.616180  6297 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[59775] current_index[59776] 
+W1110 19:17:11.388720  6286 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[59845] current_index[59846] 
+W1110 19:17:13.593425  6283 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[60026] current_index[60027] 
+W1110 19:17:13.783171  6294 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[60043] current_index[60044] 
+W1110 19:17:16.895637  6287 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[60326] current_index[60327] 
+W1110 19:17:18.496628  6297 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[60470] current_index[60471] 
+W1110 19:17:41.139518  6295 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[62462] current_index[62463] 
+W1110 19:17:43.022666  6285 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[62621] current_index[62622] 
+W1110 19:17:48.740604  6284 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[63136] current_index[63137] 
+W1110 19:17:54.524602  6293 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[63644] current_index[63645] 
+W1110 19:18:06.143987  6291 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[64683] current_index[64684] 
+W1110 19:18:12.114136  6288 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[65219] current_index[65220] 
+W1110 19:18:16.286523  6283 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[65599] current_index[65600] 
+W1110 19:18:17.963045  6285 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[65748] current_index[65749] 
+W1110 19:18:22.413703  6284 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[66142] current_index[66143] 
+W1110 19:18:22.477284  6291 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[66148] current_index[66149] 
+W1110 19:18:23.216491  6288 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[66216] current_index[66217] 
+W1110 19:18:23.391563  6287 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[66232] current_index[66233] 
+W1110 19:18:23.721879  6297 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[66259] current_index[66260] 
+W1110 19:18:25.504400  6287 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[66420] current_index[66421] 
+W1110 19:18:33.402639  6290 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[67116] current_index[67117] 
+W1110 19:18:57.789202  6288 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[69249] current_index[69250] 
+W1110 19:19:55.406399  6291 channel_buffer.h:70] channel[/apollo/perception/obstacles] read buffer overflow, drop_message[1] pre_index[7946] current_index[7947] 
+W1110 19:19:55.406390  6283 channel_buffer.h:70] channel[/apollo/perception/obstacles] read buffer overflow, drop_message[1] pre_index[7946] current_index[7947] 
+W1110 19:19:58.222252  6285 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[74484] current_index[74485] 
+W1110 19:20:24.216709  6289 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[76777] current_index[76778] 
+W1110 19:21:03.806093  6290 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[80225] current_index[80226] 
+W1110 19:22:55.210793  6297 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[90038] current_index[90039] 
+W1110 19:23:31.200331  6286 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[93213] current_index[93214] 
+W1110 19:23:37.491432  6283 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[93773] current_index[93774] 
+W1110 19:24:12.455119  6289 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[96919] current_index[96920] 

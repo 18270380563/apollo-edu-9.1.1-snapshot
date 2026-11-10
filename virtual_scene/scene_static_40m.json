@@ -1,0 +1,37 @@
+{
+  "name": "realcar_virtual_vehicle_20261106_192100",
+  "description": "真车自动驾驶 + 虚拟障碍物（vehicle，前方 40.0 m）",
+  "map_dir": "modules/map/data/st5",
+  "start": {
+    "x": 306895.351,
+    "y": 3805751.105,
+    "heading": 1.463856
+  },
+  "end": {
+    "x": 306908.159,
+    "y": 3805870.42,
+    "heading": 1.463856
+  },
+  "simulator_time": 120,
+  "start_velocity": 1.597,
+  "agent": [
+    {
+      "id": 9001,
+      "description": "virtual_vehicle_40m",
+      "type": 0,
+      "motiontype": 0,
+      "width": 1.9,
+      "length": 4.8,
+      "height": 1.6,
+      "start_position": {
+        "x": 306899.62,
+        "y": 3805790.877,
+        "heading": 1.463856,
+        "speed": 0.0
+      }
+    }
+  ],
+  "deselect_default_metric": [
+    "Checkpoint"
+  ]
+}

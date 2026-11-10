@@ -1,0 +1,166 @@
+Log file created at: 2026/11/10 19:24:42
+Running on machine: in-dev-docker
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I1110 19:24:42.531409 20205 class_loader_utility.h:79] registerclass:EvaluatorSubmodule,apollo::cyber::ComponentBase,/opt/apollo/neo/lib/modules/prediction/libprediction_component.so
+I1110 19:24:42.531436 20205 class_loader_utility.h:79] registerclass:PredictorSubmodule,apollo::cyber::ComponentBase,/opt/apollo/neo/lib/modules/prediction/libprediction_component.so
+I1110 19:24:42.531451 20205 class_loader_utility.h:79] registerclass:PredictionComponent,apollo::cyber::ComponentBase,/opt/apollo/neo/lib/modules/prediction/libprediction_component.so
+I1110 19:24:42.537779 20205 component_base.h:79] use config file: /apollo/modules/prediction/conf/prediction_conf.pb.txt
+I1110 19:24:42.537796 20205 component_base.h:89] use flag file: /apollo/modules/prediction/conf/prediction.conf
+I1110 19:24:42.538035 20205 predictor_manager.cc:334] Predictor [0] is registered.
+I1110 19:24:42.538044 20205 predictor_manager.cc:334] Predictor [3] is registered.
+I1110 19:24:42.538049 20205 predictor_manager.cc:334] Predictor [5] is registered.
+I1110 19:24:42.538053 20205 predictor_manager.cc:334] Predictor [1] is registered.
+I1110 19:24:42.538056 20205 predictor_manager.cc:334] Predictor [4] is registered.
+I1110 19:24:42.538060 20205 predictor_manager.cc:334] Predictor [6] is registered.
+I1110 19:24:42.538064 20205 predictor_manager.cc:334] Predictor [7] is registered.
+I1110 19:24:42.538066 20205 predictor_manager.cc:334] Predictor [8] is registered.
+I1110 19:24:42.539400 20205 container_manager.cc:63] Container [11] is registered.
+I1110 19:24:42.539412 20205 container_manager.cc:63] Container [5] is registered.
+I1110 19:24:42.539415 20205 container_manager.cc:63] Container [6] is registered.
+I1110 19:24:42.539418 20205 container_manager.cc:63] Container [40] is registered.
+I1110 19:24:42.539422 20205 container_manager.cc:63] Container [75] is registered.
+I1110 19:24:42.546092 20205 evaluator_manager.cc:185] Defined vehicle on lane obstacle evaluator [3]
+I1110 19:24:42.546099 20205 evaluator_manager.cc:187] Defined cyclist on lane obstacle evaluator [5]
+I1110 19:24:42.546101 20205 evaluator_manager.cc:189] Defined default on lane obstacle evaluator [0]
+I1110 19:24:42.546105 20205 predictor_manager.cc:108] Defined vehicle on lane obstacle predictor [1].
+I1110 19:24:42.546108 20205 predictor_manager.cc:110] Defined vehicle off lane obstacle predictor [1].
+I1110 19:24:42.546109 20205 predictor_manager.cc:112] Defined bicycle on lane obstacle predictor [1].
+I1110 19:24:42.546111 20205 predictor_manager.cc:114] Defined bicycle off lane obstacle predictor [1].
+I1110 19:24:42.546113 20205 predictor_manager.cc:116] Defined pedestrian obstacle predictor [1].
+I1110 19:24:42.546114 20205 predictor_manager.cc:118] Defined default on lane obstacle predictor [1].
+I1110 19:24:42.546116 20205 predictor_manager.cc:120] Defined default off lane obstacle predictor [1].
+E1110 19:25:07.235219 20219 obstacles_prioritizer.cc:107] Ego obstacle nullptr found
+E1110 19:25:07.235328 20219 obstacles_container.cc:305] Ego vehicle not inserted
+E1110 19:25:07.235350 20219 obstacles_prioritizer.cc:183] Ego vehicle not found
+E1110 19:25:07.235368 20219 interaction_filter.cc:104] Ego vehicle not found
+W1110 19:25:07.407122 20213 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[2155] current_index[2156] 
+W1110 19:25:24.215442 20214 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[3629] current_index[3630] 
+W1110 19:25:42.614038 20218 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[5264] current_index[5265] 
+W1110 19:25:51.814791 20217 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[6091] current_index[6092] 
+W1110 19:26:04.415319 20216 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[7210] current_index[7211] 
+W1110 19:26:20.410506 20219 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[8603] current_index[8604] 
+W1110 19:26:31.796730 20211 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[9591] current_index[9592] 
+W1110 19:26:32.373529 20210 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[9640] current_index[9641] 
+W1110 19:26:34.191045 20217 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[9796] current_index[9797] 
+W1110 19:26:45.414747 20211 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[10771] current_index[10772] 
+W1110 19:26:58.192169 20217 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[11896] current_index[11897] 
+W1110 19:27:30.806535 20220 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[14771] current_index[14772] 
+W1110 19:27:46.807619 20218 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[16214] current_index[16215] 
+W1110 19:27:47.807608 20210 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[16298] current_index[16299] 
+W1110 19:28:18.219148 20215 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[18955] current_index[18956] 
+W1110 19:28:30.828249 20209 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[20047] current_index[20048] 
+W1110 19:28:31.406352 20223 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[20099] current_index[20100] 
+W1110 19:28:37.399030 20217 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[20609] current_index[20610] 
+W1110 19:29:19.787025 20217 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[24289] current_index[24290] 
+W1110 19:29:56.875383 20214 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[27457] current_index[27458] 
+W1110 19:31:14.416417 20219 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[33945] current_index[33946] 
+W1110 19:32:11.154810 20217 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[38670] current_index[38671] 
+W1110 19:33:59.695434 20222 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[47748] current_index[47749] 
+W1110 19:34:03.517163 20223 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[48070] current_index[48071] 
+W1110 19:34:26.466178 20219 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[50025] current_index[50026] 
+W1110 19:36:36.688731 20224 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[61000] current_index[61001] 
+E1110 19:36:43.594903 20209 obstacle.cc:150] Obstacle [-1] received an older frame [1794310603.5944964886] than the most recent timestamp [ 1794310604.2861537933].
+E1110 19:36:43.594956 20209 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:36:43.645288 20211 obstacle.cc:150] Obstacle [-1] received an older frame [1794310603.6447079182] than the most recent timestamp [ 1794310604.2861537933].
+E1110 19:36:43.645377 20211 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:36:43.695372 20213 obstacle.cc:150] Obstacle [-1] received an older frame [1794310603.6949522495] than the most recent timestamp [ 1794310604.2861537933].
+E1110 19:36:43.695421 20213 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:36:43.745784 20224 obstacle.cc:150] Obstacle [-1] received an older frame [1794310603.7451865673] than the most recent timestamp [ 1794310604.2861537933].
+E1110 19:36:43.745870 20224 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:36:43.795982 20219 obstacle.cc:150] Obstacle [-1] received an older frame [1794310603.7954621315] than the most recent timestamp [ 1794310604.2861537933].
+E1110 19:36:43.796084 20219 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:36:43.846114 20218 obstacle.cc:150] Obstacle [-1] received an older frame [1794310603.8456966877] than the most recent timestamp [ 1794310604.2861537933].
+E1110 19:36:43.846159 20218 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:36:43.896425 20221 obstacle.cc:150] Obstacle [-1] received an older frame [1794310603.8959264755] than the most recent timestamp [ 1794310604.2861537933].
+E1110 19:36:43.896466 20221 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:36:43.946642 20212 obstacle.cc:150] Obstacle [-1] received an older frame [1794310603.9461607933] than the most recent timestamp [ 1794310604.2861537933].
+E1110 19:36:43.946684 20212 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:36:43.996788 20216 obstacle.cc:150] Obstacle [-1] received an older frame [1794310603.9964258671] than the most recent timestamp [ 1794310604.2861537933].
+E1110 19:36:43.996837 20216 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:36:44.047212 20223 obstacle.cc:150] Obstacle [-1] received an older frame [1794310604.0465996265] than the most recent timestamp [ 1794310604.2861537933].
+E1110 19:36:44.047320 20223 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:36:44.097255 20215 obstacle.cc:150] Obstacle [-1] received an older frame [1794310604.0968177319] than the most recent timestamp [ 1794310604.2861537933].
+E1110 19:36:44.097309 20215 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:36:44.147503 20213 obstacle.cc:150] Obstacle [-1] received an older frame [1794310604.1469888687] than the most recent timestamp [ 1794310604.2861537933].
+E1110 19:36:44.147583 20213 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:36:44.197767 20211 obstacle.cc:150] Obstacle [-1] received an older frame [1794310604.1971552372] than the most recent timestamp [ 1794310604.2861537933].
+E1110 19:36:44.197856 20211 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:36:44.247738 20219 obstacle.cc:150] Obstacle [-1] received an older frame [1794310604.2473573685] than the most recent timestamp [ 1794310604.2861537933].
+E1110 19:36:44.247778 20219 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:27.661602 20224 obstacle.cc:150] Obstacle [-1] received an older frame [1794310707.6609213352] than the most recent timestamp [ 1794310708.147698164].
+E1110 19:38:27.661715 20224 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:27.711609 20209 obstacle.cc:150] Obstacle [-1] received an older frame [1794310707.7111771107] than the most recent timestamp [ 1794310708.147698164].
+E1110 19:38:27.711666 20209 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:27.761961 20217 obstacle.cc:150] Obstacle [-1] received an older frame [1794310707.7613639832] than the most recent timestamp [ 1794310708.147698164].
+E1110 19:38:27.762063 20217 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:27.812287 20218 obstacle.cc:150] Obstacle [-1] received an older frame [1794310707.811602354] than the most recent timestamp [ 1794310708.147698164].
+E1110 19:38:27.812372 20218 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:27.862336 20220 obstacle.cc:150] Obstacle [-1] received an older frame [1794310707.8618946075] than the most recent timestamp [ 1794310708.147698164].
+E1110 19:38:27.862450 20220 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:27.912563 20214 obstacle.cc:150] Obstacle [-1] received an older frame [1794310707.9120893478] than the most recent timestamp [ 1794310708.147698164].
+E1110 19:38:27.912634 20214 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:27.962759 20210 obstacle.cc:150] Obstacle [-1] received an older frame [1794310707.9622642994] than the most recent timestamp [ 1794310708.147698164].
+E1110 19:38:27.962808 20210 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:28.013055 20214 obstacle.cc:150] Obstacle [-1] received an older frame [1794310708.0125465393] than the most recent timestamp [ 1794310708.147698164].
+E1110 19:38:28.013135 20214 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:28.063338 20223 obstacle.cc:150] Obstacle [-1] received an older frame [1794310708.0627894402] than the most recent timestamp [ 1794310708.147698164].
+E1110 19:38:28.063445 20223 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:28.113517 20214 obstacle.cc:150] Obstacle [-1] received an older frame [1794310708.1129925251] than the most recent timestamp [ 1794310708.147698164].
+E1110 19:38:28.113621 20214 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:37.963984 20216 obstacle.cc:150] Obstacle [-1] received an older frame [1794310717.9635131359] than the most recent timestamp [ 1794310718.5558884144].
+E1110 19:38:37.964031 20216 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:38.014122 20218 obstacle.cc:150] Obstacle [-1] received an older frame [1794310718.0136842728] than the most recent timestamp [ 1794310718.5558884144].
+E1110 19:38:38.014183 20218 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:38.064285 20210 obstacle.cc:150] Obstacle [-1] received an older frame [1794310718.0638010502] than the most recent timestamp [ 1794310718.5558884144].
+E1110 19:38:38.064369 20210 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:38.114539 20211 obstacle.cc:150] Obstacle [-1] received an older frame [1794310718.1139967442] than the most recent timestamp [ 1794310718.5558884144].
+E1110 19:38:38.114622 20211 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:38.164731 20220 obstacle.cc:150] Obstacle [-1] received an older frame [1794310718.1642491817] than the most recent timestamp [ 1794310718.5558884144].
+E1110 19:38:38.164815 20220 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:38.215018 20222 obstacle.cc:150] Obstacle [-1] received an older frame [1794310718.2144668102] than the most recent timestamp [ 1794310718.5558884144].
+E1110 19:38:38.215080 20222 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:38.265215 20217 obstacle.cc:150] Obstacle [-1] received an older frame [1794310718.2647001743] than the most recent timestamp [ 1794310718.5558884144].
+E1110 19:38:38.265333 20217 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:38.315419 20216 obstacle.cc:150] Obstacle [-1] received an older frame [1794310718.3148789406] than the most recent timestamp [ 1794310718.5558884144].
+E1110 19:38:38.315464 20216 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:38.365655 20218 obstacle.cc:150] Obstacle [-1] received an older frame [1794310718.3651266098] than the most recent timestamp [ 1794310718.5558884144].
+E1110 19:38:38.365700 20218 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:38.416002 20220 obstacle.cc:150] Obstacle [-1] received an older frame [1794310718.4154040813] than the most recent timestamp [ 1794310718.5558884144].
+E1110 19:38:38.416093 20220 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:38.466073 20211 obstacle.cc:150] Obstacle [-1] received an older frame [1794310718.4656615257] than the most recent timestamp [ 1794310718.5558884144].
+E1110 19:38:38.466114 20211 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:38.516497 20223 obstacle.cc:150] Obstacle [-1] received an older frame [1794310718.5159237385] than the most recent timestamp [ 1794310718.5558884144].
+E1110 19:38:38.516585 20223 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:48.147504 20216 obstacle.cc:150] Obstacle [-1] received an older frame [1794310728.1470537186] than the most recent timestamp [ 1794310728.6661906242].
+E1110 19:38:48.147554 20216 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:48.197649 20214 obstacle.cc:150] Obstacle [-1] received an older frame [1794310728.1972985268] than the most recent timestamp [ 1794310728.6661906242].
+E1110 19:38:48.197691 20214 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:48.247960 20221 obstacle.cc:150] Obstacle [-1] received an older frame [1794310728.2474992275] than the most recent timestamp [ 1794310728.6661906242].
+E1110 19:38:48.248021 20221 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:48.298105 20219 obstacle.cc:150] Obstacle [-1] received an older frame [1794310728.2976696491] than the most recent timestamp [ 1794310728.6661906242].
+E1110 19:38:48.298144 20219 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:48.348269 20221 obstacle.cc:150] Obstacle [-1] received an older frame [1794310728.3478658199] than the most recent timestamp [ 1794310728.6661906242].
+E1110 19:38:48.348311 20221 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:48.400357 20209 obstacle.cc:150] Obstacle [-1] received an older frame [1794310728.3998904228] than the most recent timestamp [ 1794310728.6661906242].
+E1110 19:38:48.400435 20209 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:48.450584 20210 obstacle.cc:150] Obstacle [-1] received an older frame [1794310728.4501094818] than the most recent timestamp [ 1794310728.6661906242].
+E1110 19:38:48.450623 20210 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:48.500797 20215 obstacle.cc:150] Obstacle [-1] received an older frame [1794310728.5003266335] than the most recent timestamp [ 1794310728.6661906242].
+E1110 19:38:48.500906 20215 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:48.551097 20220 obstacle.cc:150] Obstacle [-1] received an older frame [1794310728.5505087376] than the most recent timestamp [ 1794310728.6661906242].
+E1110 19:38:48.551139 20220 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:48.601114 20216 obstacle.cc:150] Obstacle [-1] received an older frame [1794310728.6007320881] than the most recent timestamp [ 1794310728.6661906242].
+E1110 19:38:48.601156 20216 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+E1110 19:38:48.651378 20214 obstacle.cc:150] Obstacle [-1] received an older frame [1794310728.6509134769] than the most recent timestamp [ 1794310728.6661906242].
+E1110 19:38:48.651417 20214 obstacles_container.cc:92] Invalid timestamp curr [1.79431e+09] v.s. prev [1.79431e+09].
+W1110 19:40:50.024603 20215 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[82018] current_index[82019] 
+W1110 19:41:24.718627 20217 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[84861] current_index[84862] 
+W1110 19:41:30.142614 20221 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[85298] current_index[85299] 
+W1110 19:41:52.636068 20214 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[87152] current_index[87153] 
+W1110 19:42:13.390483 20216 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[88854] current_index[88855] 
+W1110 19:42:32.418334 20212 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[90432] current_index[90433] 
+W1110 19:45:06.906695 20222 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[103380] current_index[103381] 
+W1110 19:45:07.960559 20218 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[103468] current_index[103469] 
+W1110 19:45:43.306967 20221 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[106448] current_index[106449] 
+W1110 19:48:12.207875 20209 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[119173] current_index[119174] 
+W1110 19:48:19.501121 20212 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[119800] current_index[119801] 

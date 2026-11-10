@@ -1,0 +1,58 @@
+{
+  "name": "aeb_pedestrian_20261106_200843",
+  "description": "AEB 测试：cross 行人，车前 40 m，第 3 s 开始以 1.2 m/s 移动",
+  "map_dir": "modules/map/data/st5",
+  "start": {
+    "x": 306621.102,
+    "y": 3805698.782,
+    "heading": -2.830218
+  },
+  "end": {
+    "x": 306463.085,
+    "y": 3805647.925,
+    "heading": -2.830218
+  },
+  "simulator_time": 120,
+  "agent": [
+    {
+      "id": 9101,
+      "description": "pedestrian_cross",
+      "type": 2,
+      "width": 0.7,
+      "length": 0.5,
+      "height": 1.75,
+      "motiontype": 2,
+      "trigger_type": 1,
+      "start_time": 3.0,
+      "start_position": {
+        "x": 306583.704,
+        "y": 3805690.947,
+        "heading": -1.259421,
+        "speed": 1.2
+      },
+      "tracked_point": [
+        {
+          "x": 306583.704,
+          "y": 3805690.947,
+          "heading": -1.259421,
+          "speed": 1.2
+        },
+        {
+          "x": 306584.93,
+          "y": 3805687.14,
+          "heading": -1.259421,
+          "speed": 1.2
+        },
+        {
+          "x": 306586.155,
+          "y": 3805683.332,
+          "heading": -1.259421,
+          "speed": 1.2
+        }
+      ]
+    }
+  ],
+  "deselect_default_metric": [
+    "Checkpoint"
+  ]
+}

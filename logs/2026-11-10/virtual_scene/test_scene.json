@@ -1,0 +1,19 @@
+{
+  "format": "scene-editor/1",
+  "map": "st5",
+  "map_version": "live",
+  "applied_shift": [0, 0],
+  "name": "融合链路自检（2 演员）",
+  "duration": 40,
+  "ego": { "s0": 0, "accel": 0 },
+  "agents": [
+    { "key": "a", "id": 9901, "name": "横穿行人", "type": "PEDESTRIAN",
+      "s0": 32, "l0": -3.0, "motion": "cross", "dir": 1, "speed": 1.0, "span": 4,
+      "trigger": "time", "tStart": 1.0, "trigDist": 0,
+      "w": 0.7, "l": 0.5, "h": 1.75 },
+    { "key": "b", "id": 9902, "name": "静止车辆", "type": "VEHICLE",
+      "s0": 22, "l0": 0, "motion": "static", "dir": 1, "speed": 0, "span": 0,
+      "trigger": "time", "tStart": 0.2, "trigDist": 0,
+      "w": 1.8, "l": 4.6, "h": 1.6 }
+  ]
+}

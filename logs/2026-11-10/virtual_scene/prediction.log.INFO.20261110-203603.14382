@@ -1,0 +1,38 @@
+Log file created at: 2026/11/10 20:36:03
+Running on machine: in-dev-docker
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I1110 20:36:03.469830 14382 class_loader_utility.h:79] registerclass:EvaluatorSubmodule,apollo::cyber::ComponentBase,/opt/apollo/neo/lib/modules/prediction/libprediction_component.so
+I1110 20:36:03.469872 14382 class_loader_utility.h:79] registerclass:PredictorSubmodule,apollo::cyber::ComponentBase,/opt/apollo/neo/lib/modules/prediction/libprediction_component.so
+I1110 20:36:03.469889 14382 class_loader_utility.h:79] registerclass:PredictionComponent,apollo::cyber::ComponentBase,/opt/apollo/neo/lib/modules/prediction/libprediction_component.so
+I1110 20:36:03.476436 14382 component_base.h:79] use config file: /apollo/modules/prediction/conf/prediction_conf.pb.txt
+I1110 20:36:03.476581 14382 component_base.h:89] use flag file: /apollo/modules/prediction/conf/prediction.conf
+I1110 20:36:03.477011 14382 predictor_manager.cc:334] Predictor [0] is registered.
+I1110 20:36:03.477032 14382 predictor_manager.cc:334] Predictor [3] is registered.
+I1110 20:36:03.477036 14382 predictor_manager.cc:334] Predictor [5] is registered.
+I1110 20:36:03.477041 14382 predictor_manager.cc:334] Predictor [1] is registered.
+I1110 20:36:03.477043 14382 predictor_manager.cc:334] Predictor [4] is registered.
+I1110 20:36:03.477046 14382 predictor_manager.cc:334] Predictor [6] is registered.
+I1110 20:36:03.477051 14382 predictor_manager.cc:334] Predictor [7] is registered.
+I1110 20:36:03.477053 14382 predictor_manager.cc:334] Predictor [8] is registered.
+I1110 20:36:03.478911 14382 container_manager.cc:63] Container [11] is registered.
+I1110 20:36:03.478919 14382 container_manager.cc:63] Container [5] is registered.
+I1110 20:36:03.478924 14382 container_manager.cc:63] Container [6] is registered.
+I1110 20:36:03.478926 14382 container_manager.cc:63] Container [40] is registered.
+I1110 20:36:03.478929 14382 container_manager.cc:63] Container [75] is registered.
+I1110 20:36:03.488620 14382 evaluator_manager.cc:185] Defined vehicle on lane obstacle evaluator [3]
+I1110 20:36:03.488629 14382 evaluator_manager.cc:187] Defined cyclist on lane obstacle evaluator [5]
+I1110 20:36:03.488631 14382 evaluator_manager.cc:189] Defined default on lane obstacle evaluator [0]
+I1110 20:36:03.488636 14382 predictor_manager.cc:108] Defined vehicle on lane obstacle predictor [1].
+I1110 20:36:03.488637 14382 predictor_manager.cc:110] Defined vehicle off lane obstacle predictor [1].
+I1110 20:36:03.488639 14382 predictor_manager.cc:112] Defined bicycle on lane obstacle predictor [1].
+I1110 20:36:03.488641 14382 predictor_manager.cc:114] Defined bicycle off lane obstacle predictor [1].
+I1110 20:36:03.488642 14382 predictor_manager.cc:116] Defined pedestrian obstacle predictor [1].
+I1110 20:36:03.488643 14382 predictor_manager.cc:118] Defined default on lane obstacle predictor [1].
+I1110 20:36:03.488646 14382 predictor_manager.cc:120] Defined default off lane obstacle predictor [1].
+E1110 20:36:04.669564 14393 obstacles_prioritizer.cc:107] Ego obstacle nullptr found
+E1110 20:36:04.669612 14393 obstacles_container.cc:305] Ego vehicle not inserted
+E1110 20:36:04.669620 14393 obstacles_prioritizer.cc:183] Ego vehicle not found
+E1110 20:36:04.669627 14393 interaction_filter.cc:104] Ego vehicle not found
+W1110 20:36:30.401962 14392 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[2373] current_index[2374] 
+W1110 20:36:35.392477 14393 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[2805] current_index[2806] 
+W1110 20:37:06.484545 14391 channel_buffer.h:70] channel[/apollo/localization/pose] read buffer overflow, drop_message[1] pre_index[5531] current_index[5532] 

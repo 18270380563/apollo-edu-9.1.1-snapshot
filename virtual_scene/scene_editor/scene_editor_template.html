@@ -1,0 +1,1183 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>虚拟场景剧本编辑器 · st5</title>
+<style>
+  :root{
+    --bg:#12151a; --panel:#181c23; --panel2:#1d222b; --line:#262d39;
+    --text:#e6e9ee; --muted:#8b95a5; --accent:#4c9aff; --warn:#f0a04b;
+    --danger:#ef5f5f; --ok:#4ec98a; --road:#1e242e; --edge:#3c4657;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font:13px/1.5 "Segoe UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    overflow:hidden; -webkit-font-smoothing:antialiased;
+  }
+  #app{
+    display:grid; height:100vh;
+    grid-template-columns:224px 1fr 292px;
+    grid-template-rows:46px 1fr 104px;
+  }
+  header{
+    grid-column:1/-1; display:flex; align-items:center; gap:14px;
+    padding:0 14px; background:var(--panel); border-bottom:1px solid var(--line);
+  }
+  header h1{font-size:13px;font-weight:600;margin:0;letter-spacing:.3px}
+  header .meta{color:var(--muted);font-size:12px}
+  header .spacer{flex:1}
+  button{
+    font:inherit; color:var(--text); background:var(--panel2);
+    border:1px solid var(--line); border-radius:6px; padding:5px 11px; cursor:pointer;
+  }
+  button:hover{border-color:#39445a;background:#232935}
+  button.primary{background:#17335c;border-color:#2b5a9e;color:#cfe2ff}
+  button.primary:hover{background:#1c3d6d}
+  button.danger{border-color:#5a2b2b;color:#ffb4b4}
+  aside{background:var(--panel);overflow:auto}
+  #left{border-right:1px solid var(--line);display:flex;flex-direction:column;overflow-y:auto}
+  #right{border-left:1px solid var(--line)}
+  .sec{padding:10px 12px;border-bottom:1px solid var(--line)}
+  /* 1024×768 这类小屏上，面板里的每一段都不许被压扁；放不下就让整列滚动 */
+  #left > *,#right > *{flex:0 0 auto}
+  .sec h2{font-size:11px;font-weight:600;color:var(--muted);margin:0 0 8px;
+    text-transform:uppercase;letter-spacing:.08em}
+  .list{flex:1 1 auto;min-height:76px;overflow:auto;padding:6px}
+  .item{
+    display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:6px;
+    cursor:pointer;border:1px solid transparent;
+  }
+  .item:hover{background:#1e242e}
+  .item.sel{background:#1b2a41;border-color:#2b5a9e}
+  .dot{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+  .item .nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .item .id{color:var(--muted);font-variant-numeric:tabular-nums;font-size:11px}
+  .add{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:8px}
+  .add button{padding:6px;font-size:12px}
+  #stage{position:relative;overflow:hidden;background:#0e1116}
+  canvas{display:block;width:100%;height:100%;cursor:crosshair}
+  .hud{
+    position:absolute;left:12px;bottom:12px;color:var(--muted);font-size:12px;
+    background:rgba(18,21,26,.82);border:1px solid var(--line);border-radius:6px;
+    padding:6px 10px;pointer-events:none;white-space:pre;line-height:1.6;
+    font-variant-numeric:tabular-nums;
+  }
+  .hud b{color:var(--text);font-weight:600}
+  #timeline{
+    grid-column:1/-1;border-top:1px solid var(--line);background:var(--panel);
+    display:flex;align-items:center;gap:14px;padding:0 16px;
+  }
+  #timeline input[type=range]{flex:1}
+  .tval{font-variant-numeric:tabular-nums;min-width:118px;color:var(--muted)}
+  .tval b{color:var(--text)}
+  label.f{display:block;margin-bottom:9px}  label.f span{display:block;color:var(--muted);font-size:11px;margin-bottom:3px}
+  input,select{
+    font:inherit;width:100%;background:#12161c;color:var(--text);
+    border:1px solid var(--line);border-radius:5px;padding:5px 7px;
+  }
+  input:focus,select:focus{outline:none;border-color:#2b5a9e}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .chk{display:flex;flex-wrap:wrap;gap:5px 10px}
+  .issue{display:flex;gap:7px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:12px}
+  .issue:last-child{border-bottom:0}
+  .issue .tag{flex:0 0 auto;font-size:10px;padding:1px 5px;border-radius:3px;height:17px;line-height:15px}
+  .tag.err{background:#4a1f1f;color:#ffb4b4}
+  .tag.warn{background:#46331a;color:#ffd9a8}
+  .tag.ok{background:#1b3a2c;color:#a8f0c8}
+  .tag.info{background:#1d2b3d;color:#b9d4f5}
+  #modal{
+    position:fixed;inset:0;background:rgba(5,7,10,.72);display:none;
+    align-items:center;justify-content:center;z-index:50;
+  }
+  #modal.on{display:flex}
+  .sheet{
+    width:min(860px,92vw);height:min(640px,88vh);background:var(--panel);
+    border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;
+    overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.55);
+  }
+  .sheet header{background:none;border-bottom:1px solid var(--line);height:auto;padding:12px 16px}
+  .tabs{display:flex;gap:6px;padding:10px 16px 0}
+  .tabs button{border-radius:6px 6px 0 0;border-bottom-color:transparent}
+  .tabs button.on{background:#12161c;border-color:var(--line);border-bottom-color:#12161c}
+  .sheet .body{flex:1;padding:12px 16px;overflow:auto}
+  .sheet textarea{
+    width:100%;height:100%;min-height:340px;background:#0e1116;color:#cfe2ff;
+    border:1px solid var(--line);border-radius:6px;padding:12px;
+    font:12px/1.6 "Cascadia Code",Consolas,monospace;resize:none;white-space:pre;
+  }
+  .sheet .foot{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--line);align-items:center}
+  .note{color:var(--muted);font-size:12px;flex:1}
+  code{background:#12161c;padding:1px 5px;border-radius:3px;font-size:12px}
+
+  /* 车上那块屏是 1024×768：把两侧面板收窄，把宽度让给画布 */
+  @media (max-width:1200px){
+    #app{grid-template-columns:188px 1fr 238px}
+    header{gap:10px;padding:0 10px}
+    header .meta{font-size:11px}
+    .sec{padding:8px 10px}
+  }
+  @media (max-width:900px){
+    #app{grid-template-columns:170px 1fr 0}
+    #right{display:none}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>虚拟场景剧本编辑器</h1>
+    <span class="meta" id="mapMeta"></span>
+    <span class="spacer"></span>
+    <button id="btnFit">适应窗口</button>
+    <button id="btnCheck">校验</button>
+    <button id="btnExport" class="primary">导出</button>
+  </header>
+
+  <aside id="left">
+    <div class="sec"><h2>演员</h2></div>
+    <div class="list" id="agentList"></div>
+    <div class="add">
+      <button data-add="ped">+ 行人</button>
+      <button data-add="static">+ 静止障碍</button>
+      <button data-add="car">+ 车辆</button>
+      <button data-add="cross">+ 横穿行人</button>
+    </div>
+    <div class="sec">
+      <h2>自车</h2>
+      <div class="row2">
+        <label class="f"><span>起点 s (m)</span><input type="number" id="egoS" step="0.1"></label>
+        <label class="f"><span>巡航 v (m/s)</span><input type="number" id="egoV" step="0.1"></label>
+      </div>
+      <label class="f"><span>起步加速度 (m/s²)</span><input type="number" id="egoA" step="0.1"></label>
+      <label class="f"><span>场景时长 (s)</span><input type="number" id="dur" step="1"></label>
+    </div>
+    <div class="sec"><h2>校验</h2><div id="issues"><div class="issue"><span class="tag info">—</span><span style="color:var(--muted)">点「校验」跑一遍</span></div></div></div>
+  </aside>
+
+  <div id="stage">
+    <canvas id="cv"></canvas>
+    <div class="hud" id="hud"></div>
+  </div>
+
+  <aside id="right">
+    <div class="sec"><h2>属性</h2><div id="props"></div></div>
+    <div class="sec"><h2>时序</h2><div id="timing"></div></div>
+  </aside>
+
+  <footer id="timeline">
+    <button id="btnPlay">▶ 播放</button>
+    <input type="range" id="time" min="0" max="30" step="0.02" value="0">
+    <div class="tval">t = <b id="tnow">0.00</b> s</div>
+  </footer>
+</div>
+
+<div id="modal">
+  <div class="sheet">
+    <header><h1 style="font-size:13px">导出</h1></header>
+    <div class="tabs">
+      <button data-tab="cmd" class="on">注入器命令</button>
+      <button data-tab="scenario">Scenario JSON</button>
+      <button data-tab="scene">场景 JSON（本编辑器）</button>
+    </div>
+    <div class="body"><textarea id="outTA" spellcheck="false"></textarea></div>
+    <div class="foot">
+      <div class="note" id="outNote"></div>
+      <button id="btnCopy">复制</button>
+      <button id="btnClose">关闭</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* ==================== 地图数据（由 map_to_json.py 生成，已内嵌） ==================== */
+const MAP = __MAP_JSON__;
+
+/* ==================== 几何 ==================== */
+const LANE = MAP.lanes[0];
+const P = LANE.points;
+const S = [0];
+for (let i = 1; i < P.length; i++) {
+  S.push(S[i - 1] + Math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1]));
+}
+const LEN = S[S.length - 1];
+const HALF_W = 3.3156;          // 车道半宽（left_sample/right_sample 实测）
+const EGO_HALF_W = 1.007;       // 车半宽
+const NUDGE_LIMIT = 2.60;       // 障碍物宽度上限，超过就只能停不能绕
+
+function sToPose(s) {
+  s = Math.max(0, Math.min(LEN, s));
+  let i = 0;
+  while (i < S.length - 2 && S[i + 1] < s) i++;
+  const seg = S[i + 1] - S[i];
+  const t = seg > 1e-9 ? (s - S[i]) / seg : 0;
+  const x = P[i][0] + t * (P[i + 1][0] - P[i][0]);
+  const y = P[i][1] + t * (P[i + 1][1] - P[i][1]);
+  const h = Math.atan2(P[i + 1][1] - P[i][1], P[i + 1][0] - P[i][0]);
+  return { x: x, y: y, h: h };
+}
+
+/** (s,l) -> 地图坐标。l 为正 = 车道中心线左侧。 */
+function slToXY(s, l) {
+  const p = sToPose(s);
+  return { x: p.x - l * Math.sin(p.h), y: p.y + l * Math.cos(p.h), h: p.h };
+}
+
+/** 地图坐标 -> {s,l,d}，l 正 = 左侧。 */
+function project(x, y) {
+  let best = { d: 1e18, s: 0, l: 0, h: 0 };
+  for (let i = 0; i < P.length - 1; i++) {
+    const ax = P[i][0], ay = P[i][1], bx = P[i + 1][0], by = P[i + 1][1];
+    const dx = bx - ax, dy = by - ay, L2 = dx * dx + dy * dy;
+    let t = 0;
+    if (L2 > 1e-12) t = Math.max(0, Math.min(1, ((x - ax) * dx + (y - ay) * dy) / L2));
+    const cx = ax + t * dx, cy = ay + t * dy;
+    const d = Math.hypot(x - cx, y - cy);
+    if (d < best.d) {
+      const seg = Math.sqrt(L2) || 1;
+      const ux = dx / seg, uy = dy / seg;
+      const cross = ux * (y - ay) - uy * (x - ax);
+      best = { d: d, s: S[i] + t * seg, l: cross, h: Math.atan2(dy, dx) };
+    }
+  }
+  return best;
+}
+
+/* ==================== 场景模型 ==================== */
+const TYPES = {
+  PEDESTRIAN: { w: 0.7, l: 0.5, h: 1.75, color: "#f0a04b" },
+  BICYCLE:    { w: 0.6, l: 1.7, h: 1.6,  color: "#c98bf0" },
+  VEHICLE:    { w: 1.9, l: 4.6, h: 1.6,  color: "#4ec98a" },
+  UNKNOWN_UNMOVABLE: { w: 1.0, l: 1.0, h: 1.0, color: "#9aa5b5" }
+};
+
+let UID = 1;
+function mkAgent(kind) {
+  const base = {
+    key: "a" + (UID++),
+    name: "演员" + UID,
+    id: 9900 + UID,
+    type: "PEDESTRIAN",
+    w: 0.7, l: 0.5, h: 1.75,
+    motion: "static",
+    s0: 90, l0: 0,
+    speed: 1.2, dir: 1, span: 3.5,
+    trigger: "time", tStart: 3, trigDist: 25
+  };
+  if (kind === "ped") Object.assign(base, { motion: "static", l0: -2.0 });
+  if (kind === "cross") Object.assign(base, { motion: "cross", l0: -3.4, span: 6.8, speed: 1.2, dir: 1 });
+  if (kind === "static") Object.assign(base, { id: 9910 + UID, type: "UNKNOWN_UNMOVABLE", motion: "static", l0: 0, w: 1.0, l: 1.0, h: 1.0 });
+  if (kind === "car") Object.assign(base, { id: 9800 + UID, type: "VEHICLE", motion: "static", l0: 0, w: 1.9, l: 4.6, h: 1.6, s0: 130 });
+  return base;
+}
+
+const SC = {
+  name: "st5_scene",
+  duration: 30,
+  ego: { s0: 9.4, cruise: 5.0, accel: 1.0 },
+  agents: []
+};
+
+/** 自车沿车道走过的距离（相对起点），只依赖 (t, v, a)。 */
+function egoTravel(t) {
+  if (t <= 0) return 0;
+  const a = Math.max(0.01, SC.ego.accel), vc = Math.max(0.01, SC.ego.cruise);
+  const tAcc = vc / a;
+  return t < tAcc ? 0.5 * a * t * t
+                  : 0.5 * a * tAcc * tAcc + vc * (t - tAcc);
+}
+function egoS(t) {
+  return Math.min(LEN, SC.ego.s0 + egoTravel(t));
+}
+/** 自车到达某站位的时刻；到不了返回 Infinity。 */
+function egoArriveTime(sTarget) {
+  const d = sTarget - SC.ego.s0;
+  if (d <= 0) return 0;
+  const a = Math.max(0.01, SC.ego.accel), vc = Math.max(0.01, SC.ego.cruise);
+  const tAcc = vc / a, dAcc = 0.5 * a * tAcc * tAcc;
+  if (d <= dAcc) return Math.sqrt(2 * d / a);
+  return tAcc + (d - dAcc) / vc;
+}
+
+/** 演员激活时刻。
+    距离触发按【自车到演员起点的欧氏距离】解算 —— 注入器 pedestrian_injector.py
+    就是这么判的（hypot(live - origin) <= --trigger-dist），不是按车道弧长差。 */
+function activationTime(a) {
+  if (a.trigger !== "distance") return a.tStart;
+  const q = slToXY(a.s0, a.l0);
+  const distAt = function (t) {
+    const p = sToPose(egoS(t));
+    return Math.hypot(p.x - q.x, p.y - q.y);
+  };
+  const T = (LEN - SC.ego.s0) / Math.max(0.1, SC.ego.cruise) + 60;
+  // 距离随时间先减后增，不能整体二分：先粗扫找到第一次进圈，再在那一格里二分细化
+  const step = 0.05;
+  for (let t = 0; t <= T; t += step) {
+    if (distAt(t) <= a.trigDist) {
+      let lo = Math.max(0, t - step), hi = t;
+      for (let i = 0; i < 20; i++) {
+        const mid = (lo + hi) / 2;
+        if (distAt(mid) > a.trigDist) lo = mid; else hi = mid;
+      }
+      return hi;
+    }
+  }
+  return Infinity;
+}
+
+/** 演员在 t 时刻的 (s,l,h)；未激活返回 null。 */
+function agentPose(a, t) {
+  const t0 = activationTime(a);
+  if (t < t0) return null;
+  const tau = t - t0;
+  const lp = sToPose(a.s0);
+  let s = a.s0, l = a.l0, h = lp.h;
+  const v = Math.max(0.05, a.speed);
+  if (a.motion === "cross") {
+    const maxL = Math.abs(a.span);
+    const moved = Math.min(maxL, v * tau);
+    l = a.l0 + a.dir * moved;
+    h = lp.h + (a.dir > 0 ? Math.PI / 2 : -Math.PI / 2);
+  } else if (a.motion === "along") {
+    const ss = a.s0 + a.dir * v * tau;
+    s = Math.max(0, Math.min(LEN, ss));
+    h = a.dir > 0 ? lp.h : lp.h + Math.PI;
+  } else if (a.motion === "pingpong") {
+    const span = Math.max(0.1, Math.abs(a.span));
+    const period = 2 * span / v;
+    const ph = (tau % period) / period;          // 0..1
+    const tri = ph < 0.5 ? ph * 2 : (1 - ph) * 2; // 0..1..0
+    l = a.l0 + a.dir * span * tri;
+    h = lp.h + (ph < 0.5 ? Math.PI / 2 : -Math.PI / 2) * a.dir;
+  }
+  return { s: s, l: l, h: h, t0: t0, tau: tau };
+}
+
+/** 横穿到车道中心（|l|<1 m）的时刻，用于时序分析。 */
+function crossingTime(a) {
+  if (a.motion !== "cross" && a.motion !== "pingpong") return null;
+  const t0 = activationTime(a);
+  if (!isFinite(t0)) return null;
+  for (let tau = 0; tau <= 40; tau += 0.02) {
+    const p = agentPose(a, t0 + tau);
+    if (p && Math.abs(p.l) < 1.0) return t0 + tau;
+  }
+  return null;
+}
+
+/* ==================== 视图 ==================== */
+const cv = document.getElementById("cv");
+const ctx = cv.getContext("2d");
+const view = { cx: 0, cy: 0, scale: 4, w: 0, h: 0 };
+
+function fitView() {
+  const xs = [], ys = [];
+  MAP.lanes.forEach(function (L) { L.points.forEach(function (p) { xs.push(p[0]); ys.push(p[1]); }); });
+  (MAP.road_boundaries || []).forEach(function (b) { b.points.forEach(function (p) { xs.push(p[0]); ys.push(p[1]); }); });
+  if (!xs.length) return;
+  const minx = Math.min.apply(null, xs), maxx = Math.max.apply(null, xs);
+  const miny = Math.min.apply(null, ys), maxy = Math.max.apply(null, ys);
+  view.cx = (minx + maxx) / 2;
+  view.cy = (miny + maxy) / 2;
+  const pad = Math.max(16, Math.min(46, Math.min(view.w, view.h) * 0.06));
+  const sx = (view.w - pad * 2) / Math.max(1e-6, maxx - minx);
+  const sy = (view.h - pad * 2) / Math.max(1e-6, maxy - miny);
+  view.scale = Math.max(0.4, Math.min(sx, sy));
+}
+
+function w2s(x, y) {
+  return { x: (x - view.cx) * view.scale + view.w / 2,
+           y: (view.cy - y) * view.scale + view.h / 2 };
+}
+function s2w(px, py) {
+  return { x: (px - view.w / 2) / view.scale + view.cx,
+           y: view.cy - (py - view.h / 2) / view.scale };
+}
+
+function resize() {
+  const dpr = window.devicePixelRatio || 1;
+  const r = cv.getBoundingClientRect();
+  view.w = r.width; view.h = r.height;
+  cv.width = Math.round(r.width * dpr);
+  cv.height = Math.round(r.height * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  if (!view._fitted) { fitView(); view._fitted = true; }
+  draw();
+}
+
+/* ==================== 绘制 ==================== */
+function poly(pts, close) {
+  ctx.beginPath();
+  for (let i = 0; i < pts.length; i++) {
+    const p = w2s(pts[i][0], pts[i][1]);
+    if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+  }
+  if (close) ctx.closePath();
+}
+
+function drawRect(x, y, h, len, wid, fill, stroke, label) {
+  const p = w2s(x, y);
+  ctx.save();
+  ctx.translate(p.x, p.y);
+  ctx.rotate(-h);
+  const w = Math.max(2, wid * view.scale);
+  const L = Math.max(2, len * view.scale);
+  ctx.beginPath();
+  ctx.rect(-L / 2, -w / 2, L, w);
+  ctx.fillStyle = fill;
+  ctx.fill();
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1.5; ctx.stroke(); }
+  ctx.restore();
+  if (label) {
+    ctx.fillStyle = "rgba(230,233,238,.78)";
+    ctx.font = "11px ui-monospace,Consolas,monospace";
+    ctx.textAlign = "center";
+    ctx.fillText(label, p.x, p.y - (wid * view.scale) / 2 - 5);
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, view.w, view.h);
+
+  // 路面：左右边线之间填充
+  const bd = MAP.road_boundaries || [];
+  const left = bd.find(function (b) { return b.type === "LEFT_BOUNDARY"; });
+  const right = bd.find(function (b) { return b.type === "RIGHT_BOUNDARY"; });
+  if (left && right) {
+    poly(left.points.concat(right.points.slice().reverse()), true);
+    ctx.fillStyle = "var(--road)";
+    ctx.fillStyle = "#1a202a";
+    ctx.fill();
+    ctx.strokeStyle = "#3c4657"; ctx.lineWidth = 1.5; ctx.stroke();
+  }
+
+  // 中心线
+  poly(LANE.points, false);
+  ctx.setLineDash([7, 7]);
+  ctx.strokeStyle = "#414c5f"; ctx.lineWidth = 1.4; ctx.stroke();
+  ctx.setLineDash([]);
+
+  // 站位刻度。间距按当前比例自适应：10 m 铺不开就 20/40/80，
+  // 否则 1024×768 上（约 2 px/m）所有标签会糊成一条。
+  let tickStep = 10;
+  while (tickStep * view.scale < 46 && tickStep < 200) tickStep *= 2;
+  ctx.font = "10px ui-monospace,Consolas,monospace";
+  ctx.textAlign = "center";
+  for (let s = 0; s <= LEN; s += tickStep) {
+    const p = sToPose(s);
+    const a = w2s(p.x - Math.sin(p.h) * (-HALF_W - 1.4), p.y + Math.cos(p.h) * (-HALF_W - 1.4));
+    const b = w2s(p.x - Math.sin(p.h) * (-HALF_W + 0.4), p.y + Math.cos(p.h) * (-HALF_W + 0.4));
+    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+    ctx.strokeStyle = "#39445a"; ctx.lineWidth = 1; ctx.stroke();
+    ctx.fillStyle = "#6d7889";
+    ctx.fillText(s + "m", a.x, a.y + 13);
+  }
+
+  const t = state.t;
+
+  // 演员轨迹（完整路径）
+  SC.agents.forEach(function (a) {
+    const col = (TYPES[a.type] || TYPES.PEDESTRIAN).color;
+    const t0 = activationTime(a);
+    if (!isFinite(t0)) return;
+    ctx.beginPath();
+    let started = false;
+    for (let tt = t0; tt <= Math.max(t0 + 0.5, SC.duration); tt += 0.1) {
+      const p = agentPose(a, tt);
+      if (!p) continue;
+      const q = slToXY(p.s, p.l);
+      const qq = w2s(q.x, q.y);
+      if (!started) { ctx.moveTo(qq.x, qq.y); started = true; } else ctx.lineTo(qq.x, qq.y);
+    }
+    ctx.strokeStyle = col + "66"; ctx.lineWidth = 1.6;
+    ctx.setLineDash([3, 4]); ctx.stroke(); ctx.setLineDash([]);
+  });
+
+  // 自车未来路径
+  ctx.beginPath();
+  for (let tt = 0; tt <= SC.duration; tt += 0.2) {
+    const p = sToPose(egoS(tt));
+    const q = w2s(p.x, p.y);
+    if (tt === 0) ctx.moveTo(q.x, q.y); else ctx.lineTo(q.x, q.y);
+  }
+  ctx.strokeStyle = "#4c9aff3d"; ctx.lineWidth = 2; ctx.stroke();
+
+  // 自车
+  const ep = sToPose(egoS(t));
+  drawRect(ep.x, ep.y, ep.h, 4.6, 2.014, "#1f4f8f", "#4c9aff", "ego  " + egoS(t).toFixed(1) + "m");
+
+  // 演员
+  SC.agents.forEach(function (a) {
+    const col = (TYPES[a.type] || TYPES.PEDESTRIAN).color;
+    const p = agentPose(a, t);
+    const sel = a.key === state.selKey;
+    if (!p) {
+      // 未激活：画空心起点
+      const q0 = slToXY(a.s0, a.l0);
+      const qq = w2s(q0.x, q0.y);
+      ctx.beginPath(); ctx.arc(qq.x, qq.y, 5, 0, Math.PI * 2);
+      ctx.strokeStyle = col + "88"; ctx.lineWidth = 1.5; ctx.stroke();
+      return;
+    }
+    const q = slToXY(p.s, p.l);
+    drawRect(q.x, q.y, p.h, a.l, a.w,
+             sel ? col : col + "cc",
+             sel ? "#ffffff" : null,
+             "#" + a.id);
+  });
+
+  // 起点标记
+  if (state.sel) {
+    const q0 = slToXY(state.sel.s0, state.sel.l0);
+    const qq = w2s(q0.x, q0.y);
+    ctx.beginPath(); ctx.arc(qq.x, qq.y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = "#fff"; ctx.fill();
+  }
+
+  // HUD
+  const hud = document.getElementById("hud");
+  hud.textContent =
+    "t = " + t.toFixed(2) + " s\n" +
+    "ego s = " + egoS(t).toFixed(1) + " m   v ≈ " + egoV(t).toFixed(2) + " m/s\n" +
+    "比例 " + view.scale.toFixed(2) + " px/m";
+}
+
+function egoV(t) {
+  const a = Math.max(0.01, SC.ego.accel), vc = Math.max(0.01, SC.ego.cruise);
+  return Math.min(vc, a * t);
+}
+
+/* ==================== 状态 ==================== */
+const state = { t: 0, playing: false, selKey: null, get sel() {
+  return SC.agents.find(function (a) { return a.key === state.selKey; }) || null;
+} };
+let raf = null;
+
+/* ==================== 侧栏 ==================== */
+function typeColor(t) { return (TYPES[t] || TYPES.PEDESTRIAN).color; }
+
+function renderList() {
+  const box = document.getElementById("agentList");
+  box.innerHTML = "";
+  if (!SC.agents.length) {
+    box.innerHTML = '<div style="color:var(--muted);padding:10px;font-size:12px">还没有演员，用下面按钮加一个</div>';
+  }
+  SC.agents.forEach(function (a) {
+    const d = document.createElement("div");
+    d.className = "item" + (a.key === state.selKey ? " sel" : "");
+    d.innerHTML = '<span class="dot" style="background:' + typeColor(a.type) + '"></span>' +
+                  '<span class="nm">' + esc(a.name) + '</span>' +
+                  '<span class="id">' + a.id + "</span>";
+    d.onclick = function () { state.selKey = a.key; renderAll(); };
+    box.appendChild(d);
+  });
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>"]/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+  });
+}
+
+function renderProps() {
+  const a = state.sel;
+  const box = document.getElementById("props");
+  if (!a) {
+    box.innerHTML = '<div style="color:var(--muted);font-size:12px">选一个演员编辑属性；<br>在画布上点一下可以把它的起点挪过去。</div>';
+    return;
+  }
+  const dirLabel = a.motion === "along" ? "方向" : "横穿方向";
+  const opts = function (map, cur) {
+    return Object.keys(map).map(function (k) {
+      return '<option value="' + k + '"' + (k === cur ? " selected" : "") + ">" + map[k] + "</option>";
+    }).join("");
+  };
+  box.innerHTML =
+    '<label class="f"><span>名称</span><input id="p_name" value="' + esc(a.name) + '"></label>' +
+    '<div class="row2">' +
+      '<label class="f"><span>id</span><input id="p_id" type="number" value="' + a.id + '"></label>' +
+      '<label class="f"><span>类型</span><select id="p_type">' + opts({
+        PEDESTRIAN: "行人", BICYCLE: "自行车", VEHICLE: "车辆", UNKNOWN_UNMOVABLE: "静止障碍"
+      }, a.type) + "</select></label>" +
+    "</div>" +
+    '<div class="row3">' +
+      '<label class="f"><span>长 m</span><input id="p_l" type="number" step="0.1" value="' + a.l + '"></label>' +
+      '<label class="f"><span>宽 m</span><input id="p_w" type="number" step="0.1" value="' + a.w + '"></label>' +
+      '<label class="f"><span>高 m</span><input id="p_h" type="number" step="0.1" value="' + a.h + '"></label>' +
+    "</div>" +
+    '<label class="f"><span>运动</span><select id="p_motion">' + opts({
+        static: "静止", cross: "横穿车道", along: "沿车道走", pingpong: "往复横穿"
+      }, a.motion) + "</select></label>" +
+    '<div class="row2">' +
+      '<label class="f"><span>起点 s (m)</span><input id="p_s0" type="number" step="0.5" value="' + a.s0 + '"></label>' +
+      '<label class="f"><span>起点 l (m)<br><i style="font-style:normal;color:#5d6675">左正右负</i></span><input id="p_l0" type="number" step="0.2" value="' + a.l0 + '"></label>' +
+    "</div>" +
+    '<div class="row2">' +
+      '<label class="f"><span>' + dirLabel + "</span><select id=\"p_dir\">" +
+        '<option value="1"' + (a.dir > 0 ? " selected" : "") + ">" + (a.motion === "along" ? "向前（远离车）" : "向左") + "</option>" +
+        '<option value="-1"' + (a.dir < 0 ? " selected" : "") + ">" + (a.motion === "along" ? "向后（朝车）" : "向右") + "</option>" +
+      "</select></label>" +
+      '<label class="f"><span>速度 m/s</span><input id="p_speed" type="number" step="0.1" value="' + a.speed + '"></label>' +
+    "</div>" +
+    (a.motion === "cross" || a.motion === "pingpong"
+      ? '<label class="f"><span>行程 span (m)</span><input id="p_span" type="number" step="0.5" value="' + a.span + '"></label>'
+      : "") +
+    '<label class="f"><span>触发</span><select id="p_trigger">' + opts({
+        time: "按时间", distance: "按自车距离"
+      }, a.trigger) + "</select></label>" +
+    (a.trigger === "time"
+      ? '<label class="f"><span>起始秒 t</span><input id="p_tstart" type="number" step="0.5" value="' + a.tStart + '"></label>'
+      : '<label class="f"><span>触发距离 (m)</span><input id="p_trigdist" type="number" step="1" value="' + a.trigDist + '"></label>') +
+    '<div style="margin-top:12px"><button class="danger" id="p_del">删除这个演员</button></div>';
+
+  const bind = function (id, key, cast) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.oninput = function () {
+      a[key] = cast ? cast(el.value) : el.value;
+      renderAll();
+    };
+    el.onchange = el.oninput;
+  };
+  bind("p_name", "name");
+  bind("p_id", "id", Number);
+  bind("p_type", "type");
+  bind("p_l", "l", Number);
+  bind("p_w", "w", Number);
+  bind("p_h", "h", Number);
+  bind("p_motion", "motion");
+  bind("p_s0", "s0", Number);
+  bind("p_l0", "l0", Number);
+  bind("p_dir", "dir", Number);
+  bind("p_speed", "speed", Number);
+  bind("p_span", "span", Number);
+  bind("p_trigger", "trigger");
+  bind("p_tstart", "tStart", Number);
+  bind("p_trigdist", "trigDist", Number);
+  const del = document.getElementById("p_del");
+  if (del) del.onclick = function () {
+    SC.agents = SC.agents.filter(function (x) { return x.key !== a.key; });
+    state.selKey = null;
+    renderAll();
+  };
+}
+
+function renderTiming() {
+  const box = document.getElementById("timing");
+  const lines = [];
+  SC.agents.forEach(function (a) {
+    const t0 = activationTime(a);
+    const tc = crossingTime(a);
+    const ta = egoArriveTime(a.s0);
+    let txt = '<div style="margin-bottom:9px">';
+    txt += '<b style="color:' + typeColor(a.type) + '">#' + a.id + "</b> ";
+    if (!isFinite(t0)) {
+      txt += '<span style="color:var(--warn)">永远不会激活</span>';
+    } else {
+      txt += "激活 <b>" + t0.toFixed(2) + "</b> s";
+      if (ta < SC.duration) {
+        txt += " · 车到 s=" + a.s0.toFixed(0) + " 时 <b>" + ta.toFixed(2) + "</b> s";
+        if (tc !== null) {
+          const dt = ta - tc;
+          if (Math.abs(dt) < 1.0) {
+            txt += ' · <span style="color:var(--danger)">⚠ 车到达时行人正在车道内（错开 ' +
+                   dt.toFixed(2) + " s）</span>";
+          } else if (dt > 0) {
+            txt += ' · <span style="color:var(--ok)">行人先过完（早 ' + dt.toFixed(2) + " s）</span>";
+          } else {
+            txt += ' · <span style="color:var(--info)">车先过（早 ' + (-dt).toFixed(2) + " s）</span>";
+          }
+        }
+      } else {
+        txt += ' · <span style="color:var(--muted)">车到不了这里</span>';
+      }
+    }
+    txt += "</div>";
+    lines.push(txt);
+  });
+  box.innerHTML = lines.length ? lines.join("") :
+    '<div style="color:var(--muted);font-size:12px">没有演员</div>';
+}
+
+function renderAll() {
+  renderList();
+  renderProps();
+  renderTiming();
+  document.getElementById("egoS").value = SC.ego.s0;
+  document.getElementById("egoV").value = SC.ego.cruise;
+  document.getElementById("egoA").value = SC.ego.accel;
+  document.getElementById("dur").value = SC.duration;
+  document.getElementById("time").max = SC.duration;
+  draw();
+  save();
+}
+
+/* ==================== 校验 ==================== */
+function validate() {
+  const out = [];
+  const add = function (level, msg) { out.push({ level: level, msg: msg }); };
+  const ids = {};
+  SC.agents.forEach(function (a) {
+    ids[a.id] = (ids[a.id] || 0) + 1;
+  });
+
+  SC.agents.forEach(function (a) {
+    const tag = "#" + a.id + " " + a.name;
+
+    if (ids[a.id] > 1) add("err", tag + "：id 重复，下游会把它们当成同一目标");
+    if (a.id === 9901 && SC.agents.length > 1) add("info", tag + "：9901 是注入器的默认 id，多个演员时容易撞号");
+
+    if (a.w > NUDGE_LIMIT) {
+      add("warn", tag + "：宽 " + a.w.toFixed(2) + " m > 可绕行上限 " + NUDGE_LIMIT.toFixed(2) +
+        " m（车道半宽 3.316 − 车半宽 1.007），车只能停、不可能 nudge 绕过");
+    }
+
+    // 出界检查
+    const lat = function (l) { return Math.abs(l) + a.w / 2; };
+    if (lat(a.l0) > HALF_W + 0.6) {
+      add("warn", tag + "：起点横向 |l|=" + Math.abs(a.l0).toFixed(2) + " m 落在车道外");
+    }
+    if (a.motion === "cross" || a.motion === "pingpong") {
+      const lEnd = a.l0 + a.dir * Math.abs(a.span);
+      if (lat(lEnd) > HALF_W + 1.2) {
+        add("info", tag + "：横穿终点 |l|=" + Math.abs(lEnd).toFixed(2) + " m，已越过对侧路沿");
+      }
+      if (Math.abs(a.l0) < a.w / 2) {
+        add("warn", tag + "：起点就在车道中心，横穿会从半路开始，建议起点放在路沿（|l|≈3.3）");
+      }
+    }
+    if ((a.motion === "cross" || a.motion === "along") && a.speed <= 0) {
+      add("err", tag + "：速度必须 > 0，否则没法动");
+    }
+    if (a.s0 < 0 || a.s0 > LEN) {
+      add("err", tag + "：起点 s=" + a.s0.toFixed(1) + " m 超出车道 0–" + LEN.toFixed(1) + " m");
+    }
+    if (activationTime(a) > SC.duration) {
+      add("warn", tag + "：激活时刻晚于场景时长，跑完也看不到它");
+    }
+    const tc = crossingTime(a);
+    const ta = egoArriveTime(a.s0);
+    if (tc !== null && ta < SC.duration && Math.abs(ta - tc) < 1.0) {
+      add("warn", tag + "：车到达 s=" + a.s0.toFixed(0) + " 的 t=" + ta.toFixed(2) +
+        " s 与行人进入车道中心的 t=" + tc.toFixed(2) + " s 重叠，预计正面撞上（这正是 AEB 场景要的，若不是请改 start-delay）");
+    }
+  });
+
+  const usedIds = {};
+  SC.agents.forEach(function (a) {
+    if (usedIds[a.id]) add("err", "演员 id " + a.id + " 重复；注入器按 id 区分，重复会被融合节点当成同一个");
+    usedIds[a.id] = true;
+  });
+  if (SC.agents.length > 1) {
+    add("info", "场景里有 " + SC.agents.length + " 个演员：导出会给每个演员一条 run_agent.sh，一条一条起");
+  }
+  if (SC.agents.length === 0) add("info", "场景是空的");
+
+  return out;
+}
+
+function renderIssues(list) {
+  const box = document.getElementById("issues");
+  if (!list.length) {
+    box.innerHTML = '<div class="issue"><span class="tag ok">OK</span><span>没发现问题</span></div>';
+    return;
+  }
+  const order = { err: 0, warn: 1, info: 2 };
+  list.sort(function (a, b) { return order[a.level] - order[b.level]; });
+  box.innerHTML = list.map(function (x) {
+    const t = x.level === "err" ? "错误" : x.level === "warn" ? "注意" : "提示";
+    return '<div class="issue"><span class="tag ' + x.level + '">' + t + "</span><span>" +
+           esc(x.msg) + "</span></div>";
+  }).join("");
+}
+
+/* ==================== 导出 ==================== */
+const TYPE_CMD = {
+  PEDESTRIAN: "pedestrian", VEHICLE: "vehicle",
+  BICYCLE: "cyclist", UNKNOWN_UNMOVABLE: "unknown_unmovable"
+};
+
+function agentCmd(a, idx) {
+  const ahead = a.s0 - SC.ego.s0;
+  const mode = a.motion;
+  const L = [];
+  L.push("# ---- 演员 " + a.id + " · " + (a.name || "") + " (" + typeLabel(a.type) + ") ----");
+  L.push("./run_agent.sh \\");
+  L.push("  --id " + a.id + " \\");
+  L.push("  --type " + (TYPE_CMD[a.type] || "pedestrian") + " \\");
+  L.push("  --ahead " + ahead.toFixed(1) + " --lateral " + a.l0.toFixed(2) + " \\");
+  L.push("  --mode " + mode + " \\");
+  L.push("  --dir " + (a.dir > 0 ? "left" : "right") + " \\");
+  if (mode === "along" && a.dir < 0) L.push("  --back \\");
+  if (mode !== "static") L.push("  --speed " + a.speed.toFixed(2) + " \\");
+  if (mode === "pingpong" || mode === "cross") L.push("  --span " + Math.abs(a.span).toFixed(2) + " \\");
+  if (a.trigger === "time") L.push("  --start-delay " + a.tStart.toFixed(1) + " \\");
+  else L.push("  --trigger-dist " + a.trigDist.toFixed(0) + " \\");
+  L.push("  --width " + a.w.toFixed(2) + " --length " + a.l.toFixed(2) + " --height " + a.h.toFixed(2) + " \\");
+  L.push("  --duration " + Math.round(SC.duration));
+  if (ahead < 0) L.push("# ⚠ ahead 为负：演员在自车后方，注入器会把它放到车后面，通常不是你要的。");
+  return L.join("\n");
+}
+
+function typeLabel(t) {
+  return ({ PEDESTRIAN: "行人", BICYCLE: "自行车", VEHICLE: "车辆",
+            UNKNOWN_UNMOVABLE: "静止障碍" })[t] || t;
+}
+
+function injectorCmd() {
+  if (!SC.agents.length) return "# 场景里没有演员";
+  const L = [];
+  L.push("# 场景 " + SC.name + " · " + SC.agents.length + " 个演员 · 时长 " + Math.round(SC.duration) + " s");
+  L.push("# 在【车上宿主】执行，不是容器里：");
+  L.push("ssh apollo@192.168.10.6");
+  L.push("cd ~/apollo-edu_9.1.1/virtual_scene");
+  L.push("");
+  L.push("# 0) 融合节点：真实感知 + /apollo/virtual/obstacles → /apollo/perception/obstacles_fused");
+  L.push("#    它不在的话，虚拟障碍没人转给 planning，DreamView 上也都看不见。");
+  L.push("#    车没停稳会被它拒（重起会让 planning 短暂看不到障碍）；确实要强行加 --force。");
+  L.push("#    它自带看护：进程挂掉 1 s 内自动拉起。");
+  L.push("./start_virtual_scene.sh          # 想连 AEB 影子一起： ./start_virtual_scene.sh --aeb");
+  L.push("");
+  L.push("# 1) 整个场景一次起：所有演员在同一个进程里、同一个 t0，时序不会漂");
+  L.push("./run_scene.sh <<'SCENE'");
+  L.push(sceneJSON());
+  L.push("SCENE");
+  L.push("");
+  L.push("# 收尾：./stop_virtual_scene.sh");
+  L.push("");
+  L.push("# 说明：");
+  L.push("# · run_scene.sh 内部固定 --channel /apollo/virtual/obstacles，");
+  L.push("#   不会再和真实感知抢 /apollo/perception/obstacles（11-09 交替两份世界的根因）。");
+  L.push("# · id 不能重复；只想起单个演员时才用 ./run_agent.sh（参数照抄上面 JSON 里的一个）。");
+  L.push("# · --ahead 相对【启动那一刻的自车位姿】，本页假定自车从 s=" + SC.ego.s0.toFixed(1) + " m 起步，");
+  L.push("#   车停稳后先跑 ./scene_editor/refresh.sh 把起点 s 刷成最新定位，再回来导出。");
+  return L.join("\n");
+}
+
+function scenarioJSON() {
+  const agents = SC.agents.map(function (a) {
+    const scene = {
+      id: a.id,
+      description: a.name,
+      width: +a.w.toFixed(3),
+      length: +a.l.toFixed(3),
+      height: +a.h.toFixed(3),
+      type: a.type,
+      trigger_type: a.trigger === "distance" ? "DISTANCE" : "TIME"
+    };
+    if (a.trigger === "distance") scene.start_distance = +a.trigDist.toFixed(1);
+    else scene.start_time = +a.tStart.toFixed(2);
+
+    if (a.motion === "static") {
+      const q = slToXY(a.s0, a.l0);
+      scene.motion_type = "STATIC";
+      scene.start_position = {
+        x: +q.x.toFixed(3), y: +q.y.toFixed(3), heading: +q.h.toFixed(4),
+        speed: 0, acceleration: 0
+      };
+    } else {
+      scene.motion_type = "TRACKED";
+      const tp = [];
+      const t0 = activationTime(a);
+      const dur = Math.max(0.4, SC.duration - (isFinite(t0) ? t0 : 0));
+      for (let tau = 0; tau <= dur + 1e-9; tau += 0.2) {
+        const p = agentPose(a, (isFinite(t0) ? t0 : 0) + tau);
+        if (!p) break;
+        const q = slToXY(p.s, p.l);
+        tp.push({
+          x: +q.x.toFixed(3), y: +q.y.toFixed(3), heading: +p.h.toFixed(4),
+          speed: +a.speed.toFixed(2), acceleration: 0
+        });
+      }
+      scene.tracked_point = tp;
+    }
+    return scene;
+  });
+
+  const start = sToPose(SC.ego.s0);
+  const end = sToPose(LEN - 2);
+  return JSON.stringify({
+    name: SC.name,
+    description: "由 scene_editor.html 生成 · " + new Date().toISOString().slice(0, 10),
+    map_dir: "modules/map/data/st5",
+    simulator_time: +SC.duration.toFixed(1),
+    start_velocity: 0,
+    start_acceleration: +SC.ego.accel.toFixed(2),
+    start: { x: +start.x.toFixed(3), y: +start.y.toFixed(3), heading: +start.h.toFixed(4) },
+    end: { x: +end.x.toFixed(3), y: +end.y.toFixed(3), heading: +end.h.toFixed(4) },
+    agent: agents
+  }, null, 2);
+}
+
+function sceneJSON() {
+  return JSON.stringify({
+    format: "scene-editor/1",
+    map: MAP.map,
+    map_version: MAP.version,
+    applied_shift: MAP.applied_shift,
+    name: SC.name,
+    duration: SC.duration,
+    ego: SC.ego,
+    agents: SC.agents
+  }, null, 2);
+}
+
+let outTab = "cmd";
+function fillOut() {
+  const ta = document.getElementById("outTA");
+  const note = document.getElementById("outNote");
+  if (outTab === "cmd") {
+    ta.value = injectorCmd();
+    note.textContent = "整场一条 run_scene.sh（单进程多演员，t0 一致）；先起融合节点。";
+  } else if (outTab === "scenario") {
+    ta.value = scenarioJSON();
+    note.textContent = "按 sim_obstacle Scenario schema 生成；本车 sim_obstacle 卡在等 routing response，暂不能直接跑。";
+  } else {
+    ta.value = sceneJSON();
+    note.textContent = "这个格式只给本编辑器用，可以粘回去继续改。";
+  }
+}
+
+/* ==================== 交互 ==================== */
+let dragging = null;
+
+cv.addEventListener("mousedown", function (e) {
+  const r = cv.getBoundingClientRect();
+  const px = e.clientX - r.left, py = e.clientY - r.top;
+  const w = s2w(px, py);
+
+  // 命中演员？
+  let hit = null;
+  SC.agents.forEach(function (a) {
+    const p = agentPose(a, state.t) || { s: a.s0, l: a.l0, h: 0 };
+    const q = slToXY(p.s, p.l);
+    if (Math.hypot(q.x - w.x, q.y - w.y) * view.scale < 16) hit = a;
+  });
+  if (hit) {
+    state.selKey = hit.key;
+    dragging = { mode: "agent", key: hit.key };
+    renderAll();
+    return;
+  }
+
+  // 命中自车？
+  const ep = sToPose(egoS(state.t));
+  if (Math.hypot(ep.x - w.x, ep.y - w.y) * view.scale < 18) {
+    dragging = { mode: "ego" };
+    return;
+  }
+
+  dragging = { mode: "pan", x: e.clientX, y: e.clientY, cx: view.cx, cy: view.cy, moved: false };
+});
+
+window.addEventListener("mousemove", function (e) {
+  if (!dragging) return;
+  const r = cv.getBoundingClientRect();
+  const px = e.clientX - r.left, py = e.clientY - r.top;
+  const w = s2w(px, py);
+
+  if (dragging.mode === "agent") {
+    const a = SC.agents.find(function (x) { return x.key === dragging.key; });
+    if (!a) return;
+    const p = project(w.x, w.y);
+    a.s0 = Math.max(0, Math.min(LEN, p.s));
+    a.l0 = Math.max(-6, Math.min(6, p.l));
+    renderProps(); renderTiming(); draw();
+  } else if (dragging.mode === "ego") {
+    const p = project(w.x, w.y);
+    SC.ego.s0 = Math.max(0, Math.min(LEN - 5, p.s));
+    renderAll();
+  } else if (dragging.mode === "pan") {
+    const dx = (e.clientX - dragging.x) / view.scale;
+    const dy = (e.clientY - dragging.y) / view.scale;
+    view.cx = dragging.cx - dx;
+    view.cy = dragging.cy + dy;
+    dragging.moved = true;
+    draw();
+  }
+});
+
+window.addEventListener("mouseup", function (e) {
+  if (dragging && dragging.mode === "pan" && !dragging.moved) {
+    // 空白处单击：把选中演员的起点挪过去
+    const a = state.sel;
+    if (a) {
+      const r = cv.getBoundingClientRect();
+      const w = s2w(e.clientX - r.left, e.clientY - r.top);
+      const p = project(w.x, w.y);
+      a.s0 = Math.max(0, Math.min(LEN, p.s));
+      a.l0 = Math.max(-6, Math.min(6, p.l));
+    }
+  }
+  if (dragging && dragging.mode !== "pan") renderAll();
+  dragging = null;
+});
+
+cv.addEventListener("wheel", function (e) {
+  e.preventDefault();
+  const r = cv.getBoundingClientRect();
+  const px = e.clientX - r.left, py = e.clientY - r.top;
+  const before = s2w(px, py);
+  const k = e.deltaY < 0 ? 1.12 : 1 / 1.12;
+  view.scale = Math.max(0.4, Math.min(80, view.scale * k));
+  const after = s2w(px, py);
+  view.cx += before.x - after.x;
+  view.cy += before.y - after.y;
+  draw();
+}, { passive: false });
+
+document.querySelectorAll("[data-add]").forEach(function (b) {
+  b.onclick = function () {
+    const a = mkAgent(b.getAttribute("data-add"));
+    SC.agents.push(a);
+    state.selKey = a.key;
+    renderAll();
+  };
+});
+
+document.getElementById("btnFit").onclick = function () { fitView(); draw(); };
+document.getElementById("btnCheck").onclick = function () { renderIssues(validate()); };
+document.getElementById("btnExport").onclick = function () {
+  fillOut();
+  document.getElementById("modal").classList.add("on");
+};
+document.getElementById("btnClose").onclick = function () {
+  document.getElementById("modal").classList.remove("on");
+};
+document.getElementById("btnCopy").onclick = function () {
+  const ta = document.getElementById("outTA");
+  ta.select();
+  try { document.execCommand("copy"); } catch (err) {}
+  const b = document.getElementById("btnCopy");
+  b.textContent = "已复制";
+  setTimeout(function () { b.textContent = "复制"; }, 1200);
+};
+document.querySelectorAll(".tabs button").forEach(function (b) {
+  b.onclick = function () {
+    document.querySelectorAll(".tabs button").forEach(function (x) { x.classList.remove("on"); });
+    b.classList.add("on");
+    outTab = b.getAttribute("data-tab");
+    fillOut();
+  };
+});
+
+["egoS", "egoV", "egoA", "dur"].forEach(function (id) {
+  const el = document.getElementById(id);
+  el.oninput = el.onchange = function () {
+    const v = Number(el.value);
+    if (id === "egoS") SC.ego.s0 = Math.max(0, Math.min(LEN, v));
+    if (id === "egoV") SC.ego.cruise = Math.max(0.1, v);
+    if (id === "egoA") SC.ego.accel = Math.max(0.05, v);
+    if (id === "dur") { SC.duration = Math.max(1, v); document.getElementById("time").max = SC.duration; }
+    draw(); renderTiming(); save();
+  };
+});
+
+const timeEl = document.getElementById("time");
+timeEl.oninput = function () {
+  state.t = Number(timeEl.value);
+  document.getElementById("tnow").textContent = state.t.toFixed(2);
+  draw(); renderTiming();
+};
+
+document.getElementById("btnPlay").onclick = function () {
+  if (state.playing) {
+    state.playing = false;
+    document.getElementById("btnPlay").textContent = "▶ 播放";
+    if (raf) cancelAnimationFrame(raf);
+    raf = null;
+    return;
+  }
+  state.playing = true;
+  document.getElementById("btnPlay").textContent = "⏸ 暂停";
+  if (state.t >= SC.duration) state.t = 0;
+  let last = performance.now();
+  const step = function (now) {
+    if (!state.playing) return;
+    const dt = Math.min(0.1, (now - last) / 1000);
+    last = now;
+    state.t += dt * state.speedMul;
+    if (state.t >= SC.duration) { state.t = SC.duration; state.playing = false;
+      document.getElementById("btnPlay").textContent = "▶ 播放"; }
+    timeEl.value = state.t;
+    document.getElementById("tnow").textContent = state.t.toFixed(2);
+    draw();
+    if (state.playing) raf = requestAnimationFrame(step);
+  };
+  raf = requestAnimationFrame(step);
+};
+
+/* state.speedMul 供调试用 */
+state.speedMul = 1;
+
+/* ==================== 持久化 ==================== */
+const LS_KEY = "apollo.scene.editor.v1";
+function save() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify({ SC: SC, UID: UID })); } catch (e) {}
+}
+function load() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return;
+    const o = JSON.parse(raw);
+    if (o && o.SC && Array.isArray(o.SC.agents)) {
+      Object.assign(SC, o.SC);
+      UID = o.UID || UID;
+    }
+  } catch (e) {}
+}
+
+/* ==================== 启动 ==================== */
+function init() {
+  document.getElementById("mapMeta").textContent =
+    "地图 " + MAP.map + "（" + (MAP.applied_shift ? "校正版" : "原始") + "） · " +
+    LANE.id + " " + LEN.toFixed(1) + " m · 半宽 " + HALF_W.toFixed(2) +
+    " m · 可绕行宽 ≤ " + NUDGE_LIMIT.toFixed(2) + " m";
+
+  // 起点 s 以构建时为准：车上 refresh.sh 用实时定位重建页面，localStorage 里存的是
+  // 上一次的旧起点，恢复回来就把新定位盖掉了 —— 所以先记下再覆盖回去。
+  const bakedEgoS = SC.ego.s0;
+  load();
+  SC.ego.s0 = bakedEgoS;
+  if (!SC.agents.length) {
+    // 默认给一个"行人横穿"示范场景
+    const a = mkAgent("cross");
+    a.id = 9901;
+    a.name = "横穿行人";
+    a.s0 = Math.min(LEN - 25, SC.ego.s0 + 50);   // 跟着自车起点走，换起点示范场景依然成立
+    a.l0 = -3.4; a.span = 6.8; a.speed = 1.2; a.dir = 1;
+    // 距离触发：不管自车停在哪（车上用 ego_pose.py 读实时 s），都在离行人 14 m 时起步，
+    // 演员的动作才跟起点无关；时间触发换个起点就对不上了。
+    a.trigger = "distance"; a.trigDist = 14;
+    SC.agents.push(a);
+    state.selKey = a.key;
+  }
+  if (!state.selKey && SC.agents.length) state.selKey = SC.agents[0].key;
+
+  renderAll();
+  renderIssues(validate());
+  new ResizeObserver(resize).observe(document.getElementById("stage"));
+  resize();
+}
+
+/* 供 node 侧自检（check_scene_editor.js）——放在 init 外面，
+   这样不需要真正初始化 DOM 就能取到几何函数 */
+if (typeof window !== "undefined") {
+  window.__geo = { sToPose, slToXY, project, egoTravel, egoS, egoArriveTime,
+                   agentPose, activationTime, crossingTime, LEN, SC, state };
+  window.__init = init;
+  window.__validate = validate;
+  window.__export = { injectorCmd, scenarioJSON, sceneJSON };
+}
+
+if (typeof document !== "undefined" && document.addEventListener) {
+  document.addEventListener("DOMContentLoaded", init);
+}
+</script>
+</body>
+</html>
